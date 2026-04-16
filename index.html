@@ -1,2 +1,962 @@
-Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2026-04-16 01:59:31
-Current User's Login: yumicugler-pdf
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yumi Cugler</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–green:      #5a8a3c;
+–green-lt:   #8fbe6a;
+–green-pale: #d4ebbb;
+–purple:     #3d2070;
+–purple-md:  #6b47b8;
+–purple-lt:  #c4aff0;
+–cream:      #f5f2e8;
+–cream-dk:   #ede8d6;
+–charcoal:   #2a2a2e;
+–charcoal-lt:#4a4a50;
+–white:      #fafaf7;
+–rule:       #d8d3c4;
+–red:        #c0392b;
+
+–font-display: ‘Fraunces’, serif;
+–font-body:    ‘Cabin’, sans-serif;
+–font-mono:    ‘DM Mono’, monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–cream);
+color: var(–charcoal);
+font-family: var(–font-body);
+overflow-x: hidden;
+cursor: none;
+}
+
+/* ─── CURSOR ─────────────────────────────────── */
+.cursor {
+width: 12px; height: 12px;
+background: var(–purple);
+border-radius: 50%;
+position: fixed; top: 0; left: 0;
+pointer-events: none; z-index: 9999;
+transition: background 0.2s, transform 0.1s;
+transform: translate(-50%, -50%);
+}
+.cursor-ring {
+width: 34px; height: 34px;
+border: 1.5px solid var(–green);
+border-radius: 50%;
+position: fixed; top: 0; left: 0;
+pointer-events: none; z-index: 9998;
+transition: transform 0.35s ease;
+transform: translate(-50%, -50%);
+}
+
+/* ─── PÁGINAS (SPA simples) ───────────────────── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ─── NAV GLOBAL ─────────────────────────────── */
+nav {
+position: fixed; top: 0; left: 0; right: 0;
+z-index: 200;
+display: flex; align-items: center;
+justify-content: space-between;
+padding: 1.1rem 2.5rem;
+background: var(–cream);
+border-bottom: 2px solid var(–charcoal);
+}
+
+.nav-logo {
+font-family: var(–font-display);
+font-size: 21px; font-weight: 900;
+color: var(–charcoal); text-decoration: none;
+letter-spacing: -0.02em; cursor: none;
+}
+.nav-logo span { color: var(–purple); }
+
+.nav-links {
+display: flex; gap: 0; list-style: none;
+}
+.nav-links li { display: flex; align-items: center; }
+.nav-links a {
+font-family: var(–font-mono);
+font-size: 11px; letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(–charcoal-lt); text-decoration: none;
+padding: 6px 16px;
+border-radius: 100px;
+transition: all 0.2s; cursor: none;
+border: 1.5px solid transparent;
+}
+.nav-links a:hover,
+.nav-links a.nav-active {
+color: var(–purple);
+background: rgba(61,32,112,0.07);
+border-color: var(–purple-lt);
+}
+
+/* ─── PAGE WRAPPER ───────────────────────────── */
+.page-wrap { padding-top: 72px; }
+
+/* ═══════════════════════════════════════════════
+PÁGINA 1 — PORTFÓLIO
+═══════════════════════════════════════════════ */
+
+/* HERO */
+.hero {
+min-height: 100vh;
+display: grid; grid-template-columns: 1fr 1fr;
+position: relative; overflow: hidden;
+}
+
+.hero-left {
+display: flex; flex-direction: column;
+justify-content: center;
+padding: 4rem 3rem 4rem 3.5rem;
+position: relative; z-index: 2;
+}
+
+.hero-tag {
+display: inline-block;
+background: var(–green-pale); color: var(–green);
+border: 1.5px solid var(–green); border-radius: 100px;
+padding: 4px 14px;
+font-family: var(–font-mono); font-size: 11px;
+letter-spacing: 0.1em; text-transform: uppercase;
+margin-bottom: 1.5rem; width: fit-content;
+}
+
+.hero-name {
+font-family: var(–font-display);
+font-size: clamp(52px, 7vw, 90px);
+font-weight: 900; line-height: 0.92;
+letter-spacing: -0.03em; color: var(–charcoal);
+margin-bottom: 1.5rem;
+}
+.hero-name em { font-style: italic; color: var(–purple); display: block; }
+
+.hero-desc {
+font-size: 15px; line-height: 1.75;
+color: var(–charcoal-lt); max-width: 380px;
+margin-bottom: 2rem;
+}
+.hero-desc strong { color: var(–charcoal); }
+
+.hero-pills {
+display: flex; gap: 8px; flex-wrap: wrap;
+margin-bottom: 2.5rem;
+}
+.pill {
+padding: 5px 14px; border-radius: 100px;
+font-family: var(–font-mono); font-size: 11px;
+letter-spacing: 0.06em; border: 1.5px solid;
+}
+.pill-purple { background: var(–purple-lt); color: var(–purple); border-color: var(–purple-md); }
+.pill-green  { background: var(–green-pale); color: var(–green); border-color: var(–green); }
+.pill-cream  { background: var(–cream-dk); color: var(–charcoal); border-color: var(–charcoal-lt); }
+
+.hero-cta { display: flex; gap: 12px; align-items: center; }
+
+.btn-primary {
+display: inline-flex; align-items: center; gap: 8px;
+background: var(–purple); color: var(–white);
+border: 2px solid var(–purple); border-radius: 100px;
+padding: 11px 26px; font-family: var(–font-body);
+font-size: 13px; font-weight: 700; text-decoration: none;
+transition: all 0.2s; cursor: none;
+}
+.btn-primary:hover { background: var(–charcoal); border-color: var(–charcoal); transform: translateY(-2px); }
+
+.btn-outline {
+display: inline-flex; align-items: center; gap: 8px;
+background: transparent; color: var(–charcoal);
+border: 2px solid var(–charcoal); border-radius: 100px;
+padding: 11px 26px; font-family: var(–font-body);
+font-size: 13px; font-weight: 700; text-decoration: none;
+transition: all 0.2s; cursor: none;
+}
+.btn-outline:hover { background: var(–charcoal); color: var(–cream); transform: translateY(-2px); }
+
+/* HERO RIGHT */
+.hero-right {
+background: var(–purple); position: relative; overflow: hidden;
+display: flex; align-items: center; justify-content: center;
+}
+.hero-right::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: radial-gradient(circle at 60% 40%, var(–purple-md) 0%, var(–purple) 65%);
+}
+.hero-geo {
+position: relative; z-index: 2;
+display: flex; flex-direction: column;
+align-items: center; gap: 2rem;
+}
+.geo-circle {
+width: 200px; height: 200px; border-radius: 50%;
+border: 2px solid rgba(196,175,240,0.4);
+display: flex; align-items: center; justify-content: center;
+position: relative;
+animation: spinSlow 20s linear infinite;
+}
+.geo-circle::before {
+content: ‘’;
+position: absolute; inset: 16px;
+border-radius: 50%;
+border: 1px dashed rgba(196,175,240,0.25);
+}
+.geo-circle-inner {
+width: 80px; height: 80px; border-radius: 50%;
+background: rgba(196,175,240,0.12);
+border: 1.5px solid rgba(196,175,240,0.5);
+display: flex; align-items: center; justify-content: center;
+font-size: 28px;
+}
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+.geo-dots {
+position: absolute;
+font-size: 12px; color: rgba(196,175,240,0.6);
+}
+.geo-dots span {
+position: absolute; transform: translate(-50%,-50%);
+animation: pulse 3s ease-in-out infinite;
+}
+.geo-dots span:nth-child(1) { top: 0%; left: 50%; animation-delay: 0s; }
+.geo-dots span:nth-child(2) { top: 50%; left: 100%; animation-delay: 0.75s; }
+.geo-dots span:nth-child(3) { top: 100%; left: 50%; animation-delay: 1.5s; }
+.geo-dots span:nth-child(4) { top: 50%; left: 0%; animation-delay: 2.25s; }
+@keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+.hero-label {
+font-family: var(–font-mono); font-size: 11px;
+letter-spacing: 0.12em; text-transform: uppercase;
+color: rgba(196,175,240,0.6); z-index: 2; position: relative;
+}
+.shape-star {
+position: absolute; color: rgba(196,175,240,0.35);
+animation: spinSlow 15s linear infinite; z-index: 2;
+font-size: 16px;
+}
+
+/* MARQUEE */
+.marquee-wrap {
+border-top: 2px solid var(–charcoal);
+border-bottom: 2px solid var(–charcoal);
+background: var(–charcoal); padding: 10px 0;
+overflow: hidden;
+}
+.marquee-track {
+display: flex; gap: 0; white-space: nowrap;
+animation: marquee 22s linear infinite;
+}
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-item {
+font-family: var(–font-mono); font-size: 11px;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: var(–cream); padding: 0 2rem;
+display: inline-flex; align-items: center; gap: 10px;
+}
+.marquee-dot {
+width: 4px; height: 4px; border-radius: 50%;
+background: var(–green-lt); display: inline-block;
+}
+
+/* SOBRE */
+.about {
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 4rem; padding: 6rem 3.5rem;
+border-bottom: 2px solid var(–charcoal);
+}
+.about-label {
+font-family: var(–font-mono); font-size: 11px;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: var(–green); margin-bottom: 1rem;
+}
+.about-title {
+font-family: var(–font-display); font-size: clamp(34px,4vw,52px);
+font-weight: 900; letter-spacing: -0.03em; line-height: 1.0;
+margin-bottom: 1.5rem;
+}
+.about-title em { font-style: italic; color: var(–purple); }
+.about-text { color: var(–charcoal-lt); margin-bottom: 1rem; line-height: 1.75; }
+.about-text strong { color: var(–charcoal); }
+
+.about-card {
+background: var(–white); border: 2px solid var(–charcoal);
+border-radius: 16px; padding: 2.5rem;
+box-shadow: 5px 5px 0 var(–charcoal);
+}
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.stat-number {
+font-family: var(–font-display); font-size: 44px;
+font-weight: 900; color: var(–purple); line-height: 1;
+display: block; margin-bottom: 4px;
+}
+.stat-label {
+font-family: var(–font-mono); font-size: 10px;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: var(–charcoal-lt);
+}
+
+/* TRABALHOS */
+.work { padding: 5rem 3.5rem; border-bottom: 2px solid var(–charcoal); }
+.work-header {
+display: flex; justify-content: space-between;
+align-items: flex-end; margin-bottom: 3rem;
+}
+.work-title {
+font-family: var(–font-display);
+font-size: clamp(40px,5vw,64px);
+font-weight: 900; letter-spacing: -0.03em; line-height: 1.0;
+}
+.work-title span { font-style: italic; color: var(–purple); }
+
+.work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+.work-card {
+border: 2px solid var(–charcoal); border-radius: 14px;
+overflow: hidden; transition: transform 0.25s, box-shadow 0.25s;
+cursor: none; background: var(–white);
+}
+.work-card:hover {
+transform: translateY(-5px);
+box-shadow: 6px 6px 0 var(–charcoal);
+}
+.work-card-img {
+height: 160px; display: flex;
+align-items: center; justify-content: center;
+font-size: 48px;
+}
+.design-bg    { background: linear-gradient(135deg, var(–purple-lt), #e8d5ff); }
+.jornalismo-bg{ background: linear-gradient(135deg, var(–green-pale), #b8e0a0); }
+.social-bg    { background: linear-gradient(135deg, var(–cream-dk), #e0d5b8); }
+.holmy-bg     { background: linear-gradient(135deg, #d5e8e0, #a8d5c0); }
+
+.work-card-body { padding: 1.25rem 1.5rem; }
+.work-card-tag {
+font-family: var(–font-mono); font-size: 10px;
+letter-spacing: 0.08em; text-transform: uppercase;
+padding: 3px 10px; border-radius: 100px; border: 1.5px solid;
+display: inline-block; margin-bottom: 10px;
+}
+.tag-design    { color: var(–purple); border-color: var(–purple-lt); background: rgba(61,32,112,0.05); }
+.tag-jornalismo{ color: var(–green); border-color: var(–green-pale); background: rgba(90,138,60,0.05); }
+.tag-social    { color: var(–charcoal-lt); border-color: var(–rule); background: var(–cream-dk); }
+.tag-holmy     { color: #2d6a4f; border-color: #a8d5c0; background: #e8f3ed; }
+
+.work-card-title {
+font-family: var(–font-display); font-size: 20px;
+font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em;
+}
+.work-card-desc { font-size: 13px; color: var(–charcoal-lt); line-height: 1.6; }
+
+.work-card-link {
+display: inline-flex; align-items: center; gap: 6px;
+margin-top: 12px; font-family: var(–font-mono); font-size: 11px;
+text-transform: uppercase; letter-spacing: 0.06em;
+color: var(–purple); text-decoration: none;
+transition: gap 0.2s; cursor: none;
+}
+.work-card-link:hover { gap: 10px; }
+
+/* ─── COMO ADICIONAR UMA NOVA MATÉRIA / CASE ──────────────────────────────
+Duplique o bloco <div class="work-card reveal"> abaixo, altere:
+
+- work-card-img: troque o emoji ou a classe de cor
+- work-card-tag: escolha tag-design, tag-jornalismo, tag-social ou tag-holmy
+- work-card-title: título do trabalho
+- work-card-desc: descrição curta
+- href no work-card-link: coloque o link do case (ex: case-sneaker.html)
+  ──────────────────────────────────────────────────────────────────────── */
+
+/* PILARES */
+.pillars { padding: 5rem 3.5rem; border-bottom: 2px solid var(–charcoal); background: var(–charcoal); }
+.pillars-header { margin-bottom: 3rem; }
+.pillars-title {
+font-family: var(–font-display);
+font-size: clamp(38px,5vw,60px);
+font-weight: 900; letter-spacing: -0.03em; line-height: 1.0;
+color: var(–cream);
+}
+.pillars-title em { font-style: italic; color: var(–green-lt); }
+.pillars-sub {
+font-family: var(–font-mono); font-size: 12px;
+letter-spacing: 0.08em; color: var(–charcoal-lt);
+margin-top: 8px;
+}
+.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.pillar-card {
+border-radius: 14px; padding: 2rem;
+border: 1.5px solid rgba(255,255,255,0.1);
+}
+.p-design    { background: rgba(61,32,112,0.4); }
+.p-jornalismo{ background: rgba(90,138,60,0.25); }
+.p-social    { background: rgba(245,242,232,0.06); }
+
+.pillar-icon { font-size: 22px; display: block; margin-bottom: 1rem; color: var(–cream); }
+.pillar-name {
+font-family: var(–font-display); font-size: 24px;
+font-weight: 900; color: var(–cream); margin-bottom: 10px;
+}
+.pillar-text { font-size: 13px; color: rgba(245,242,232,0.65); line-height: 1.7; margin-bottom: 1.25rem; }
+.pillar-skills { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag {
+font-family: var(–font-mono); font-size: 10px;
+letter-spacing: 0.06em; text-transform: uppercase;
+padding: 3px 10px; border-radius: 100px;
+color: rgba(245,242,232,0.6);
+border: 1px solid rgba(245,242,232,0.2);
+}
+
+/* CONTATO */
+.contact {
+padding: 7rem 3.5rem; text-align: center;
+border-bottom: 2px solid var(–charcoal);
+}
+.contact-label {
+font-family: var(–font-mono); font-size: 11px;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: var(–green); margin-bottom: 1rem;
+}
+.contact-title {
+font-family: var(–font-display);
+font-size: clamp(52px,8vw,96px);
+font-weight: 900; letter-spacing: -0.03em; line-height: 0.9;
+margin-bottom: 1.5rem;
+}
+.contact-title em { font-style: italic; color: var(–purple); }
+.contact-text { color: var(–charcoal-lt); margin-bottom: 2.5rem; font-size: 16px; }
+.contact-btn {
+display: inline-flex; align-items: center; gap: 10px;
+background: var(–purple); color: var(–white);
+border: 2px solid var(–purple); border-radius: 100px;
+padding: 14px 36px; font-weight: 700; font-size: 15px;
+text-decoration: none; transition: all 0.2s; cursor: none;
+margin-bottom: 2rem;
+}
+.contact-btn:hover { background: var(–charcoal); border-color: var(–charcoal); transform: translateY(-3px); }
+.contact-links { display: flex; justify-content: center; gap: 2rem; }
+.contact-link {
+font-family: var(–font-mono); font-size: 12px;
+letter-spacing: 0.08em; text-transform: uppercase;
+color: var(–charcoal-lt); text-decoration: none;
+transition: color 0.2s; cursor: none;
+border-bottom: 1px solid transparent;
+}
+.contact-link:hover { color: var(–purple); border-color: var(–purple-lt); }
+
+/* ═══════════════════════════════════════════════
+PÁGINA 2 — FERRAMENTAS
+═══════════════════════════════════════════════ */
+
+.tools-page { background: var(–cream); min-height: 100vh; }
+
+.tools-header {
+padding: 4rem 3.5rem 2rem;
+border-bottom: 2px solid var(–charcoal);
+}
+.tools-header-label {
+font-family: var(–font-mono); font-size: 11px;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: var(–green); margin-bottom: 0.75rem;
+}
+.tools-header-title {
+font-family: var(–font-display);
+font-size: clamp(38px,5vw,64px);
+font-weight: 900; letter-spacing: -0.03em; line-height: 1.0;
+margin-bottom: 0.75rem;
+}
+.tools-header-title em { font-style: italic; color: var(–purple); }
+.tools-header-sub { color: var(–charcoal-lt); font-size: 15px; max-width: 480px; }
+
+.tools-grid {
+display: grid; grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem; padding: 3rem 3.5rem;
+}
+
+/* ─── COMO ADICIONAR UMA NOVA FERRAMENTA ─────────────────────────────────
+Duplique um bloco <div class="tool-card"> e altere:
+
+- tool-card-icon: emoji da ferramenta
+- tool-card-name: nome
+- tool-card-desc: descrição curta
+- href no botão: link da ferramenta (ex: foco.html)
+- Classe de cor: tool-purple, tool-green ou tool-dark
+  ──────────────────────────────────────────────────────────────────────── */
+
+.tool-card {
+border: 2px solid var(–charcoal); border-radius: 14px;
+overflow: hidden; background: var(–white);
+transition: transform 0.2s, box-shadow 0.2s;
+display: flex; flex-direction: column;
+}
+.tool-card:hover { transform: translateY(-4px); box-shadow: 5px 5px 0 var(–charcoal); }
+
+.tool-card-top {
+padding: 2rem 2rem 1.5rem;
+border-bottom: 1.5px solid var(–rule);
+display: flex; flex-direction: column; flex: 1;
+}
+.tool-card-icon {
+font-size: 36px; margin-bottom: 1rem; display: block;
+}
+.tool-card-name {
+font-family: var(–font-display); font-size: 22px;
+font-weight: 700; letter-spacing: -0.02em;
+margin-bottom: 8px;
+}
+.tool-card-desc { font-size: 13px; color: var(–charcoal-lt); line-height: 1.65; }
+
+.tool-card-footer {
+padding: 1rem 2rem;
+display: flex; align-items: center;
+justify-content: space-between;
+}
+.tool-tag {
+font-family: var(–font-mono); font-size: 10px;
+letter-spacing: 0.08em; text-transform: uppercase;
+padding: 3px 10px; border-radius: 100px; border: 1.5px solid;
+}
+.tool-purple { color: var(–purple); border-color: var(–purple-lt); background: rgba(61,32,112,0.05); }
+.tool-green  { color: var(–green);  border-color: var(–green-pale); background: rgba(90,138,60,0.05); }
+.tool-dark   { color: var(–charcoal-lt); border-color: var(–rule); background: var(–cream-dk); }
+
+.tool-open-btn {
+font-family: var(–font-mono); font-size: 11px;
+letter-spacing: 0.06em; text-transform: uppercase;
+color: var(–purple); text-decoration: none;
+display: inline-flex; align-items: center; gap: 5px;
+transition: gap 0.2s; cursor: none;
+}
+.tool-open-btn:hover { gap: 9px; }
+
+/* ═══════════════════════════════════════════════
+FOOTER GLOBAL
+═══════════════════════════════════════════════ */
+footer {
+border-top: 2px solid var(–charcoal);
+padding: 1.5rem 3.5rem;
+display: flex; align-items: center; justify-content: space-between;
+background: var(–cream);
+}
+.footer-name {
+font-family: var(–font-display); font-size: 18px;
+font-weight: 700; font-style: italic;
+}
+.footer-copy {
+font-family: var(–font-mono); font-size: 11px;
+color: var(–charcoal-lt); letter-spacing: 0.06em;
+}
+
+/* ─── ANIMAÇÕES ─────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media (max-width: 768px) {
+.hero { grid-template-columns: 1fr; }
+.hero-right { height: 260px; }
+.about { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+.work { padding: 3rem 1.5rem; }
+.work-grid { grid-template-columns: 1fr; }
+.pillars { padding: 3rem 1.5rem; }
+.pillars-grid { grid-template-columns: 1fr; }
+.contact { padding: 4rem 1.5rem; }
+.tools-grid { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+.tools-header { padding: 3rem 1.5rem 1.5rem; }
+nav { padding: 1rem 1.5rem; }
+.nav-links { gap: 0; }
+.nav-links a { padding: 5px 10px; font-size: 10px; }
+.hero-left { padding: 2.5rem 1.5rem; }
+footer { flex-direction: column; gap: 6px; padding: 1.5rem; text-align: center; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- ─── NAV GLOBAL ─────────────────────────────────────────── -->
+
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('portfolio')">Yumi<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#" id="nav-portfolio" class="nav-active" onclick="showPage('portfolio'); return false;">portfólio</a></li>
+    <li><a href="#" id="nav-ferramentas" onclick="showPage('ferramentas'); return false;">ferramentas</a></li>
+    <!-- ─── PARA ADICIONAR UMA NOVA SEÇÃO NO MENU:
+         Copie o <li> acima, troque o id, o texto e o nome da página em showPage() ─── -->
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PÁGINA 1 — PORTFÓLIO
+════════════════════════════════════════════════════════════ -->
+
+<div id="page-portfolio" class="page active page-wrap">
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="hero-left">
+      <span class="hero-tag">✦ analista de comunicação</span>
+      <h1 class="hero-name">
+        Yumi<br>
+        <em>Cugler.</em>
+      </h1>
+      <p class="hero-desc">
+        <strong>Jornalista, designer e estrategista de conteúdo.</strong> Comunico com intenção, crio com identidade e penso além do óbvio.
+      </p>
+      <div class="hero-pills">
+        <span class="pill pill-purple">Design</span>
+        <span class="pill pill-green">Jornalismo</span>
+        <span class="pill pill-cream">Social Media</span>
+        <span class="pill pill-purple">Estratégia</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#trabalhos" class="btn-primary">ver trabalhos →</a>
+        <a href="#contato" class="btn-outline">falar comigo</a>
+      </div>
+    </div>
+
+```
+<div class="hero-right">
+  <span class="shape-star" style="top:15%;left:15%;">✦</span>
+  <span class="shape-star" style="bottom:20%;right:12%;animation-duration:12s;animation-direction:reverse;">✦</span>
+  <span class="shape-star" style="top:60%;left:10%;font-size:10px;animation-duration:7s;">✦</span>
+  <div class="hero-geo">
+    <div class="geo-circle">
+      <div class="geo-dots">
+        <span>◆</span><span>◆</span><span>◆</span><span>◆</span>
+      </div>
+      <div class="geo-circle-inner">🌿</div>
+    </div>
+    <span class="hero-label">comunicação com propósito</span>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- MARQUEE -->
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot"></span>Jornalismo</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Design de Comunicação</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Social Media</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Marketing Estratégico</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Narrativa</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Identidade Visual</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Conteúdo com Propósito</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Holmy</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Jornalismo</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Design de Comunicação</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Social Media</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Marketing Estratégico</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Narrativa</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Identidade Visual</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Conteúdo com Propósito</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Holmy</span>
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+
+  <section class="about" id="sobre">
+    <div class="reveal">
+      <p class="about-label">✦ sobre mim</p>
+      <h2 class="about-title">Criativa por<br><em>natureza.</em><br>Estratégica por<br>escolha.</h2>
+      <p class="about-text">
+        Sou analista de comunicação e jornalista em formação, com foco em <strong>comunicação com propósito</strong>. Trabalho na intersecção entre narrativa, estética e estratégia.
+      </p>
+      <p class="about-text">
+        Não me moldo ao mercado tradicional — <strong>trago a minha perspectiva</strong> para cada projeto, seja uma pauta, uma peça visual ou uma estratégia de conteúdo.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="about-card">
+        <div class="stats-grid">
+          <div>
+            <span class="stat-number">3+</span>
+            <span class="stat-label">áreas de atuação</span>
+          </div>
+          <div>
+            <span class="stat-number">∞</span>
+            <span class="stat-label">curiosidade</span>
+          </div>
+          <div>
+            <span class="stat-number">100%</span>
+            <span class="stat-label">autêntica</span>
+          </div>
+          <div>
+            <span class="stat-number">SP</span>
+            <span class="stat-label">Sorocaba</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRABALHOS -->
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PARA ADICIONAR UMA NOVA MATÉRIA OU CASE:
+       1. Duplique um dos blocos <div class="work-card reveal"> abaixo
+       2. Troque o emoji no work-card-img
+       3. Troque a classe de cor (design-bg / jornalismo-bg / social-bg / holmy-bg)
+       4. Troque o work-card-tag (tag-design / tag-jornalismo / tag-social / tag-holmy)
+       5. Preencha o título, descrição e o href do link
+  ═══════════════════════════════════════════════════════════ -->
+
+  <section class="work" id="trabalhos">
+    <div class="work-header">
+      <h2 class="work-title">Meus<br><span>trabalhos.</span></h2>
+    </div>
+
+```
+<div class="work-grid">
+
+  <div class="work-card reveal">
+    <div class="work-card-img design-bg">👟</div>
+    <div class="work-card-body">
+      <span class="work-card-tag tag-design">Design · Social Media</span>
+      <h3 class="work-card-title">Sneakerhead Tem História</h3>
+      <p class="work-card-desc">Direção de arte e copy para Stories de divulgação de pesquisa universitária sobre cultura sneaker.</p>
+      <a href="case-sneaker.html" class="work-card-link">ver case →</a>
+    </div>
+  </div>
+
+  <div class="work-card reveal">
+    <div class="work-card-img holmy-bg">🏡</div>
+    <div class="work-card-body">
+      <span class="work-card-tag tag-holmy">Social Media · Copywriting</span>
+      <h3 class="work-card-title">Holmy — Conteúdo de Marca</h3>
+      <p class="work-card-desc">Estratégia e produção de conteúdo para marca de hospedagem, com identidade centrada em refúgio e descanso.</p>
+      <a href="#" class="work-card-link">em breve →</a>
+    </div>
+  </div>
+
+  <!-- ─── NOVO TRABALHO — Copie e cole este bloco para adicionar mais ─── -->
+  <div class="work-card reveal">
+    <div class="work-card-img jornalismo-bg">📰</div>
+    <div class="work-card-body">
+      <span class="work-card-tag tag-jornalismo">Jornalismo</span>
+      <h3 class="work-card-title">Matéria em breve</h3>
+      <p class="work-card-desc">Espaço para sua próxima matéria, reportagem ou projeto jornalístico.</p>
+      <a href="#" class="work-card-link">em construção →</a>
+    </div>
+  </div>
+
+</div>
+```
+
+  </section>
+
+  <!-- PILARES -->
+
+  <section class="pillars" id="pilares">
+    <div class="pillars-header reveal">
+      <h2 class="pillars-title">O que eu <em>faço.</em></h2>
+      <p class="pillars-sub">três frentes, uma identidade</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card p-design reveal">
+        <span class="pillar-icon">✦</span>
+        <h3 class="pillar-name">Design</h3>
+        <p class="pillar-text">Criação visual com intenção. Cada escolha tipográfica, cor e composição serve à mensagem — não ao decorativo.</p>
+        <div class="pillar-skills">
+          <span class="skill-tag">Identidade Visual</span>
+          <span class="skill-tag">Tipografia</span>
+          <span class="skill-tag">Direção de Arte</span>
+          <span class="skill-tag">Canva</span>
+        </div>
+      </div>
+      <div class="pillar-card p-jornalismo reveal">
+        <span class="pillar-icon">◎</span>
+        <h3 class="pillar-name">Jornalismo</h3>
+        <p class="pillar-text">Apuração, narrativa e olhar sensível. Transformo dados e histórias em textos que importam.</p>
+        <div class="pillar-skills">
+          <span class="skill-tag">Reportagem</span>
+          <span class="skill-tag">Pauta</span>
+          <span class="skill-tag">Narrativa</span>
+          <span class="skill-tag">Jornalismo Literário</span>
+        </div>
+      </div>
+      <div class="pillar-card p-social reveal">
+        <span class="pillar-icon">◈</span>
+        <h3 class="pillar-name">Social Media</h3>
+        <p class="pillar-text">Estratégia de conteúdo com posicionamento real. Não só postar — construir presença com propósito.</p>
+        <div class="pillar-skills">
+          <span class="skill-tag">Copy Estratégico</span>
+          <span class="skill-tag">Calendário Editorial</span>
+          <span class="skill-tag">Instagram</span>
+          <span class="skill-tag">Métricas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+
+  <section class="contact" id="contato">
+    <p class="contact-label reveal">✦ vamos trabalhar juntas?</p>
+    <h2 class="contact-title reveal">Bora<br><em>criar.</em></h2>
+    <p class="contact-text reveal">Aberta para projetos, colaborações e conversas que valham a pena.</p>
+    <!-- ─── Troque o e-mail abaixo pelo seu ─── -->
+    <a href="mailto:seuemail@email.com" class="contact-btn reveal">entrar em contato →</a>
+    <div class="contact-links reveal">
+      <!-- ─── Troque os hrefs pelos seus links reais ─── -->
+      <a href="#" class="contact-link">Instagram</a>
+      <a href="#" class="contact-link">LinkedIn</a>
+      <a href="#" class="contact-link">Behance</a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-name">Yumi Cugler.</span>
+    <span class="footer-copy">© 2026 — feito com intenção</span>
+  </footer>
+
+</div><!-- /page-portfolio -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     PÁGINA 2 — FERRAMENTAS
+════════════════════════════════════════════════════════════ -->
+
+<div id="page-ferramentas" class="page page-wrap tools-page">
+
+  <div class="tools-header">
+    <p class="tools-header-label">✦ uso pessoal</p>
+    <h1 class="tools-header-title">Minhas<br><em>ferramentas.</em></h1>
+    <p class="tools-header-sub">Espaço privado com ferramentas criadas para o meu fluxo de trabalho.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PARA ADICIONAR UMA NOVA FERRAMENTA:
+       1. Duplique um bloco <div class="tool-card"> abaixo
+       2. Troque o emoji, nome, descrição
+       3. Troque a classe da tag (tool-purple / tool-green / tool-dark)
+       4. Atualize o href do botão "abrir" com o nome do arquivo .html
+  ═══════════════════════════════════════════════════════════ -->
+
+  <div class="tools-grid">
+
+```
+<div class="tool-card">
+  <div class="tool-card-top">
+    <span class="tool-card-icon">🎯</span>
+    <h3 class="tool-card-name">Foco</h3>
+    <p class="tool-card-desc">Gerenciador de tarefas com timer Pomodoro integrado. Para dias que precisam de foco real.</p>
+  </div>
+  <div class="tool-card-footer">
+    <span class="tool-tag tool-dark">produtividade</span>
+    <a href="foco.html" class="tool-open-btn">abrir →</a>
+  </div>
+</div>
+
+<div class="tool-card">
+  <div class="tool-card-top">
+    <span class="tool-card-icon">📊</span>
+    <h3 class="tool-card-name">Organizador de Métricas</h3>
+    <p class="tool-card-desc">Dashboard para acompanhar métricas de social media e conteúdo em um lugar só.</p>
+  </div>
+  <div class="tool-card-footer">
+    <span class="tool-tag tool-green">social media</span>
+    <a href="serie-ferramentas.html" class="tool-open-btn">abrir →</a>
+  </div>
+</div>
+
+<div class="tool-card">
+  <div class="tool-card-top">
+    <span class="tool-card-icon">🗂️</span>
+    <h3 class="tool-card-name">Central de Ferramentas</h3>
+    <p class="tool-card-desc">Hub com todos os recursos de comunicação estratégica — pautas, briefings e análises.</p>
+  </div>
+  <div class="tool-card-footer">
+    <span class="tool-tag tool-purple">estratégia</span>
+    <a href="yumi-ferramentas.html" class="tool-open-btn">abrir →</a>
+  </div>
+</div>
+
+<!-- ─── Ferramenta placeholder — substitua quando tiver algo novo ─── -->
+<div class="tool-card" style="opacity:0.5;">
+  <div class="tool-card-top">
+    <span class="tool-card-icon">✦</span>
+    <h3 class="tool-card-name">Em construção</h3>
+    <p class="tool-card-desc">Próxima ferramenta a ser adicionada aqui.</p>
+  </div>
+  <div class="tool-card-footer">
+    <span class="tool-tag tool-dark">em breve</span>
+    <span style="font-family:var(--font-mono);font-size:11px;color:var(--charcoal-lt);">— —</span>
+  </div>
+</div>
+```
+
+  </div>
+
+  <footer>
+    <span class="footer-name">Yumi Cugler.</span>
+    <span class="footer-copy">ferramentas pessoais · 2026</span>
+  </footer>
+
+</div><!-- /page-ferramentas -->
+
+<script>
+/* ─── CURSOR ─────────────────────────────────── */
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+});
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.background = 'var(--green)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.background = 'var(--purple)'; });
+});
+
+/* ─── NAVEGAÇÃO ENTRE PÁGINAS ────────────────── */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('nav-active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('nav-active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  initReveals();
+}
+
+/* ─── REVEAL ON SCROLL ───────────────────────── */
+function initReveals() {
+  const reveals = document.querySelectorAll('.reveal:not(.visible)');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => obs.observe(el));
+}
+initReveals();
+</script>
+
+</body>
+</html>
