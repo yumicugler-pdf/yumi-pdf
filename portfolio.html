@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yumi Cugler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:      #5a8a3c;
+  --green-lt:   #8fbe6a;
+  --green-pale: #d4ebbb;
+  --purple:     #3d2070;
+  --purple-md:  #6b47b8;
+  --purple-lt:  #c4aff0;
+  --cream:      #f5f2e8;
+  --cream-dk:   #ede8d6;
+  --charcoal:   #2a2a2e;
+  --charcoal-lt:#4a4a50;
+  --white:      #fafaf7;
+
+  --font-display: 'Fraunces', serif;
+  --font-body:    'Cabin', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CURSOR CUSTOMIZADO */
+.cursor {
+  width: 14px; height: 14px;
+  background: var(--purple);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, background 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.35s ease;
+  transform: translate(-50%, -50%);
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2.5rem;
+  background: var(--cream);
+  border-bottom: 2px solid var(--charcoal);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--charcoal);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.nav-logo span { color: var(--purple); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--purple); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3rem 4rem 3.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: var(--green-pale);
+  color: var(--green);
+  border: 1.5px solid var(--green);
+  border-radius: 100px;
+  padding: 4px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 96px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--charcoal);
+  margin-bottom: 1.5rem;
+}
+
+.hero-name em {
+  font-style: italic;
+  color: var(--purple);
+  display: block;
+}
+
+.hero-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--charcoal-lt);
+  max-width: 380px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-desc strong { color: var(--charcoal); font-weight: 700; }
+
+.hero-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.pill {
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  border: 1.5px solid;
+}
+
+.pill-purple {
+  background: var(--purple-lt);
+  color: var(--purple);
+  border-color: var(--purple-md);
+}
+
+.pill-green {
+  background: var(--green-pale);
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.pill-cream {
+  background: var(--cream-dk);
+  color: var(--charcoal);
+  border-color: var(--charcoal-lt);
+}
+
+.hero-cta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--purple);
+  color: var(--white);
+  border: 2px solid var(--purple);
+  border-radius: 100px;
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: none;
+}
+
+.btn-primary:hover {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--charcoal);
+  border: 2px solid var(--charcoal);
+  border-radius: 100px;
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: none;
+}
+
+.btn-outline:hover {
+  background: var(--charcoal);
+  color: var(--cream);
+  transform: translateY(-2px);
+}
+
+/* HERO RIGHT — placeholder mascote */
+.hero-right {
+  background: var(--purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 60% 40%, var(--purple-md) 0%, var(--purple) 60%);
+}
+
+.mascote-placeholder {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mascote-circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--purple-lt);
+  border: 4px solid var(--green-lt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.mascote-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--purple-lt);
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* SHAPES DECORATIVOS */
+.shape-star {
+  position: absolute;
+  color: var(--green-lt);
+  font-size: 24px;
+  animation: spin 8s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* MARQUEE */
+.marquee-wrap {
+  background: var(--charcoal);
+  padding: 14px 0;
+  overflow: hidden;
+  border-top: 2px solid var(--charcoal);
+  border-bottom: 2px solid var(--charcoal);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--cream);
+  padding: 0 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.marquee-dot {
+  width: 8px; height: 8px;
+  background: var(--green-lt);
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* SOBRE */
+.about {
+  padding: 6rem 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+
+.about-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.about-title em {
+  font-style: italic;
+  color: var(--purple);
+}
+
+.about-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--charcoal-lt);
+  margin-bottom: 1.5rem;
+}
+
+.about-text strong { color: var(--charcoal); }
+
+.about-card {
+  background: var(--white);
+  border: 2px solid var(--charcoal);
+  border-radius: 20px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--green) 0%, var(--purple-md) 50%, var(--green-lt) 100%);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--purple);
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--charcoal-lt);
+  text-transform: uppercase;
+}
+
+/* TRABALHOS */
+.work {
+  padding: 6rem 3.5rem;
+  background: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+}
+
+.work::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  background: var(--purple);
+  border-radius: 50%;
+  opacity: 0.15;
+}
+
+.work-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.work-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 900;
+  font-style: italic;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.work-title span { color: var(--green-lt); }
+
+.work-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--purple-lt);
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--purple-lt);
+  padding-bottom: 2px;
+  transition: color 0.2s;
+}
+
+.work-link:hover { color: var(--green-lt); border-color: var(--green-lt); }
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.work-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #3a3a40;
+  transition: transform 0.2s, border-color 0.2s;
+  cursor: none;
+}
+
+.work-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--green-lt);
+}
+
+.work-card-img {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.work-card-img.design-bg { background: linear-gradient(135deg, var(--purple) 0%, var(--purple-md) 100%); }
+.work-card-img.jornalismo-bg { background: linear-gradient(135deg, var(--green) 0%, var(--green-lt) 100%); }
+.work-card-img.social-bg { background: linear-gradient(135deg, #3d2070 0%, var(--purple-md) 50%, var(--green) 100%); }
+
+.work-card-body {
+  background: #1e1e24;
+  padding: 1.25rem;
+}
+
+.work-card-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.tag-design { color: var(--purple-lt); }
+.tag-jornalismo { color: var(--green-lt); }
+.tag-social { color: var(--green-pale); }
+
+.work-card-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.work-card-desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.5;
+}
+
+/* PILARES */
+.pillars {
+  padding: 6rem 3.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pillars-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.pillars-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.pillars-title em { font-style: italic; color: var(--green); }
+
+.pillars-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--charcoal-lt);
+  letter-spacing: 0.08em;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.pillar-card {
+  background: var(--white);
+  border: 2px solid var(--charcoal);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.pillar-card:hover { transform: translateY(-4px); }
+
+.pillar-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.pillar-card.p-design::after { background: var(--purple); }
+.pillar-card.p-jornalismo::after { background: var(--green); }
+.pillar-card.p-social::after { background: linear-gradient(90deg, var(--green), var(--purple)); }
+
+.pillar-icon {
+  font-size: 40px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.pillar-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.p-design .pillar-name { color: var(--purple); }
+.p-jornalismo .pillar-name { color: var(--green); }
+.p-social .pillar-name { color: var(--charcoal); }
+
+.pillar-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--charcoal-lt);
+  margin-bottom: 1.25rem;
+}
+
+.pillar-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid;
+}
+
+.p-design .skill-tag { color: var(--purple-md); border-color: var(--purple-lt); background: rgba(100, 71, 184, 0.06); }
+.p-jornalismo .skill-tag { color: var(--green); border-color: var(--green-pale); background: rgba(90, 138, 60, 0.06); }
+.p-social .skill-tag { color: var(--charcoal-lt); border-color: var(--cream-dk); background: var(--cream); }
+
+/* CONTATO */
+.contact {
+  background: var(--purple);
+  padding: 6rem 3.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact::before {
+  content: '✦';
+  font-size: 400px;
+  position: absolute;
+  top: -100px; left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.03);
+  font-family: var(--font-display);
+  pointer-events: none;
+}
+
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--purple-lt);
+  margin-bottom: 1rem;
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+
+.contact-title em {
+  font-style: italic;
+  color: var(--green-lt);
+}
+
+.contact-text {
+  font-size: 15px;
+  color: var(--purple-lt);
+  margin-bottom: 2.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green-lt);
+  color: var(--charcoal);
+  border: none;
+  border-radius: 100px;
+  padding: 16px 36px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: none;
+}
+
+.contact-btn:hover {
+  background: var(--white);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.contact-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--purple-lt);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.contact-link:hover { color: var(--green-lt); }
+
+/* FOOTER */
+footer {
+  background: var(--charcoal);
+  padding: 1.5rem 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 2px solid #333;
+}
+
+.footer-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--cream);
+}
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 0.06em;
+}
+
+/* ANIMAÇÕES DE ENTRADA */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE BÁSICO */
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { height: 300px; }
+  .about { grid-template-columns: 1fr; }
+  .work-grid { grid-template-columns: 1fr; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero-left { padding: 2rem 1.5rem; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Yumi<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">sobre</a></li>
+    <li><a href="#trabalhos">trabalhos</a></li>
+    <li><a href="#pilares">pilares</a></li>
+    <li><a href="#contato">contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">✦ disponível para projetos</span>
+    <h1 class="hero-name">
+      Yumi<br>
+      <em>Cugler.</em>
+    </h1>
+    <p class="hero-desc">
+      <strong>Jornalista, designer e estrategista de conteúdo.</strong> Comunico com intenção, crio com identidade e penso além do óbvio.
+    </p>
+    <div class="hero-pills">
+      <span class="pill pill-purple">Design</span>
+      <span class="pill pill-green">Jornalismo</span>
+      <span class="pill pill-cream">Social Media</span>
+      <span class="pill pill-purple">Estratégia</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#trabalhos" class="btn-primary">ver trabalhos →</a>
+      <a href="#contato" class="btn-outline">falar comigo</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- estrelinhas decorativas -->
+    <span class="shape-star" style="top:15%;left:15%;font-size:18px;">✦</span>
+    <span class="shape-star" style="bottom:20%;right:12%;font-size:14px;animation-duration:12s;animation-direction:reverse;">✦</span>
+    <span class="shape-star" style="top:60%;left:10%;font-size:10px;animation-duration:6s;">✦</span>
+
+    <div class="mascote-placeholder">
+      <div class="mascote-circle">🌿</div>
+      <span class="mascote-label">mascote em breve ✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span>Jornalismo</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Design de Comunicação</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Social Media</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Marketing Estratégico</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Narrativa</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Identidade Visual</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Conteúdo com Propósito</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Jornalismo</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Design de Comunicação</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Social Media</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Marketing Estratégico</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Narrativa</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Identidade Visual</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Conteúdo com Propósito</span>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section class="about" id="sobre">
+  <div class="reveal">
+    <p class="about-label">✦ sobre mim</p>
+    <h2 class="about-title">Criativa por<br><em>natureza.</em><br>Estratégica por<br>escolha.</h2>
+    <p class="about-text">
+      Sou estudante de jornalismo e produtora de conteúdo com foco em <strong>comunicação com propósito</strong>. Trabalho na intersecção entre narrativa, estética e estratégia.
+    </p>
+    <p class="about-text">
+      Não me moldo ao mercado tradicional — <strong>trago a minha perspectiva</strong> para cada projeto, seja uma pauta, uma peça visual ou uma estratégia de conteúdo.
+    </p>
+  </div>
+  <div class="reveal">
+    <div class="about-card">
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-number">3+</span>
+          <span class="stat-label">áreas de atuação</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">curiosidade</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">autêntica</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">SP</span>
+          <span class="stat-label">baseada em</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRABALHOS -->
+<section class="work" id="trabalhos">
+  <div class="work-header">
+    <h2 class="work-title">Meus<br><span>trabalhos.</span></h2>
+    <a href="#" class="work-link">ver todos →</a>
+  </div>
+
+  <div class="work-grid">
+    <div class="work-card reveal">
+      <div class="work-card-img design-bg">🎨</div>
+      <div class="work-card-body">
+        <span class="work-card-tag tag-design">Design</span>
+        <h3 class="work-card-title">Identidade Visual</h3>
+        <p class="work-card-desc">Projeto de marca completo com sistema tipográfico e paleta intencional.</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-card-img jornalismo-bg">📰</div>
+      <div class="work-card-body">
+        <span class="work-card-tag tag-jornalismo">Jornalismo</span>
+        <h3 class="work-card-title">Cultura Sneaker</h3>
+        <p class="work-card-desc">Pesquisa sobre a transformação da cultura sneakerhead — da rua ao mercado global.</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-card-img social-bg">📱</div>
+      <div class="work-card-body">
+        <span class="work-card-tag tag-social">Social Media</span>
+        <h3 class="work-card-title">Estratégia de Conteúdo</h3>
+        <p class="work-card-desc">Planejamento editorial com posicionamento, pilares e funil de conteúdo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section class="pillars" id="pilares">
+  <div class="pillars-header reveal">
+    <h2 class="pillars-title">O que eu <em>faço.</em></h2>
+    <p class="pillars-sub">três frentes, uma identidade</p>
+  </div>
+
+  <div class="pillars-grid">
+    <div class="pillar-card p-design reveal">
+      <span class="pillar-icon">✦</span>
+      <h3 class="pillar-name">Design</h3>
+      <p class="pillar-text">Criação visual com intenção. Cada escolha tipográfica, cor e composição serve à mensagem — não ao decorativo.</p>
+      <div class="pillar-skills">
+        <span class="skill-tag">Identidade Visual</span>
+        <span class="skill-tag">Tipografia</span>
+        <span class="skill-tag">Direção de Arte</span>
+        <span class="skill-tag">Canva</span>
+      </div>
+    </div>
+
+    <div class="pillar-card p-jornalismo reveal">
+      <span class="pillar-icon">◎</span>
+      <h3 class="pillar-name">Jornalismo</h3>
+      <p class="pillar-text">Apuração, narrativa e olhar sensível. Transformo dados e histórias em textos que importam.</p>
+      <div class="pillar-skills">
+        <span class="skill-tag">Reportagem</span>
+        <span class="skill-tag">Pauta</span>
+        <span class="skill-tag">Narrativa</span>
+        <span class="skill-tag">Jornalismo Literário</span>
+      </div>
+    </div>
+
+    <div class="pillar-card p-social reveal">
+      <span class="pillar-icon">◈</span>
+      <h3 class="pillar-name">Social Media</h3>
+      <p class="pillar-text">Estratégia de conteúdo com posicionamento real. Não só postar — construir presença com propósito.</p>
+      <div class="pillar-skills">
+        <span class="skill-tag">Copy Estratégico</span>
+        <span class="skill-tag">Calendário Editorial</span>
+        <span class="skill-tag">Instagram</span>
+        <span class="skill-tag">Análise de Métricas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contact" id="contato">
+  <p class="contact-label reveal">✦ vamos trabalhar juntas?</p>
+  <h2 class="contact-title reveal">Bora<br><em>criar.</em></h2>
+  <p class="contact-text reveal">Aberta para projetos, colaborações e conversas que valham a pena.</p>
+  <a href="mailto:yumi@email.com" class="contact-btn reveal">entrar em contato →</a>
+  <div class="contact-links reveal">
+    <a href="#" class="contact-link">Instagram</a>
+    <a href="#" class="contact-link">LinkedIn</a>
+    <a href="#" class="contact-link">Behance</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Yumi Cugler.</span>
+  <span class="footer-copy">© 2026 — feito com intenção</span>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform += ' scale(1.6)';
+    cursor.style.background = 'var(--green)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.background = 'var(--purple)';
+  });
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
