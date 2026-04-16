@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferramentas do Claude — Yumi Cugler</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:      #5a8a3c;
+  --green-lt:   #8fbe6a;
+  --green-pale: #d4ebbb;
+  --purple:     #3d2070;
+  --purple-md:  #6b47b8;
+  --purple-lt:  #c4aff0;
+  --cream:      #f5f2e8;
+  --cream-dk:   #ede8d6;
+  --charcoal:   #2a2a2e;
+  --charcoal-lt:#4a4a50;
+  --white:      #fafaf7;
+  --rule:       #d8d3c4;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: 'Cabin', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  border-bottom: 2px solid var(--charcoal);
+  padding: 1.2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--charcoal);
+  text-decoration: none;
+}
+
+.nav-logo span { color: var(--purple); }
+
+.nav-back {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+
+.nav-back:hover { color: var(--purple); }
+
+/* HERO DA SÉRIE */
+.serie-hero {
+  background: var(--charcoal);
+  padding: 5rem 3.5rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.serie-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: var(--purple);
+  opacity: 0.12;
+}
+
+.serie-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 10%;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0.08;
+}
+
+.serie-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--purple-lt);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.serie-label::before {
+  content: '';
+  width: 24px; height: 2px;
+  background: var(--green-lt);
+  display: inline-block;
+}
+
+.serie-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.serie-title em {
+  font-style: italic;
+  color: var(--green-lt);
+}
+
+.serie-desc {
+  font-size: 16px;
+  color: #aaa;
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.serie-desc strong { color: var(--white); }
+
+.serie-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.meta-value {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--purple-lt);
+  line-height: 1;
+}
+
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666;
+}
+
+/* CONTEXTO */
+.context-section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.section-title em { font-style: italic; color: var(--purple); }
+
+.prose {
+  color: var(--charcoal-lt);
+  max-width: 660px;
+}
+
+.prose p { margin-bottom: 1rem; }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--charcoal); }
+
+/* TIMELINE DO PROCESSO */
+.timeline {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.timeline-list {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--rule);
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.timeline-dot {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--charcoal);
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-dot.purple { background: var(--purple); border-color: var(--purple); color: var(--white); }
+.timeline-dot.green  { background: var(--green);  border-color: var(--green);  color: var(--white); }
+
+.timeline-content { padding-top: 4px; }
+
+.timeline-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  margin-bottom: 4px;
+}
+
+.timeline-text {
+  font-size: 14px;
+  color: var(--charcoal-lt);
+  line-height: 1.6;
+}
+
+.timeline-text strong { color: var(--charcoal); }
+
+/* CARDS DAS FERRAMENTAS */
+.tools-section {
+  padding: 4rem 2.5rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.tool-card {
+  background: var(--white);
+  border: 2px solid var(--charcoal);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+
+.tool-card-header {
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.tool-number {
+  font-family: 'Fraunces', serif;
+  font-size: 52px;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 60px;
+}
+
+.n-purple { color: var(--purple-lt); }
+.n-green  { color: var(--green-pale); }
+
+.tool-header-right { flex: 1; }
+
+.tool-name {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.tool-tagline {
+  font-size: 14px;
+  color: var(--charcoal-lt);
+  margin-bottom: 10px;
+}
+
+.tool-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tbadge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1.5px solid;
+}
+
+.tbadge-purple { color: var(--purple-md); border-color: var(--purple-lt); background: rgba(100,71,184,0.06); }
+.tbadge-green  { color: var(--green);     border-color: var(--green-pale); background: rgba(90,138,60,0.06); }
+.tbadge-gray   { color: var(--charcoal-lt); border-color: var(--rule); background: var(--cream-dk); }
+
+.tool-card-body {
+  padding: 1.75rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2.5rem;
+}
+
+.tool-field-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  margin-bottom: 6px;
+}
+
+.tool-field-value {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--charcoal-lt);
+}
+
+.tool-field-value strong { color: var(--charcoal); }
+
+.tool-full {
+  grid-column: 1 / -1;
+}
+
+/* QUOTE DE CONVERSA */
+.chat-quote {
+  background: var(--cream-dk);
+  border-left: 4px solid var(--purple);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--charcoal);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.chat-quote.green { border-left-color: var(--green); }
+
+.chat-who {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  margin-bottom: 4px;
+  font-style: normal;
+}
+
+/* APRENDIZADOS FINAIS */
+.learnings {
+  background: var(--purple);
+  padding: 4rem 2.5rem;
+}
+
+.learnings-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.learnings .section-eyebrow { color: var(--purple-lt); }
+.learnings .section-title { color: var(--white); }
+.learnings .section-title em { color: var(--green-lt); }
+
+.learnings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.learning-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.learning-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-lt);
+  margin-bottom: 6px;
+}
+
+.learning-card-text {
+  font-size: 13px;
+  color: var(--purple-lt);
+  line-height: 1.6;
+}
+
+.learning-card-text strong { color: var(--white); }
+
+/* FOOTER */
+footer {
+  background: var(--charcoal);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 2px solid #333;
+}
+
+.footer-name {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--cream);
+}
+
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 700px) {
+  .tool-card-body { grid-template-columns: 1fr; }
+  .learnings-grid { grid-template-columns: 1fr; }
+  .serie-hero { padding: 3rem 1.5rem; }
+  .context-section, .timeline, .tools-section { padding: 3rem 1.5rem; }
+  nav { padding: 1rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="yumi-portfolio.html" class="nav-logo">Yumi<span>.</span></a>
+  <a href="yumi-portfolio.html" class="nav-back">← voltar ao portfólio</a>
+</nav>
+
+<!-- HERO -->
+<section class="serie-hero">
+  <p class="serie-label">Série de projetos</p>
+  <h1 class="serie-title">Ferramentas<br><em>do Claude.</em></h1>
+  <p class="serie-desc">
+    <strong>Como transformei conversas com uma IA em ferramentas reais de fluxo de trabalho</strong> — do problema à solução, passando pelo processo de pensar, questionar e construir.
+  </p>
+  <div class="serie-meta">
+    <div class="meta-item">
+      <span class="meta-value">4</span>
+      <span class="meta-label">ferramentas criadas</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-value">1</span>
+      <span class="meta-label">skill personalizada</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-value">∞</span>
+      <span class="meta-label">conversas</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXTO -->
+<section class="context-section">
+  <p class="section-eyebrow">✦ ponto de partida</p>
+  <h2 class="section-title">O <em>problema real.</em></h2>
+  <div class="prose">
+    <p>Tenho TDAH. Isso significa que a distância entre ter uma ideia e executá-la pode ser intransponível num dia ruim — e completamente invisível num dia de hiperfoco. O problema não é falta de capacidade. É falta de estrutura que funcione <strong>para o meu cérebro</strong>, não para o cérebro médio.</p>
+    <p>Além disso, trabalho em quatro frentes simultaneamente: jornalismo, social media, design e marketing estratégico. Cada uma com suas próprias referências, metodologias e vocabulário. Manter tudo isso organizado — e ainda aprender enquanto executa — é o desafio central do meu trabalho.</p>
+    <p>A pergunta que motivou esse projeto foi direta: <strong>e se eu pudesse construir ferramentas que funcionassem exatamente para mim?</strong> Não ferramentas genéricas de produtividade. Ferramentas que conhecem meu contexto, minha identidade visual, meu fluxo, minhas lacunas.</p>
+  </div>
+</section>
+
+<!-- TIMELINE DO PROCESSO -->
+<section class="timeline">
+  <p class="section-eyebrow">✦ como chegamos aqui</p>
+  <h2 class="section-title">O processo em<br><em>etapas.</em></h2>
+
+  <div class="timeline-list">
+    <div class="timeline-item">
+      <div class="timeline-dot purple">01</div>
+      <div class="timeline-content">
+        <p class="timeline-label">Ponto de partida</p>
+        <p class="timeline-text">Comecei pedindo para o Claude me ajudar a <strong>criar uma skill personalizada</strong> — um arquivo de instruções que ensinasse a IA a me conhecer de verdade. Não queria um assistente genérico. Queria um especialista em mim.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot purple">02</div>
+      <div class="timeline-content">
+        <p class="timeline-label">Construindo a skill</p>
+        <p class="timeline-text">Foram semanas iterando. A skill cresceu de um arquivo para <strong>nove documentos</strong>: referências por pilar (jornalismo, social media, design, marketing), glossário de termos, banco de erros recorrentes, perfil de desenvolvimento pessoal e biblioteca visual.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot green">03</div>
+      <div class="timeline-content">
+        <p class="timeline-label">Identificando gargalos de fluxo</p>
+        <p class="timeline-text">Em algum momento da conversa percebi que tinha um problema de execução, não só de conhecimento. Ideias acumuladas sem virar entregável. <strong>Foi aí que as ferramentas começaram a surgir.</strong></p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot green">04</div>
+      <div class="timeline-content">
+        <p class="timeline-label">TDAH como dado de design</p>
+        <p class="timeline-text">Quando compartilhei que tenho TDAH, a conversa mudou de direção. Em vez de sugestões genéricas de produtividade, o Claude perguntou onde eu trava, o que paralisa mais, como processo instruções. <strong>O diagnóstico virou especificação de design.</strong></p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot purple">05</div>
+      <div class="timeline-content">
+        <p class="timeline-label">Hub centralizado</p>
+        <p class="timeline-text">Depois de criar ferramentas separadas, veio a pergunta óbvia: "mas eu vou ter que encontrar esses organizadores toda vez?" O resultado foi um <strong>hub único</strong> com tudo em um arquivo só — porque fricção mata execução no TDAH.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section class="tools-section">
+  <p class="section-eyebrow">✦ as ferramentas</p>
+  <h2 class="section-title" style="margin-bottom:2.5rem;">O que foi <em>criado.</em></h2>
+
+  <!-- FERRAMENTA 1 -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <span class="tool-number n-purple">01</span>
+      <div class="tool-header-right">
+        <h3 class="tool-name">Skill de Comunicação Estratégica</h3>
+        <p class="tool-tagline">Um painel de quatro especialistas que me conhece de verdade</p>
+        <div class="tool-badges">
+          <span class="tbadge tbadge-purple">9 arquivos</span>
+          <span class="tbadge tbadge-gray">Jornalismo</span>
+          <span class="tbadge tbadge-gray">Design</span>
+          <span class="tbadge tbadge-gray">Social Media</span>
+          <span class="tbadge tbadge-gray">Marketing</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-card-body">
+      <div>
+        <p class="tool-field-label">O problema</p>
+        <p class="tool-field-value">Toda vez que abria uma conversa nova com uma IA, precisava reexplicar quem sou, o que faço, qual é meu nível, o que já sei. <strong>Estava sempre começando do zero.</strong></p>
+      </div>
+      <div>
+        <p class="tool-field-label">A solução</p>
+        <p class="tool-field-value">Uma skill instalada no Claude.ai que carrega meu contexto automaticamente — perfil de desenvolvimento, banco de erros recorrentes, referências verificadas por área.</p>
+      </div>
+      <div class="tool-full">
+        <p class="tool-field-label">O que está dentro</p>
+        <p class="tool-field-value" style="margin-bottom:10px;">Referências por pilar com fontes verificadas (Reuters Institute, Poynter, Meta for Business, AIGA, HBR) · Glossário técnico com como profissionais de alto nível usam cada termo vs. como o mercado usa errado · Banco de erros típicos do mercado + seção pessoal que vai sendo alimentada · Perfil de desenvolvimento com nível atual, conquistas e lacunas · Biblioteca de referências visuais por estilo e intenção.</p>
+        <div class="chat-quote">
+          <p class="chat-who">Yumi, no início do projeto:</p>
+          "quero literalmente ter um especialista em cada area... sempre 100% reais e oficiais, NUNCA por sites aleatórios"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FERRAMENTA 2 -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <span class="tool-number n-green">02</span>
+      <div class="tool-header-right">
+        <h3 class="tool-name">Organizador de Entregáveis</h3>
+        <p class="tool-tagline">Notas brutas → documento estruturado em segundos</p>
+        <div class="tool-badges">
+          <span class="tbadge tbadge-green">Fluxo de trabalho</span>
+          <span class="tbadge tbadge-gray">API Claude</span>
+          <span class="tbadge tbadge-gray">HTML standalone</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-card-body">
+      <div>
+        <p class="tool-field-label">O problema</p>
+        <p class="tool-field-value">Tenho muitas ideias. O gap entre ideia bruta e entregável apresentável é onde a maioria morre. <strong>Não por falta de conteúdo — por falta de estrutura.</strong></p>
+      </div>
+      <div>
+        <p class="tool-field-label">A solução</p>
+        <p class="tool-field-value">Cola qualquer fragmento de texto, escolhe o tipo de entregável (briefing, relatório, planejamento) e o pilar. A ferramenta gera o documento formatado via API.</p>
+      </div>
+      <div class="tool-full">
+        <div class="chat-quote green">
+          <p class="chat-who">Momento de insight na conversa:</p>
+          "eu queria algo que além de me ajudar, me ensine e me ajude a pensar... quero sempre que o claude traga respostas verificadas e credibilizadas"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FERRAMENTA 3 -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <span class="tool-number n-purple">03</span>
+      <div class="tool-header-right">
+        <h3 class="tool-name">Análise de Métricas</h3>
+        <p class="tool-tagline">Prints do Instagram → diagnóstico estratégico real</p>
+        <div class="tool-badges">
+          <span class="tbadge tbadge-purple">Social Media</span>
+          <span class="tbadge tbadge-gray">Visão computacional</span>
+          <span class="tbadge tbadge-gray">API Claude</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-card-body">
+      <div>
+        <p class="tool-field-label">O problema</p>
+        <p class="tool-field-value">Ver os números do Instagram sem saber o que eles significam estrategicamente. <strong>Alcance não é engajamento, engajamento não é conversão</strong> — mas nenhuma ferramenta nativa explica isso.</p>
+      </div>
+      <div>
+        <p class="tool-field-label">A solução</p>
+        <p class="tool-field-value">Faça upload de prints das métricas, informe o objetivo do perfil. A ferramenta lê as imagens e retorna três blocos: leitura dos dados, diagnóstico estratégico e ações prioritárias.</p>
+      </div>
+      <div class="tool-full">
+        <p class="tool-field-label">Decisão de design importante</p>
+        <p class="tool-field-value">A ferramenta aceita prints porque é assim que a maioria das pessoas acessa dados do Instagram — não via exportação CSV. <strong>Projetar para o comportamento real, não para o comportamento ideal.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FERRAMENTA 4 -->
+  <div class="tool-card">
+    <div class="tool-card-header">
+      <span class="tool-number n-green">04</span>
+      <div class="tool-header-right">
+        <h3 class="tool-name">Foco</h3>
+        <p class="tool-tagline">Uma tarefa, um passo de cada vez — projetado para TDAH</p>
+        <div class="tool-badges">
+          <span class="tbadge tbadge-green">TDAH-friendly</span>
+          <span class="tbadge tbadge-gray">Timer visual</span>
+          <span class="tbadge tbadge-gray">API Claude</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-card-body">
+      <div>
+        <p class="tool-field-label">O problema</p>
+        <p class="tool-field-value">Com TDAH, tarefas grandes e abertas causam paralisia total. O problema não é preguiça — é que o cérebro não consegue <strong>iniciar sem saber exatamente o primeiro passo.</strong></p>
+      </div>
+      <div>
+        <p class="tool-field-label">A solução</p>
+        <p class="tool-field-value">Digite qualquer tarefa. A ferramenta quebra em no máximo 6 passos minúsculos com timer visível. Você vê só um passo de cada vez — sem sobrecarga cognitiva.</p>
+      </div>
+      <div class="tool-full">
+        <p class="tool-field-label">Princípios de design baseados em como o TDAH funciona</p>
+        <p class="tool-field-value" style="margin-bottom:10px;">Timer visível cria urgência artificial · Um passo por vez elimina sobrecarga · Primeiro passo sempre ridiculamente fácil para quebrar a inércia · Progresso visual mantém o momentum · Estética escura e intensa ativa o sistema de recompensa.</p>
+        <div class="chat-quote">
+          <p class="chat-who">Yumi, descrevendo o padrão:</p>
+          "as vezes entro num foco 100% em 1 hora e dps só uns três dias depois... queria de fato algo que me motivasse mesmo que fosse na raiva por assim dizer"
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- APRENDIZADOS -->
+<section class="learnings">
+  <div class="learnings-inner">
+    <p class="section-eyebrow">✦ o que esse projeto ensinou</p>
+    <h2 class="section-title">Além das <em>ferramentas.</em></h2>
+
+    <div class="learnings-grid">
+      <div class="learning-card">
+        <p class="learning-card-label">Sobre design</p>
+        <p class="learning-card-text"><strong>Projetar para si mesma é diferente de projetar para um usuário genérico.</strong> Cada decisão tinha que justificar sua existência no meu contexto real — não no contexto de uma persona hipotética.</p>
+      </div>
+
+      <div class="learning-card">
+        <p class="learning-card-label">Sobre TDAH</p>
+        <p class="learning-card-text"><strong>Limitações bem diagnosticadas viram especificações de design.</strong> TDAH não é obstáculo — é dado de entrada. Saber como meu cérebro funciona me permitiu criar ferramentas que realmente funcionam para mim.</p>
+      </div>
+
+      <div class="learning-card">
+        <p class="learning-card-label">Sobre IA</p>
+        <p class="learning-card-text"><strong>A qualidade do output é proporcional à qualidade do pensamento que você traz.</strong> A IA não substitui o raciocínio — amplifica o que você já está pensando. Por isso construir a skill foi tão importante.</p>
+      </div>
+
+      <div class="learning-card">
+        <p class="learning-card-label">Sobre processo</p>
+        <p class="learning-card-text"><strong>Documentar o processo é tão valioso quanto o resultado.</strong> As conversas que geraram essas ferramentas — as perguntas, os impasses, as decisões — são o verdadeiro portfólio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">Yumi Cugler.</span>
+  <span class="footer-copy">design · jornalismo · social media</span>
+</footer>
+
+</body>
+</html>
