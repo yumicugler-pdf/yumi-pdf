@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise de Métricas — Yumi</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;min-height:100vh;}
+nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--cream);z-index:100;}
+.nav-logo{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:var(--charcoal);text-decoration:none;}
+.nav-logo span{color:var(--purple);}
+.nav-back{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.nav-back:hover{color:var(--purple);}
+.header{padding:3rem 2.5rem 2rem;border-bottom:2px solid var(--charcoal);}
+.header-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;}
+.header-title{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:0.75rem;}
+.header-title em{font-style:italic;color:var(--purple);}
+.header-sub{color:var(--charcoal-lt);max-width:480px;}
+.main{padding:2.5rem;max-width:900px;}
+.section{margin-bottom:2.5rem;}
+.section-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1.5px solid var(--rule);}
+.input-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);}
+.field input,.field select,.field textarea{background:var(--white);border:1.5px solid var(--rule);border-radius:8px;padding:10px 14px;font-family:'Cabin',sans-serif;font-size:14px;color:var(--charcoal);transition:border 0.15s;outline:none;width:100%;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);}
+.field textarea{resize:vertical;min-height:80px;}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fafaf7;border:2px solid var(--purple);border-radius:100px;padding:10px 24px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none;}
+.btn:hover{background:var(--charcoal);}
+.btn-outline{background:transparent;color:var(--charcoal);border:2px solid var(--charcoal) !important;border-radius:100px;padding:8px 20px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.btn-outline:hover{background:var(--charcoal);color:var(--cream);}
+.btn-danger{background:#c0392b;border-color:#c0392b !important;}
+.btn-danger:hover{background:#a93226;}
+.entries-list{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.entry-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:1.25rem 1.5rem;position:relative;}
+.entry-card:hover{border-color:var(--charcoal);}
+.entry-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;}
+.entry-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;letter-spacing:-0.01em;}
+.entry-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+.entry-metrics{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:0.75rem;}
+.metric-item{display:flex;flex-direction:column;gap:2px;}
+.metric-val{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--purple);}
+.metric-lbl{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--charcoal-lt);}
+.entry-note{font-size:13px;color:var(--charcoal-lt);font-style:italic;border-top:1px solid var(--rule);padding-top:0.75rem;margin-top:0.5rem;}
+.entry-actions{display:flex;gap:8px;margin-top:1rem;}
+.empty-state{text-align:center;padding:3rem;color:var(--charcoal-lt);}
+.empty-icon{font-size:48px;margin-bottom:1rem;display:block;}
+.empty-text{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;}
+footer{border-top:2px solid var(--charcoal);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:3rem;}
+.footer-name{font-family:'Fraunces',serif;font-size:16px;font-weight:700;font-style:italic;}
+.footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
+@media(max-width:600px){.input-row{grid-template-columns:1fr;}.entry-metrics{gap:1rem;}nav{padding:1rem 1.5rem;}.main,.header{padding:1.5rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Yumi<span>.</span></a>
+  <a href="index.html" class="nav-back">← voltar</a>
+</nav>
+
+<div class="header">
+  <p class="header-label">✦ ferramentas</p>
+  <h1 class="header-title">Análise de<br><em>Métricas.</em></h1>
+  <p class="header-sub">Registre o desempenho de cada publicação e acompanhe seus resultados ao longo do tempo.</p>
+</div>
+
+<div class="main">
+  <div class="section">
+    <h2 class="section-title">Nova entrada</h2>
+    <div class="input-row">
+      <div class="field"><label>Publicação / título</label><input type="text" id="pub-titulo" placeholder="Ex: Post sobre identidade visual"></div>
+      <div class="field"><label>Plataforma</label><select id="pub-plataforma"><option>Instagram</option><option>LinkedIn</option><option>TikTok</option><option>Twitter/X</option><option>Outro</option></select></div>
+      <div class="field"><label>Data</label><input type="date" id="pub-data"></div>
+    </div>
+    <div class="input-row">
+      <div class="field"><label>Alcance</label><input type="number" id="pub-alcance" placeholder="0"></div>
+      <div class="field"><label>Impressões</label><input type="number" id="pub-impressoes" placeholder="0"></div>
+      <div class="field"><label>Engajamento (%)</label><input type="number" id="pub-engajamento" placeholder="0.0" step="0.1"></div>
+    </div>
+    <div class="input-row">
+      <div class="field"><label>Curtidas</label><input type="number" id="pub-curtidas" placeholder="0"></div>
+      <div class="field"><label>Comentários</label><input type="number" id="pub-comentarios" placeholder="0"></div>
+      <div class="field"><label>Compartilhamentos / Salvamentos</label><input type="number" id="pub-salvamentos" placeholder="0"></div>
+    </div>
+    <div class="field" style="margin-bottom:1.25rem;"><label>Observações / Insights</label><textarea id="pub-notas" placeholder="O que funcionou? O que pode melhorar?"></textarea></div>
+    <button class="btn" onclick="salvarEntrada()">+ Salvar publicação</button>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Histórico</h2>
+    <div class="entries-list" id="entries-list">
+      <div class="empty-state">
+        <span class="empty-icon">📊</span>
+        <p class="empty-text">Nenhuma publicação registrada ainda</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-name">Yumi Cugler.</span>
+  <span class="footer-copy">análise de métricas · uso pessoal</span>
+</footer>
+
+<script>
+let entries = JSON.parse(localStorage.getItem('metricas-entries') || '[]');
+
+function salvarEntrada(){
+  const titulo = document.getElementById('pub-titulo').value.trim();
+  if(!titulo){ alert('Preencha o título da publicação.'); return; }
+  const entry = {
+    id: Date.now(),
+    titulo,
+    plataforma: document.getElementById('pub-plataforma').value,
+    data: document.getElementById('pub-data').value,
+    alcance: document.getElementById('pub-alcance').value || 0,
+    impressoes: document.getElementById('pub-impressoes').value || 0,
+    engajamento: document.getElementById('pub-engajamento').value || 0,
+    curtidas: document.getElementById('pub-curtidas').value || 0,
+    comentarios: document.getElementById('pub-comentarios').value || 0,
+    salvamentos: document.getElementById('pub-salvamentos').value || 0,
+    notas: document.getElementById('pub-notas').value
+  };
+  entries.unshift(entry);
+  localStorage.setItem('metricas-entries', JSON.stringify(entries));
+  renderEntries();
+  ['pub-titulo','pub-alcance','pub-impressoes','pub-engajamento','pub-curtidas','pub-comentarios','pub-salvamentos','pub-notas'].forEach(id => document.getElementById(id).value='');
+}
+
+function deletarEntrada(id){
+  if(!confirm('Remover esta entrada?')) return;
+  entries = entries.filter(e => e.id !== id);
+  localStorage.setItem('metricas-entries', JSON.stringify(entries));
+  renderEntries();
+}
+
+function renderEntries(){
+  const list = document.getElementById('entries-list');
+  if(!entries.length){
+    list.innerHTML='<div class="empty-state"><span class="empty-icon">📊</span><p class="empty-text">Nenhuma publicação registrada ainda</p></div>';
+    return;
+  }
+  list.innerHTML = entries.map(e => `
+    <div class="entry-card">
+      <div class="entry-top">
+        <div>
+          <div class="entry-name">${e.titulo}</div>
+          <div class="entry-date">${e.plataforma}${e.data ? ' · '+e.data : ''}</div>
+        </div>
+      </div>
+      <div class="entry-metrics">
+        <div class="metric-item"><span class="metric-val">${Number(e.alcance).toLocaleString('pt-BR')}</span><span class="metric-lbl">Alcance</span></div>
+        <div class="metric-item"><span class="metric-val">${Number(e.impressoes).toLocaleString('pt-BR')}</span><span class="metric-lbl">Impressões</span></div>
+        <div class="metric-item"><span class="metric-val">${e.engajamento}%</span><span class="metric-lbl">Engajamento</span></div>
+        <div class="metric-item"><span class="metric-val">${Number(e.curtidas).toLocaleString('pt-BR')}</span><span class="metric-lbl">Curtidas</span></div>
+        <div class="metric-item"><span class="metric-val">${e.comentarios}</span><span class="metric-lbl">Comentários</span></div>
+        <div class="metric-item"><span class="metric-val">${e.salvamentos}</span><span class="metric-lbl">Salvamentos</span></div>
+      </div>
+      ${e.notas ? `<div class="entry-note">${e.notas}</div>` : ''}
+      <div class="entry-actions">
+        <button class="btn btn-danger" onclick="deletarEntrada(${e.id})">remover</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+renderEntries();
+</script>
+</body>
+</html>

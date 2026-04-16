@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organizador de Entregáveis — Yumi</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--yellow:#f0c040;--red:#c0392b;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;min-height:100vh;}
+nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--cream);z-index:100;}
+.nav-logo{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:var(--charcoal);text-decoration:none;}
+.nav-logo span{color:var(--purple);}
+.nav-back{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.nav-back:hover{color:var(--purple);}
+.header{padding:3rem 2.5rem 2rem;border-bottom:2px solid var(--charcoal);}
+.header-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:0.75rem;}
+.header-title{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:0.75rem;}
+.header-title em{font-style:italic;color:var(--purple);}
+.header-sub{color:var(--charcoal-lt);max-width:480px;}
+.main{padding:2.5rem;max-width:900px;}
+.section{margin-bottom:2.5rem;}
+.section-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:1.5px solid var(--rule);}
+.input-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.input-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);}
+.field input,.field select,.field textarea{background:var(--white);border:1.5px solid var(--rule);border-radius:8px;padding:10px 14px;font-family:'Cabin',sans-serif;font-size:14px;color:var(--charcoal);transition:border 0.15s;outline:none;width:100%;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);}
+.field textarea{resize:vertical;min-height:70px;}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fafaf7;border:none;border-radius:100px;padding:10px 24px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn:hover{background:var(--charcoal);}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;}
+.filter-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 16px;border-radius:100px;border:1.5px solid var(--rule);background:transparent;color:var(--charcoal-lt);cursor:pointer;transition:all 0.15s;}
+.filter-btn.active,.filter-btn:hover{background:var(--charcoal);color:var(--cream);border-color:var(--charcoal);}
+.entries-list{display:flex;flex-direction:column;gap:1rem;}
+.entry-card{background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:1.25rem 1.5rem;border-left:4px solid var(--rule);}
+.entry-card.status-pendente{border-left-color:var(--yellow);}
+.entry-card.status-andamento{border-left-color:var(--purple);}
+.entry-card.status-entregue{border-left-color:var(--green);}
+.entry-card.status-atrasado{border-left-color:var(--red);}
+.entry-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;}
+.entry-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;letter-spacing:-0.01em;}
+.entry-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:0.5rem;}
+.badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.07em;text-transform:uppercase;padding:3px 10px;border-radius:100px;border:1.5px solid;}
+.badge-pendente{color:#b8860b;border-color:#f0c040;background:rgba(240,192,64,0.1);}
+.badge-andamento{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.06);}
+.badge-entregue{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.06);}
+.badge-atrasado{color:var(--red);border-color:#e8a09a;background:rgba(192,57,43,0.06);}
+.entry-prazo{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
+.entry-desc{font-size:13px;color:var(--charcoal-lt);line-height:1.6;margin-top:0.5rem;}
+.entry-actions{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;}
+.action-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;border-radius:100px;border:1.5px solid var(--rule);background:transparent;color:var(--charcoal-lt);cursor:pointer;transition:all 0.15s;}
+.action-btn:hover{background:var(--charcoal);color:var(--cream);border-color:var(--charcoal);}
+.action-btn.danger{border-color:#e8a09a;color:var(--red);}
+.action-btn.danger:hover{background:var(--red);color:white;border-color:var(--red);}
+.empty-state{text-align:center;padding:3rem;color:var(--charcoal-lt);}
+.empty-icon{font-size:48px;margin-bottom:1rem;display:block;}
+.empty-text{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;}
+footer{border-top:2px solid var(--charcoal);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:3rem;}
+.footer-name{font-family:'Fraunces',serif;font-size:16px;font-weight:700;font-style:italic;}
+.footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
+@media(max-width:600px){.input-row,.input-row-2{grid-template-columns:1fr;}nav{padding:1rem 1.5rem;}.main,.header{padding:1.5rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Yumi<span>.</span></a>
+  <a href="index.html" class="nav-back">← voltar</a>
+</nav>
+
+<div class="header">
+  <p class="header-label">✦ ferramentas</p>
+  <h1 class="header-title">Organizador de<br><em>Entregáveis.</em></h1>
+  <p class="header-sub">Controle de projetos, prazos e status. Para não deixar nada cair no esquecimento.</p>
+</div>
+
+<div class="main">
+  <div class="section">
+    <h2 class="section-title">Novo entregável</h2>
+    <div class="input-row">
+      <div class="field"><label>Título</label><input type="text" id="ent-titulo" placeholder="Ex: Posts semana 3 — Holmy"></div>
+      <div class="field"><label>Cliente / Projeto</label><input type="text" id="ent-cliente" placeholder="Ex: Holmy, Faculdade..."></div>
+      <div class="field"><label>Prazo</label><input type="date" id="ent-prazo"></div>
+    </div>
+    <div class="input-row-2">
+      <div class="field"><label>Tipo</label><select id="ent-tipo"><option>Social Media</option><option>Jornalismo</option><option>Design</option><option>Copywriting</option><option>Estratégia</option><option>Outro</option></select></div>
+      <div class="field"><label>Status</label><select id="ent-status"><option value="pendente">Pendente</option><option value="andamento">Em andamento</option><option value="entregue">Entregue</option><option value="atrasado">Atrasado</option></select></div>
+    </div>
+    <div class="field" style="margin-bottom:1.25rem;"><label>Descrição / Observações</label><textarea id="ent-desc" placeholder="Detalhes do entregável, briefing, notas..."></textarea></div>
+    <button class="btn" onclick="salvar()">+ Adicionar entregável</button>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Entregáveis</h2>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filtrar('todos',this)">Todos</button>
+      <button class="filter-btn" onclick="filtrar('pendente',this)">Pendente</button>
+      <button class="filter-btn" onclick="filtrar('andamento',this)">Em andamento</button>
+      <button class="filter-btn" onclick="filtrar('entregue',this)">Entregue</button>
+      <button class="filter-btn" onclick="filtrar('atrasado',this)">Atrasado</button>
+    </div>
+    <div class="entries-list" id="entries-list"></div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-name">Yumi Cugler.</span>
+  <span class="footer-copy">organizador de entregáveis · uso pessoal</span>
+</footer>
+
+<script>
+let entries = JSON.parse(localStorage.getItem('entregaveis') || '[]');
+let filtroAtivo = 'todos';
+
+function salvar(){
+  const titulo = document.getElementById('ent-titulo').value.trim();
+  if(!titulo){ alert('Preencha o título.'); return; }
+  entries.unshift({
+    id: Date.now(),
+    titulo,
+    cliente: document.getElementById('ent-cliente').value,
+    prazo: document.getElementById('ent-prazo').value,
+    tipo: document.getElementById('ent-tipo').value,
+    status: document.getElementById('ent-status').value,
+    desc: document.getElementById('ent-desc').value
+  });
+  localStorage.setItem('entregaveis', JSON.stringify(entries));
+  render();
+  ['ent-titulo','ent-cliente','ent-prazo','ent-desc'].forEach(id => document.getElementById(id).value='');
+}
+
+function mudarStatus(id, status){
+  entries = entries.map(e => e.id===id ? {...e, status} : e);
+  localStorage.setItem('entregaveis', JSON.stringify(entries));
+  render();
+}
+
+function deletar(id){
+  if(!confirm('Remover este entregável?')) return;
+  entries = entries.filter(e => e.id !== id);
+  localStorage.setItem('entregaveis', JSON.stringify(entries));
+  render();
+}
+
+function filtrar(f, btn){
+  filtroAtivo = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+const statusLabel = {pendente:'Pendente',andamento:'Em andamento',entregue:'Entregue',atrasado:'Atrasado'};
+
+function render(){
+  const list = document.getElementById('entries-list');
+  const filtered = filtroAtivo==='todos' ? entries : entries.filter(e => e.status===filtroAtivo);
+  if(!filtered.length){
+    list.innerHTML='<div class="empty-state"><span class="empty-icon">📋</span><p class="empty-text">Nenhum entregável aqui</p></div>';
+    return;
+  }
+  list.innerHTML = filtered.map(e => `
+    <div class="entry-card status-${e.status}">
+      <div class="entry-top">
+        <div>
+          <div class="entry-name">${e.titulo}</div>
+          <div class="entry-meta">
+            <span class="badge badge-${e.status}">${statusLabel[e.status]}</span>
+            ${e.tipo ? `<span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);">${e.tipo}</span>` : ''}
+            ${e.cliente ? `<span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);">· ${e.cliente}</span>` : ''}
+          </div>
+          ${e.prazo ? `<div class="entry-prazo">Prazo: ${e.prazo}</div>` : ''}
+        </div>
+      </div>
+      ${e.desc ? `<div class="entry-desc">${e.desc}</div>` : ''}
+      <div class="entry-actions">
+        ${e.status!=='andamento' ? `<button class="action-btn" onclick="mudarStatus(${e.id},'andamento')">→ Em andamento</button>` : ''}
+        ${e.status!=='entregue' ? `<button class="action-btn" onclick="mudarStatus(${e.id},'entregue')">✓ Entregue</button>` : ''}
+        ${e.status!=='atrasado' ? `<button class="action-btn" onclick="mudarStatus(${e.id},'atrasado')">⚠ Atrasado</button>` : ''}
+        <button class="action-btn danger" onclick="deletar(${e.id})">remover</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+render();
+</script>
+</body>
+</html>
