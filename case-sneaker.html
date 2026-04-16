@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Sneakerhead Tem História | Yumi Cugler</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:     #f5f2e8;
+  --cream-dk:  #ede8d6;
+  --charcoal:  #2a2a2e;
+  --charcoal-lt: #4a4a50;
+  --green:     #5a8a3c;
+  --green-pale:#d4ebbb;
+  --purple:    #3d2070;
+  --purple-lt: #c4aff0;
+  --white:     #fafaf7;
+  --rule:      #d8d3c4;
+}
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: 'Cabin', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
+
+/* HEADER DO CASE */
+.case-header {
+  border-bottom: 2px solid var(--charcoal);
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+}
+
+.case-back {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 1.5rem;
+  transition: color 0.15s;
+}
+
+.case-back:hover { color: var(--purple); }
+
+.case-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.meta-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 100px;
+  border: 1.5px solid;
+}
+
+.tag-design { color: var(--purple); border-color: var(--purple-lt); background: rgba(100,71,184,0.06); }
+.tag-social { color: var(--green); border-color: var(--green-pale); background: rgba(90,138,60,0.06); }
+.tag-jorn { color: var(--charcoal-lt); border-color: var(--rule); background: var(--cream-dk); }
+
+.case-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+}
+
+.case-title em {
+  font-style: italic;
+  color: var(--purple);
+}
+
+.case-subtitle {
+  font-size: 16px;
+  color: var(--charcoal-lt);
+  max-width: 560px;
+}
+
+/* IMAGEM PRINCIPAL */
+.case-hero-img {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 3rem;
+  display: block;
+  border-radius: 12px;
+  border: 2px solid var(--charcoal);
+  box-shadow: 6px 6px 0 var(--charcoal);
+}
+
+/* FICHA TÉCNICA */
+.ficha {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1.5px solid var(--charcoal);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+}
+
+.ficha-item {
+  background: var(--white);
+  padding: 1.25rem;
+}
+
+.ficha-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  margin-bottom: 4px;
+}
+
+.ficha-value {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--charcoal);
+}
+
+/* SEÇÕES */
+.section {
+  margin-bottom: 3rem;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--purple);
+}
+
+.section p {
+  color: var(--charcoal-lt);
+  margin-bottom: 1rem;
+}
+
+.section p strong { color: var(--charcoal); }
+
+/* DECISÕES CRIATIVAS */
+.decisions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.decision-card {
+  background: var(--white);
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--purple);
+}
+
+.decision-card.green { border-left-color: var(--green); }
+.decision-card.charcoal { border-left-color: var(--charcoal); }
+
+.decision-element {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.decision-card.green .decision-element { color: var(--green); }
+.decision-card.charcoal .decision-element { color: var(--charcoal-lt); }
+
+.decision-why {
+  font-size: 14px;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+/* APRENDIZADOS */
+.learnings {
+  background: var(--purple);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+
+.learnings .section-label { color: var(--purple-lt); }
+.learnings .section-title { color: var(--white); }
+.learnings .section-title em { color: #c4aff0; }
+
+.learning-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.learning-list li {
+  font-size: 14px;
+  color: var(--purple-lt);
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+.learning-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: #8fbe6a;
+  font-size: 10px;
+  top: 4px;
+}
+
+.learning-list li strong { color: var(--white); }
+
+/* DIVIDER */
+.divider {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2.5rem 0;
+}
+
+/* COPY HIGHLIGHT */
+.copy-block {
+  background: var(--cream-dk);
+  border: 1.5px solid var(--rule);
+  border-left: 4px solid var(--charcoal);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--charcoal);
+  margin: 1.5rem 0;
+}
+
+/* FOOTER DO CASE */
+.case-footer {
+  border-top: 2px solid var(--charcoal);
+  padding-top: 2rem;
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-sig {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--charcoal);
+}
+
+.footer-sig span { color: var(--purple); }
+
+.footer-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--charcoal-lt);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 600px) {
+  .ficha { grid-template-columns: 1fr 1fr; }
+  .case-footer { flex-direction: column; gap: 1rem; }
+  body { padding: 2rem 1.25rem 4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="case-header">
+  <a href="#" class="case-back">← portfólio</a>
+
+  <div class="case-meta">
+    <span class="meta-tag tag-design">Design de Comunicação</span>
+    <span class="meta-tag tag-social">Social Media</span>
+    <span class="meta-tag tag-jorn">Pesquisa Acadêmica</span>
+  </div>
+
+  <h1 class="case-title">Sneakerhead<br><em>Tem História.</em></h1>
+  <p class="case-subtitle">Direção de arte e copy para Stories de divulgação de pesquisa universitária sobre cultura sneaker.</p>
+</div>
+
+<!-- IMAGEM PRINCIPAL -->
+<img
+  src="/mnt/user-data/uploads/Texto_do_seu_para_grafo.png"
+  alt="Stories Sneakerhead Tem História — Yumi Cugler"
+  class="case-hero-img"
+>
+
+<!-- FICHA TÉCNICA -->
+<div class="ficha">
+  <div class="ficha-item">
+    <p class="ficha-label">Formato</p>
+    <p class="ficha-value">Instagram Stories</p>
+  </div>
+  <div class="ficha-item">
+    <p class="ficha-label">Contexto</p>
+    <p class="ficha-value">Pesquisa Universitária</p>
+  </div>
+  <div class="ficha-item">
+    <p class="ficha-label">Ferramentas</p>
+    <p class="ficha-value">Canva</p>
+  </div>
+  <div class="ficha-item">
+    <p class="ficha-label">Áreas</p>
+    <p class="ficha-value">Design + Copy</p>
+  </div>
+  <div class="ficha-item">
+    <p class="ficha-label">Objetivo</p>
+    <p class="ficha-value">Engajamento</p>
+  </div>
+  <div class="ficha-item">
+    <p class="ficha-label">Público</p>
+    <p class="ficha-value">Sneakerheads</p>
+  </div>
+</div>
+
+<!-- CONTEXTO -->
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">O <em>problema.</em></h2>
+  <p>Uma pesquisa universitária sobre cultura sneaker precisava de divulgação no Instagram Stories. O desafio não era só criar algo bonito — era criar algo que <strong>não parecesse pedido acadêmico</strong>.</p>
+  <p>Materiais de divulgação de pesquisa costumam errar na mesma direção: linguagem institucional, estética genérica e CTA que soa como favor. O resultado é invisível para o público que importa.</p>
+  <p>O objetivo era o oposto: fazer o próprio sneakerhead querer responder, porque o material falava a língua dele.</p>
+</div>
+
+<hr class="divider">
+
+<!-- DECISÕES CRIATIVAS -->
+<div class="section">
+  <p class="section-label">02 — decisões criativas</p>
+  <h2 class="section-title">Por que cada<br><em>escolha.</em></h2>
+  <p>Cada elemento visual tem justificativa conceitual — nada é decorativo.</p>
+
+  <div class="decisions">
+    <div class="decision-card">
+      <p class="decision-element">Background — Brooklyn urbano</p>
+      <p class="decision-why">A cultura sneaker nasceu nas ruas americanas e se consolidou no Brooklyn. O background não é só estético — é um argumento visual sobre a origem geográfica da cultura. Quem é da cena reconhece.</p>
+    </div>
+
+    <div class="decision-card">
+      <p class="decision-element">Elemento central — Air Jordan 1 pendurado</p>
+      <p class="decision-why">O AJ1 é o marco histórico da tensão entre cultura de rua e mercado: a Nike pagou a multa da NBA para Jordan continuar usando o tênis proibido em 1985. Não é só um tênis icônico — é o símbolo exato do que a pesquisa estuda. Escolha conceitual, não decorativa.</p>
+    </div>
+
+    <div class="decision-card green">
+      <p class="decision-element">Tipografia — fonte universitária</p>
+      <p class="decision-why">A fonte em estilo universitário americano remete às quadras de basquete colegial, onde a cultura sneaker começou. Conecta o elemento acadêmico (pesquisa universitária) à origem cultural (basquete nas quadras) sem precisar dizer explicitamente.</p>
+    </div>
+
+    <div class="decision-card green">
+      <p class="decision-element">Estética — poster/zine com textura</p>
+      <p class="decision-why">A textura de papel amassado e as fitas adesivas criam a sensação de um cartaz colado na rua — referência direta à cultura de rua e ao streetwear. Afasta o material do universo acadêmico formal e o aproxima da linguagem visual do público-alvo.</p>
+    </div>
+
+    <div class="decision-card charcoal">
+      <p class="decision-element">Elemento de apoio — foam finger #1</p>
+      <p class="decision-why">Clássico das arquibancadas americanas, preenche o espaço em branco do canto direito sem competir com o tênis central. Reforça o universo cultural e mantém a coerência da estética sem adicionar ruído.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- COPY -->
+<div class="section">
+  <p class="section-label">03 — copy</p>
+  <h2 class="section-title">A lógica do<br><em>texto.</em></h2>
+  <p>O copy foi estruturado em três camadas com funções distintas:</p>
+
+  <div class="copy-block">
+SNEAKERHEAD TEM HISTÓRIA → headline que afirma identidade, não pede nada<br>
+CONTE A SUA → CTA emocional — convite dentro da cultura, não comando<br>
+—<br>
+DE SNEAKERHEAD PARA SNEAKERHEAD. → estabelece pertencimento mútuo<br>
+PESQUISA UNIVERSITÁRIA. SEM ENROLAÇÃO. → contexto + promessa de respeito ao tempo<br>
+LEVA MENOS DE 5 MINUTOS. → elimina a maior fricção para responder
+  </div>
+
+  <p>A decisão de usar <strong>coluna única no bloco inferior</strong> — em vez de dois blocos simétricos — veio da análise de referências reais do universo sneaker (Nike Checkerboard, Knu Stack). Nenhuma delas usa grade simétrica no rodapé. O texto funciona como ficha técnica editorial, não como layout de apresentação.</p>
+</div>
+
+<hr class="divider">
+
+<!-- APRENDIZADOS -->
+<div class="learnings">
+  <p class="section-label">04 — aprendizados</p>
+  <h2 class="section-title">O que esse<br><em>projeto ensinou.</em></h2>
+  <ul class="learning-list">
+    <li><strong>Direção de arte é argumento.</strong> Cada elemento visual precisa ter justificativa conceitual. "Ficou bonito" não é critério suficiente.</li>
+    <li><strong>Pesquisa de referência não é opcional.</strong> Olhar para referências reais do universo sneaker mudou decisões concretas de layout — especialmente o bloco de texto inferior.</li>
+    <li><strong>Copy e visual são a mesma coisa.</strong> A linguagem do texto precisa estar no mesmo registro da estética. "Responda o formulário e ajude um universitário" quebra o pacto visual que o poster cria.</li>
+    <li><strong>O público decide o tom.</strong> O material não era para professores — era para sneakerheads. A partir disso, cada decisão ficou mais clara.</li>
+  </ul>
+</div>
+
+<!-- FOOTER -->
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note">design · social media · jornalismo</span>
+</div>
+
+</body>
+</html>
