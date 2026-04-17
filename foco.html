@@ -3,695 +3,402 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foco</title>
+<title>Foco — Yumi Cugler</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg: #0e0e0e;
-  --surface: #161616;
-  --border: #2a2a2a;
-  --accent: #D0122C;
-  --accent2: #ff4d4d;
-  --text: #f0ece4;
-  --muted: #555;
-  --done: #2d6a4f;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0e0e0e;--surface:#161616;--surface2:#1e1e1e;
+  --border:#2a2a2a;--accent:#c0392b;--accent2:#e74c3c;
+  --green:#8fbe6a;--purple:#c4aff0;
+  --text:#f0ece4;--muted:#6b6760;--done:#5a8a3c;
 }
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Cabin',sans-serif;min-height:100vh;display:flex;flex-direction:column;}
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+/* NAV */
+nav{border-bottom:1.5px solid var(--border);padding:1.1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:100;}
+.nav-logo{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:var(--text);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--purple);}
+.nav-right{display:flex;align-items:center;gap:1.5rem;}
+.nav-back{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.15s;}
+.nav-back:hover{color:var(--purple);}
+.mode-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;border:1.5px solid var(--border);color:var(--muted);}
+.mode-badge.active{border-color:var(--accent);color:var(--accent);}
 
-/* TELA INICIAL */
-#screen-start {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  gap: 2rem;
-}
+/* LAYOUT */
+.main{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:1200px;margin:0 auto;width:100%;}
 
-.logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(64px, 15vw, 120px);
-  letter-spacing: 0.05em;
-  line-height: 1;
-  color: var(--text);
-  position: relative;
-}
+/* PAINEL ESQUERDO — INPUT */
+.panel-input{padding:3rem 2.5rem;border-right:1.5px solid var(--border);}
+.panel-title{font-family:'Fraunces',serif;font-size:clamp(28px,3vw,40px);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:0.5rem;}
+.panel-title em{font-style:italic;color:var(--accent);}
+.panel-sub{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem;}
 
-.logo span {
-  color: var(--accent);
-}
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem;}
+.field label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.field input,.field textarea,.field select{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:12px 16px;font-family:'Cabin',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border 0.15s;width:100%;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent);}
+.field textarea{resize:vertical;min-height:90px;}
+select option{background:var(--surface);}
 
-.logo::after {
-  content: '';
-  display: block;
-  height: 3px;
-  background: var(--accent);
-  margin-top: 8px;
-  animation: expandLine 0.6s ease forwards;
-}
+.btn-gerar{width:100%;background:var(--accent);color:var(--text);border:2px solid var(--accent);border-radius:100px;padding:13px 24px;font-family:'Cabin',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.02em;margin-top:0.5rem;}
+.btn-gerar:hover{background:var(--accent2);border-color:var(--accent2);}
+.btn-gerar:disabled{background:var(--border);border-color:var(--border);color:var(--muted);cursor:not-allowed;}
 
-@keyframes expandLine {
-  from { width: 0; }
-  to { width: 100%; }
-}
+/* TIPS TDAH */
+.tips{margin-top:2rem;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:1.25rem;}
+.tips-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;}
+.tip{font-size:13px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.5;}
+.tip:last-child{border-bottom:none;}
+.tip strong{color:var(--text);}
 
-.start-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.start-form {
-  width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.start-form input {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 16px 18px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.15s;
-  width: 100%;
-}
-
-.start-form input::placeholder { color: var(--muted); }
-.start-form input:focus { border-color: var(--accent); }
-
-.start-form textarea {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 16px 18px;
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  color: var(--text);
-  outline: none;
-  resize: none;
-  height: 100px;
-  transition: border-color 0.15s;
-  line-height: 1.6;
-}
-
-.start-form textarea::placeholder { color: var(--muted); }
-.start-form textarea:focus { border-color: var(--accent); }
-
-.field-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-
-.field-wrap { display: flex; flex-direction: column; }
-
-.btn-start {
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 16px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
-  margin-top: 4px;
-}
-
-.btn-start:hover { background: var(--accent2); transform: translateY(-1px); }
-.btn-start:active { transform: scale(0.98); }
-
-/* TELA FOCO */
-#screen-focus {
-  display: none;
-  flex: 1;
-  flex-direction: column;
-}
-
-#screen-focus.active { display: flex; }
-
-/* HEADER */
-.focus-header {
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.task-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
-  letter-spacing: 0.05em;
-  color: var(--text);
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.progress-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.progress-bar {
-  width: 120px;
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 2px;
-  transition: width 0.4s ease;
-}
-
-.progress-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  min-width: 40px;
-  text-align: right;
-}
-
-/* ÁREA PRINCIPAL */
-.focus-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  gap: 2rem;
-  text-align: center;
-}
-
-.step-number {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.step-text {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(32px, 7vw, 60px);
-  letter-spacing: 0.04em;
-  line-height: 1.1;
-  color: var(--text);
-  max-width: 640px;
-  animation: fadeUp 0.3s ease forwards;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.step-hint {
-  font-size: 13px;
-  color: var(--muted);
-  font-family: 'DM Mono', monospace;
-  max-width: 400px;
-  line-height: 1.6;
-}
+/* PAINEL DIREITO — EXECUÇÃO */
+.panel-exec{padding:3rem 2.5rem;display:flex;flex-direction:column;}
 
 /* TIMER */
-.timer-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
+.timer-section{text-align:center;margin-bottom:2.5rem;}
+.timer-ring-wrap{position:relative;width:160px;height:160px;margin:0 auto 1.25rem;}
+.timer-svg{width:160px;height:160px;transform:rotate(-90deg);}
+.timer-track{fill:none;stroke:var(--border);stroke-width:6;}
+.timer-fill{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke 0.3s;}
+.timer-fill.green{stroke:var(--green);}
+.timer-display{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.timer-time{font-family:'Fraunces',serif;font-size:36px;font-weight:900;letter-spacing:-0.03em;line-height:1;}
+.timer-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.timer-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.timer-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:8px 20px;border-radius:100px;border:1.5px solid var(--border);background:transparent;color:var(--text);cursor:pointer;transition:all 0.15s;}
+.timer-btn:hover{background:var(--surface2);border-color:var(--text);}
+.timer-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--text);}
+.timer-btn.primary:hover{background:var(--accent2);border-color:var(--accent2);}
 
-.timer-display {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 56px;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  line-height: 1;
-  min-width: 150px;
-  text-align: center;
-}
+/* MODO SELECT */
+.mode-select{display:flex;gap:8px;justify-content:center;margin-bottom:2rem;flex-wrap:wrap;}
+.mode-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 16px;border-radius:100px;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+.mode-btn.active{background:var(--surface2);border-color:var(--accent);color:var(--accent);}
 
-.timer-display.warning { color: #ff8c00; }
-.timer-display.urgent { color: var(--accent); animation: blink 0.8s ease infinite; }
+/* PASSOS */
+.steps-section{flex:1;}
+.steps-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.steps-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.steps-progress{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--accent);}
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
+.step-list{display:flex;flex-direction:column;gap:10px;}
+.step-item{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:1rem 1.25rem;display:flex;align-items:flex-start;gap:12px;transition:all 0.2s;cursor:pointer;}
+.step-item.current{border-color:var(--accent);background:rgba(192,57,43,0.06);}
+.step-item.done{border-color:var(--done);background:rgba(90,138,60,0.06);opacity:0.6;}
+.step-item.locked{opacity:0.3;cursor:default;}
+.step-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--muted);min-width:24px;padding-top:2px;}
+.step-item.current .step-num{color:var(--accent);}
+.step-item.done .step-num{color:var(--done);}
+.step-text{font-size:14px;line-height:1.6;flex:1;}
+.step-item.current .step-text{color:var(--text);}
+.step-item.done .step-text{text-decoration:line-through;color:var(--muted);}
+.step-check{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;margin-top:2px;transition:all 0.2s;display:flex;align-items:center;justify-content:center;font-size:10px;}
+.step-item.current .step-check{border-color:var(--accent);}
+.step-item.done .step-check{background:var(--done);border-color:var(--done);color:white;}
 
-.timer-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/* BOTÕES DE AÇÃO */
-.action-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.btn-done {
-  background: var(--done);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 14px 32px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.btn-done:hover { filter: brightness(1.2); transform: translateY(-1px); }
-
-.btn-skip {
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 14px 24px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.btn-skip:hover { border-color: var(--muted); color: var(--text); }
-
-/* PAINEL LATERAL DE PASSOS */
-.steps-sidebar {
-  border-top: 1px solid var(--border);
-  padding: 1rem 1.5rem;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  flex-wrap: wrap;
-}
-
-.step-pill {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-
-.step-pill.current {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(208, 18, 44, 0.08);
-}
-
-.step-pill.done {
-  border-color: var(--done);
-  color: var(--done);
-  background: rgba(45, 106, 79, 0.1);
-  text-decoration: line-through;
-}
-
-/* TELA CONCLUSÃO */
-#screen-done {
-  display: none;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  text-align: center;
-  gap: 1.5rem;
-}
-
-#screen-done.active { display: flex; }
-
-.done-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(48px, 12vw, 96px);
-  letter-spacing: 0.05em;
-  line-height: 1;
-  color: var(--text);
-}
-
-.done-title span { color: var(--accent); }
-
-.done-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-}
-
-.btn-restart {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 12px 28px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.15s;
-  margin-top: 1rem;
-}
-
-.btn-restart:hover { border-color: var(--accent); color: var(--accent); }
+/* ESTADO VAZIO */
+.empty-state{text-align:center;padding:3rem 2rem;color:var(--muted);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.empty-icon{font-size:48px;margin-bottom:1rem;display:block;opacity:0.4;}
+.empty-text{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;}
 
 /* LOADING */
-.loading-wrap {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
+.loading{text-align:center;padding:2rem;color:var(--muted);}
+.loading-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin:0 3px;animation:blink 1.2s infinite;}
+.loading-dot:nth-child(2){animation-delay:0.2s;}
+.loading-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes blink{0%,80%,100%{opacity:0.2;}40%{opacity:1;}}
 
-.loading-wrap.active { display: flex; }
+/* CONQUISTA */
+.win-banner{background:var(--done);border-radius:12px;padding:1.25rem;text-align:center;display:none;}
+.win-banner.show{display:block;}
+.win-title{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:white;margin-bottom:4px;}
+.win-sub{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.7);}
 
-.loading-dots {
-  display: flex;
-  gap: 6px;
-}
+footer{border-top:1.5px solid var(--border);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-name{font-family:'Fraunces',serif;font-size:16px;font-weight:700;font-style:italic;color:var(--text);}
+.footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
 
-.dot {
-  width: 8px; height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 1.2s ease-in-out infinite;
-}
-.dot:nth-child(2) { animation-delay: 0.2s; }
-.dot:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes pulse {
-  0%,80%,100% { opacity:.2; transform:scale(.8); }
-  40% { opacity:1; transform:scale(1); }
-}
-
-.loading-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+@media(max-width:768px){
+  .main{grid-template-columns:1fr;}
+  .panel-input{border-right:none;border-bottom:1.5px solid var(--border);padding:2rem 1.5rem;}
+  .panel-exec{padding:2rem 1.5rem;}
+  nav{padding:1rem 1.5rem;}
+  footer{padding:1.25rem 1.5rem;flex-direction:column;gap:6px;}
 }
 </style>
 </head>
 <body>
 
-<!-- TELA INICIAL -->
-<div id="screen-start">
-  <div>
-    <div class="logo">FO<span>C</span>O</div>
-    <p class="start-sub">uma coisa de cada vez</p>
+<nav>
+  <a href="index.html" class="nav-logo">Yumi<span>.</span></a>
+  <div class="nav-right">
+    <span class="mode-badge active" id="status-badge">● em espera</span>
+    <a href="index.html" class="nav-back">← voltar</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- ESQUERDA: INPUT -->
+  <div class="panel-input">
+    <h1 class="panel-title">Modo<br><em>Foco.</em></h1>
+    <p class="panel-sub">✦ projetado para TDAH</p>
+
+    <div class="field">
+      <label>Qual é a tarefa?</label>
+      <textarea id="input-tarefa" placeholder="Descreva a tarefa com o máximo de contexto que conseguir. Quanto mais específica, melhor os passos." rows="4"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Qual é o objetivo final?</label>
+      <input type="text" id="input-objetivo" placeholder="Ex: ter o texto revisado e pronto para publicar">
+    </div>
+
+    <div class="field">
+      <label>Quanto tempo você tem?</label>
+      <select id="input-tempo">
+        <option value="15">15 minutos — sprint rápido</option>
+        <option value="25" selected>25 minutos — Pomodoro padrão</option>
+        <option value="45">45 minutos — sessão mais longa</option>
+        <option value="60">60 minutos — deep work</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Como você está agora?</label>
+      <select id="input-estado">
+        <option value="travada">Travada — não consigo nem começar</option>
+        <option value="dispersa">Dispersa — começo mas não termino</option>
+        <option value="sobrecarregada">Sobrecarregada — muito na cabeça de uma vez</option>
+        <option value="focada" selected>Razoável — só preciso de estrutura</option>
+        <option value="hiperfoco">Em hiperfoco — quero aproveitar ao máximo</option>
+      </select>
+    </div>
+
+    <button class="btn-gerar" id="btn-gerar" onclick="gerarPassos()">→ quebrar em passos e focar</button>
+
+    <div class="tips">
+      <p class="tips-title">✦ como usar</p>
+      <p class="tip"><strong>Clique em um passo</strong> para marcá-lo como concluído.</p>
+      <p class="tip"><strong>Um passo de cada vez</strong> — o passo atual fica em destaque.</p>
+      <p class="tip"><strong>Timer automático</strong> baseado no tempo que você informou.</p>
+      <p class="tip"><strong>Seja honesta</strong> sobre como você está — isso muda os passos gerados.</p>
+    </div>
   </div>
 
-  <div class="start-form">
-    <div class="field-wrap">
-      <span class="field-label">O que você precisa fazer agora?</span>
-      <input type="text" id="input-task" placeholder="ex: escrever o briefing da pauta sneaker" maxlength="80">
+  <!-- DIREITA: EXECUÇÃO -->
+  <div class="panel-exec">
+
+    <div class="timer-section">
+      <div class="timer-ring-wrap">
+        <svg class="timer-svg" viewBox="0 0 160 160">
+          <circle class="timer-track" cx="80" cy="80" r="70"/>
+          <circle class="timer-fill" id="timer-fill" cx="80" cy="80" r="70"/>
+        </svg>
+        <div class="timer-display">
+          <span class="timer-time" id="timer-display">25:00</span>
+          <span class="timer-label" id="timer-label">aguardando</span>
+        </div>
+      </div>
+      <div class="timer-controls">
+        <button class="timer-btn primary" id="btn-start" onclick="toggleTimer()">iniciar</button>
+        <button class="timer-btn" onclick="resetTimer()">reiniciar</button>
+      </div>
     </div>
 
-    <div class="field-wrap">
-      <span class="field-label">Detalhes (opcional — joga tudo aqui)</span>
-      <textarea id="input-context" placeholder="qualquer coisa que você sabe sobre essa tarefa, mesmo fragmentado..."></textarea>
+    <div class="mode-select">
+      <button class="mode-btn active" onclick="setMode('foco',this)">Foco</button>
+      <button class="mode-btn" onclick="setMode('pausa-curta',this)">Pausa curta (5min)</button>
+      <button class="mode-btn" onclick="setMode('pausa-longa',this)">Pausa longa (15min)</button>
     </div>
 
-    <button class="btn-start" onclick="iniciar()">ENTRAR EM FOCO</button>
+    <div class="steps-section" id="steps-section">
+      <div class="empty-state" id="empty-state">
+        <span class="empty-icon">🎯</span>
+        <p class="empty-text">preencha a tarefa ao lado<br>e quebre em passos</p>
+      </div>
+      <div id="loading-state" class="loading" style="display:none;">
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <span class="loading-dot"></span>
+        <p style="margin-top:1rem;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);">quebrando em passos...</p>
+      </div>
+      <div id="steps-container" style="display:none;">
+        <div class="steps-header">
+          <span class="steps-title">passos</span>
+          <span class="steps-progress" id="steps-progress">0/0</span>
+        </div>
+        <div class="step-list" id="step-list"></div>
+        <div class="win-banner" id="win-banner">
+          <div class="win-title">Tarefa concluída. ✦</div>
+          <div class="win-sub">agora descansa um pouco.</div>
+        </div>
+        <button class="btn-gerar" style="margin-top:1.5rem;background:transparent;border:1.5px solid var(--border);color:var(--muted);" onclick="resetTudo()">nova tarefa</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- TELA FOCO -->
-<div id="screen-focus">
-  <div class="focus-header">
-    <div class="task-title" id="header-task">—</div>
-    <div class="progress-wrap">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-      </div>
-      <span class="progress-label" id="progress-label">0/0</span>
-    </div>
-  </div>
-
-  <div class="focus-main">
-    <div class="loading-wrap active" id="loading">
-      <div class="loading-dots">
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      </div>
-      <span class="loading-text">quebrando em passos...</span>
-    </div>
-
-    <div id="step-content" style="display:none; flex-direction:column; align-items:center; gap:1.5rem; width:100%;">
-      <span class="step-number" id="step-number">passo 1</span>
-      <div class="step-text" id="step-text">—</div>
-      <div class="step-hint" id="step-hint"></div>
-
-      <div class="timer-wrap">
-        <div class="timer-display" id="timer-display">--:--</div>
-        <span class="timer-label">tempo estimado</span>
-      </div>
-
-      <div class="action-row">
-        <button class="btn-done" onclick="proximoPasso()">✓ FEZ</button>
-        <button class="btn-skip" onclick="proximoPasso(true)">pular →</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="steps-sidebar" id="steps-sidebar"></div>
-</div>
-
-<!-- TELA CONCLUSÃO -->
-<div id="screen-done">
-  <div class="done-title">FEI<span>T</span>O.</div>
-  <p class="done-sub">você fez. isso conta.</p>
-  <button class="btn-restart" onclick="reiniciar()">nova tarefa →</button>
-</div>
+<footer>
+  <span class="footer-name">Yumi Cugler.</span>
+  <span class="footer-copy">modo foco · projetado para TDAH</span>
+</footer>
 
 <script>
+// ─── TIMER ────────────────────────────────────
+let timerTotal = 25*60;
+let timerLeft  = timerTotal;
+let timerRunning = false;
+let timerInterval = null;
+const modes = { foco:25, 'pausa-curta':5, 'pausa-longa':15 };
+let currentMode = 'foco';
+
+function setMode(mode, btn){
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  timerTotal = modes[mode]*60;
+  timerLeft  = timerTotal;
+  timerRunning = false;
+  clearInterval(timerInterval);
+  document.getElementById('btn-start').textContent = 'iniciar';
+  updateTimerDisplay();
+}
+
+function toggleTimer(){
+  if(timerRunning){ clearInterval(timerInterval); timerRunning=false; document.getElementById('btn-start').textContent='continuar'; document.getElementById('timer-label').textContent='pausado'; }
+  else{ timerRunning=true; document.getElementById('btn-start').textContent='pausar'; document.getElementById('timer-label').textContent= currentMode==='foco'?'focando...':'descansando...'; timerInterval=setInterval(tick,1000); }
+}
+
+function tick(){
+  if(timerLeft<=0){ clearInterval(timerInterval); timerRunning=false; document.getElementById('btn-start').textContent='iniciar'; document.getElementById('timer-label').textContent='concluído!'; new Notification&&Notification.permission==='granted'&&new Notification('⏱ Tempo!',{body:currentMode==='foco'?'Sessão de foco concluída.':'Pausa encerrada.'}); return; }
+  timerLeft--;
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay(){
+  const m=Math.floor(timerLeft/60).toString().padStart(2,'0');
+  const s=(timerLeft%60).toString().padStart(2,'0');
+  document.getElementById('timer-display').textContent=m+':'+s;
+  const pct=timerLeft/timerTotal;
+  const circ=2*Math.PI*70;
+  const fill=document.getElementById('timer-fill');
+  fill.style.strokeDashoffset=circ*pct;
+  fill.className='timer-fill'+(currentMode!=='foco'?' green':'');
+}
+
+function resetTimer(){ clearInterval(timerInterval); timerRunning=false; timerLeft=timerTotal; document.getElementById('btn-start').textContent='iniciar'; document.getElementById('timer-label').textContent='aguardando'; updateTimerDisplay(); }
+
+// ─── PASSOS ───────────────────────────────────
 let steps = [];
 let currentStep = 0;
-let timerInterval = null;
-let timerSeconds = 0;
 
-async function iniciar() {
-  const task = document.getElementById('input-task').value.trim();
-  const context = document.getElementById('input-context').value.trim();
+async function gerarPassos(){
+  const tarefa = document.getElementById('input-tarefa').value.trim();
+  if(!tarefa){ alert('Descreve a tarefa antes de continuar.'); return; }
+  const objetivo = document.getElementById('input-objetivo').value.trim();
+  const tempo    = document.getElementById('input-tempo').value;
+  const estado   = document.getElementById('input-estado').value;
 
-  if (!task) {
-    document.getElementById('input-task').focus();
-    return;
-  }
+  document.getElementById('btn-gerar').disabled=true;
+  document.getElementById('empty-state').style.display='none';
+  document.getElementById('steps-container').style.display='none';
+  document.getElementById('loading-state').style.display='block';
+  document.getElementById('status-badge').textContent='● gerando passos...';
 
-  document.getElementById('screen-start').style.display = 'none';
-  document.getElementById('screen-focus').classList.add('active');
-  document.getElementById('header-task').textContent = task;
+  const prompt = `Você é especialista em produtividade para pessoas com TDAH. Preciso que você quebre a seguinte tarefa em no máximo 6 passos de ação concretos, pequenos e realizáveis.
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: `Você ajuda pessoas com TDAH a executar tarefas. Sua função é quebrar qualquer tarefa em passos MUITO pequenos, concretos e imediatos — cada passo deve levar no máximo 10 minutos e ser inequívoco (sem ambiguidade sobre o que fazer).
+TAREFA: ${tarefa}
+${objetivo?'OBJETIVO FINAL: '+objetivo:''}
+TEMPO DISPONÍVEL: ${tempo} minutos
+ESTADO ATUAL: ${estado}
 
-REGRAS:
-- Máximo 6 passos
-- Cada passo começa com um verbo de ação (Abrir, Escrever, Copiar, Escolher, etc.)
-- Nada de passos vagos como "pesquisar sobre o assunto" — seja específico
-- O primeiro passo deve ser ridiculamente fácil para quebrar a inércia
-- Inclua uma dica curta de motivação ou estratégia para TDAH quando relevante
+Regras importantes:
+- Máximo 6 passos, idealmente 4-5
+- O primeiro passo deve ser RIDICULAMENTE fácil — algo que leve menos de 2 minutos e quebre a inércia
+- Cada passo deve ser uma ação específica, não uma categoria ("abrir o documento e colocar o cursor no parágrafo 2", não "revisar o texto")
+- Se o estado for "travada" ou "sobrecarregada", os passos devem ser ainda menores
+- Se for "hiperfoco", podem ser um pouco mais densos
+- Linguagem direta, sem rodeios
 
-Retorne APENAS JSON válido, sem markdown:
-{
-  "steps": [
-    {
-      "action": "texto curto do passo (máx 8 palavras, imperativo)",
-      "hint": "dica opcional de 1 linha ou string vazia",
-      "minutes": número de minutos estimados (1-10)
-    }
-  ]
-}`,
-        messages: [{
-          role: 'user',
-          content: `Tarefa: ${task}${context ? '\nContexto: ' + context : ''}\n\nQuebra em passos para TDAH.`
-        }]
+Responda APENAS com um JSON válido neste formato exato, sem mais nada:
+{"passos":["passo 1","passo 2","passo 3"]}`;
+
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:600,
+        messages:[{role:'user',content:prompt}]
       })
     });
-
     const data = await res.json();
-    const raw = data.content?.map(b => b.text || '').join('') || '{}';
-    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
-    steps = parsed.steps || [];
+    const text = data.content.map(i=>i.text||'').join('');
+    const clean = text.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(clean);
+    steps = parsed.passos||[];
+    currentStep = 0;
 
-  } catch (e) {
-    // fallback se API falhar
-    steps = [
-      { action: 'Abrir o documento ou arquivo necessário', hint: 'só abrir. não precisa fazer nada ainda.', minutes: 1 },
-      { action: 'Ler ou relembrar o objetivo', hint: '', minutes: 2 },
-      { action: 'Fazer a primeira parte, só ela', hint: 'ignore o resto por enquanto', minutes: 10 },
-      { action: 'Revisar o que fez até agora', hint: '', minutes: 5 },
-      { action: 'Finalizar e salvar', hint: 'feito é melhor que perfeito', minutes: 5 }
-    ];
+    timerTotal = parseInt(tempo)*60;
+    timerLeft  = timerTotal;
+    resetTimer();
+
+    renderSteps();
+    document.getElementById('loading-state').style.display='none';
+    document.getElementById('steps-container').style.display='block';
+    document.getElementById('status-badge').textContent='● pronto para focar';
+    document.getElementById('btn-gerar').disabled=false;
+  }catch(e){
+    document.getElementById('loading-state').style.display='none';
+    document.getElementById('empty-state').style.display='flex';
+    document.getElementById('status-badge').textContent='● erro — tente novamente';
+    document.getElementById('btn-gerar').disabled=false;
+    console.error(e);
   }
-
-  document.getElementById('loading').classList.remove('active');
-  renderSidebar();
-  mostrarPasso(0);
 }
 
-function renderSidebar() {
-  const sidebar = document.getElementById('steps-sidebar');
-  sidebar.innerHTML = steps.map((s, i) =>
-    `<span class="step-pill" id="pill-${i}">${i + 1}. ${s.action}</span>`
-  ).join('');
+function renderSteps(){
+  const list = document.getElementById('step-list');
+  const prog = document.getElementById('steps-progress');
+  const done = steps.filter((_,i)=>i<currentStep).length;
+  prog.textContent = done+'/'+steps.length;
+  list.innerHTML = steps.map((s,i)=>{
+    let cls='step-item';
+    let check='';
+    if(i<currentStep){cls+=' done';check='✓';}
+    else if(i===currentStep){cls+=' current';}
+    else{cls+=' locked';}
+    return`<div class="${cls}" onclick="marcarPasso(${i})">
+      <span class="step-num">${String(i+1).padStart(2,'0')}</span>
+      <span class="step-text">${s}</span>
+      <span class="step-check">${check}</span>
+    </div>`;
+  }).join('');
+  const win=document.getElementById('win-banner');
+  if(currentStep>=steps.length&&steps.length>0){win.classList.add('show');clearInterval(timerInterval);timerRunning=false;}
+  else{win.classList.remove('show');}
 }
 
-function mostrarPasso(index) {
-  if (index >= steps.length) {
-    concluir();
-    return;
-  }
-
-  currentStep = index;
-  const step = steps[index];
-
-  document.getElementById('step-content').style.display = 'flex';
-  document.getElementById('step-number').textContent = `passo ${index + 1} de ${steps.length}`;
-
-  const stepTextEl = document.getElementById('step-text');
-  stepTextEl.style.animation = 'none';
-  stepTextEl.offsetHeight;
-  stepTextEl.style.animation = '';
-  stepTextEl.textContent = step.action;
-
-  document.getElementById('step-hint').textContent = step.hint || '';
-
-  // atualizar pills
-  document.querySelectorAll('.step-pill').forEach((p, i) => {
-    p.className = 'step-pill' + (i < index ? ' done' : i === index ? ' current' : '');
-  });
-
-  // progresso
-  const pct = Math.round((index / steps.length) * 100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = `${index}/${steps.length}`;
-
-  // timer
-  iniciarTimer(step.minutes || 5);
+function marcarPasso(i){
+  if(i===currentStep){ currentStep++; renderSteps(); }
 }
 
-function iniciarTimer(minutes) {
-  if (timerInterval) clearInterval(timerInterval);
-  timerSeconds = minutes * 60;
-  atualizarTimer();
-
-  timerInterval = setInterval(() => {
-    timerSeconds--;
-    atualizarTimer();
-    if (timerSeconds <= 0) {
-      clearInterval(timerInterval);
-    }
-  }, 1000);
+function resetTudo(){
+  steps=[];currentStep=0;
+  document.getElementById('steps-container').style.display='none';
+  document.getElementById('empty-state').style.display='flex';
+  document.getElementById('input-tarefa').value='';
+  document.getElementById('input-objetivo').value='';
+  document.getElementById('status-badge').textContent='● em espera';
+  resetTimer();
 }
 
-function atualizarTimer() {
-  const m = Math.floor(Math.abs(timerSeconds) / 60);
-  const s = Math.abs(timerSeconds) % 60;
-  const display = document.getElementById('timer-display');
-  const prefix = timerSeconds < 0 ? '+' : '';
-  display.textContent = `${prefix}${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-
-  display.className = 'timer-display';
-  if (timerSeconds <= 60 && timerSeconds > 0) display.classList.add('warning');
-  if (timerSeconds <= 0) display.classList.add('urgent');
-}
-
-function proximoPasso(skip = false) {
-  if (timerInterval) clearInterval(timerInterval);
-
-  const pill = document.getElementById(`pill-${currentStep}`);
-  if (pill) pill.className = 'step-pill done';
-
-  document.getElementById('progress-fill').style.width =
-    Math.round(((currentStep + 1) / steps.length) * 100) + '%';
-  document.getElementById('progress-label').textContent =
-    `${currentStep + 1}/${steps.length}`;
-
-  mostrarPasso(currentStep + 1);
-}
-
-function concluir() {
-  if (timerInterval) clearInterval(timerInterval);
-  document.getElementById('screen-focus').classList.remove('active');
-  document.getElementById('screen-done').classList.add('active');
-}
-
-function reiniciar() {
-  steps = [];
-  currentStep = 0;
-  if (timerInterval) clearInterval(timerInterval);
-
-  document.getElementById('screen-done').classList.remove('active');
-  document.getElementById('screen-focus').classList.remove('active');
-  document.getElementById('screen-start').style.display = '';
-
-  document.getElementById('input-task').value = '';
-  document.getElementById('input-context').value = '';
-  document.getElementById('loading').classList.add('active');
-  document.getElementById('step-content').style.display = 'none';
-}
-
-// enter para iniciar
-document.getElementById('input-task').addEventListener('keydown', e => {
-  if (e.key === 'Enter') iniciar();
-});
+updateTimerDisplay();
 </script>
 </body>
 </html>
