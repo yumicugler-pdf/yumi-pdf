@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Holmy Informativos | Yumi Cugler</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+nav-area{display:block;margin-bottom:2rem;}
+.case-back{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:0.5rem;transition:color 0.15s;}
+.case-back:hover{color:var(--purple);}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--purple);}
+.breadcrumb span{opacity:0.4;}
+
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-social{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);}
+.tag-jorn{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-design{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.case-title{font-family:'Fraunces',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+
+.ficha{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin-bottom:3rem;}
+.ficha-item{background:var(--white);padding:1.25rem;}
+.ficha-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;}
+.ficha-value{font-family:'Fraunces',serif;font-size:17px;font-weight:700;font-style:italic;color:var(--charcoal);}
+
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'Fraunces',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+
+/* CARROSSEL */
+.carousel-block{margin-bottom:3.5rem;}
+.carousel-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1rem;}
+.carousel-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;}
+.carousel-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+.carousel-source{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:12px;}
+
+.carousel{display:flex;gap:12px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;}
+.carousel:active{cursor:grabbing;}
+.carousel::-webkit-scrollbar{height:4px;}
+.carousel::-webkit-scrollbar-track{background:var(--cream-dk);border-radius:2px;}
+.carousel::-webkit-scrollbar-thumb{background:var(--charcoal-lt);border-radius:2px;}
+
+.carousel-slide{flex-shrink:0;scroll-snap-align:start;border-radius:12px;overflow:hidden;border:1.5px solid var(--rule);position:relative;}
+.carousel-slide.portrait{width:240px;height:300px;}
+.carousel-slide.square{width:280px;height:280px;}
+.carousel-slide img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform 0.3s;}
+.carousel-slide:hover img{transform:scale(1.03);}
+.slide-num{position:absolute;top:10px;left:10px;background:rgba(0,0,0,0.55);color:white;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;padding:3px 8px;border-radius:100px;}
+
+.decisions{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--purple);}
+.decision-card.green{border-left-color:var(--green);}
+.decision-card.dark{border-left-color:var(--charcoal);}
+.decision-element{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;font-weight:500;}
+.decision-card.green .decision-element{color:var(--green);}
+.decision-card.dark .decision-element{color:var(--charcoal-lt);}
+.decision-why{font-size:14px;color:var(--charcoal);line-height:1.6;}
+
+.learnings{background:var(--purple);border-radius:12px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:#c4aff0;}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+
+.divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'Fraunces',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--purple);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+@media(max-width:600px){.ficha{grid-template-columns:1fr 1fr;}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
+</style>
+</head>
+<body>
+
+<div style="margin-bottom:1.5rem;">
+  <div class="breadcrumb">
+    <a href="index.html">portfólio</a><span>/</span>
+    <a href="holmy.html">holmy</a><span>/</span>
+    <span style="color:var(--charcoal);">informativos</span>
+  </div>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-social">Social Media</span>
+    <span class="meta-tag tag-jorn">Jornalismo Aplicado</span>
+    <span class="meta-tag tag-design">Design Editorial</span>
+  </div>
+  <h1 class="case-title">Holmy —<br><em>Informativos.</em></h1>
+  <p class="case-subtitle">Produção de conteúdo informativo para o Instagram da Holmy: apuração de dados, hierarquia editorial e design de comunicação integrados em uma mesma peça.</p>
+</div>
+
+<div class="ficha">
+  <div class="ficha-item"><p class="ficha-label">Formato</p><p class="ficha-value">Carrossel</p></div>
+  <div class="ficha-item"><p class="ficha-label">Plataforma</p><p class="ficha-value">Instagram</p></div>
+  <div class="ficha-item"><p class="ficha-label">Autonomia</p><p class="ficha-value">Pauta + Copy + Arte</p></div>
+  <div class="ficha-item"><p class="ficha-label">Aprovação</p><p class="ficha-value">Cliente</p></div>
+  <div class="ficha-item"><p class="ficha-label">Áreas</p><p class="ficha-value">Social + Jornalismo</p></div>
+  <div class="ficha-item"><p class="ficha-label">Marca</p><p class="ficha-value">Holmy</p></div>
+</div>
+
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">Onde <em>jornalismo e social media</em> se encontram.</h2>
+  <p>A Holmy é uma plataforma de hospedagens selecionadas. O desafio dos informativos era ir além do conteúdo promocional — criar peças que educassem, informassem e posicionassem a marca como referência no segmento de turismo de experiência.</p>
+  <p>Para isso, cada peça passou por um processo de <strong>apuração real</strong>: identificação de dados confiáveis, curadoria de fontes e tradução de informação técnica em linguagem acessível e visualmente coerente com a identidade da marca. É onde o olhar jornalístico se aplica diretamente ao social media.</p>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">02 — as peças</p>
+  <h2 class="section-title">O que foi <em>produzido.</em></h2>
+
+  <!-- CARROSSEL 1 -->
+  <div class="carousel-block">
+    <div class="carousel-header">
+      <span class="carousel-title">O turismo de 2026 não é sobre destino</span>
+      <span class="carousel-subtitle">9 slides</span>
+    </div>
+    <p class="carousel-source">Fontes: TRVL Lab/Sebrae · ALL Accor (2026)</p>
+    <div class="carousel" id="c1">
+      <div class="carousel-slide portrait"><img src="slides/turismo-1.jpg" alt="slide 1"><span class="slide-num">01</span></div>
+      <div class="carousel-slide portrait"><img src="slides/turismo-2.jpg" alt="slide 2"><span class="slide-num">02</span></div>
+      <div class="carousel-slide portrait"><img src="slides/turismo-3.jpg" alt="slide 3"><span class="slide-num">03</span></div>
+      <div class="carousel-slide portrait"><img src="slides/turismo-4.jpg" alt="slide 4"><span class="slide-num">04</span></div>
+      <div class="carousel-slide portrait"><img src="slides/turismo-5.jpg" alt="slide 5"><span class="slide-num">05</span></div>
+      <div class="carousel-slide portrait"><img src="slides/turismo-6.jpg" alt="slide 6"><span class="slide-num">06</span></div>
+      <div class="carousel-slide portrait"><img src="slides/turismo-7.jpg" alt="slide 7"><span class="slide-num">07</span></div>
+      <div class="carousel-slide portrait"><img src="slides/turismo-8.jpg" alt="slide 8"><span class="slide-num">08</span></div>
+    </div>
+  </div>
+
+  <!-- CARROSSEL 2 -->
+  <div class="carousel-block">
+    <div class="carousel-header">
+      <span class="carousel-title">5 erros que fazem você perder o refúgio perfeito</span>
+      <span class="carousel-subtitle">8 slides</span>
+    </div>
+    <p class="carousel-source">Produção editorial própria</p>
+    <div class="carousel" id="c2">
+      <div class="carousel-slide portrait"><img src="slides/erros-1.jpg" alt="slide 1"><span class="slide-num">01</span></div>
+      <div class="carousel-slide portrait"><img src="slides/erros-2.jpg" alt="slide 2"><span class="slide-num">02</span></div>
+      <div class="carousel-slide portrait"><img src="slides/erros-3.jpg" alt="slide 3"><span class="slide-num">03</span></div>
+      <div class="carousel-slide portrait"><img src="slides/erros-4.jpg" alt="slide 4"><span class="slide-num">04</span></div>
+      <div class="carousel-slide portrait"><img src="slides/erros-5.jpg" alt="slide 5"><span class="slide-num">05</span></div>
+      <div class="carousel-slide portrait"><img src="slides/erros-6.jpg" alt="slide 6"><span class="slide-num">06</span></div>
+      <div class="carousel-slide portrait"><img src="slides/erros-7.jpg" alt="slide 7"><span class="slide-num">07</span></div>
+      <div class="carousel-slide portrait"><img src="slides/erros-8.jpg" alt="slide 8"><span class="slide-num">08</span></div>
+    </div>
+  </div>
+
+  <!-- CARROSSEL 3 -->
+  <div class="carousel-block">
+    <div class="carousel-header">
+      <span class="carousel-title">O que verificar antes de reservar uma hospedagem</span>
+      <span class="carousel-subtitle">7 slides</span>
+    </div>
+    <p class="carousel-source">Produção editorial própria</p>
+    <div class="carousel" id="c3">
+      <div class="carousel-slide portrait"><img src="slides/checklist-1.jpg" alt="slide 1"><span class="slide-num">01</span></div>
+      <div class="carousel-slide portrait"><img src="slides/checklist-2.jpg" alt="slide 2"><span class="slide-num">02</span></div>
+      <div class="carousel-slide portrait"><img src="slides/checklist-3.jpg" alt="slide 3"><span class="slide-num">03</span></div>
+      <div class="carousel-slide portrait"><img src="slides/checklist-4.jpg" alt="slide 4"><span class="slide-num">04</span></div>
+      <div class="carousel-slide portrait"><img src="slides/checklist-5.jpg" alt="slide 5"><span class="slide-num">05</span></div>
+      <div class="carousel-slide portrait"><img src="slides/checklist-6.jpg" alt="slide 6"><span class="slide-num">06</span></div>
+      <div class="carousel-slide portrait"><img src="slides/checklist-7.jpg" alt="slide 7"><span class="slide-num">07</span></div>
+    </div>
+  </div>
+
+  <!-- CARROSSEL 4 -->
+  <div class="carousel-block">
+    <div class="carousel-header">
+      <span class="carousel-title">E se a gente passasse a consumir experiências?</span>
+      <span class="carousel-subtitle">8 slides · Dia do Consumidor</span>
+    </div>
+    <p class="carousel-source">Produção editorial própria</p>
+    <div class="carousel" id="c4">
+      <div class="carousel-slide portrait"><img src="slides/consumo-1.jpg" alt="slide 1"><span class="slide-num">01</span></div>
+      <div class="carousel-slide portrait"><img src="slides/consumo-2.jpg" alt="slide 2"><span class="slide-num">02</span></div>
+      <div class="carousel-slide portrait"><img src="slides/consumo-3.jpg" alt="slide 3"><span class="slide-num">03</span></div>
+      <div class="carousel-slide portrait"><img src="slides/consumo-4.jpg" alt="slide 4"><span class="slide-num">04</span></div>
+      <div class="carousel-slide portrait"><img src="slides/consumo-5.jpg" alt="slide 5"><span class="slide-num">05</span></div>
+      <div class="carousel-slide portrait"><img src="slides/consumo-6.jpg" alt="slide 6"><span class="slide-num">06</span></div>
+      <div class="carousel-slide portrait"><img src="slides/consumo-7.jpg" alt="slide 7"><span class="slide-num">07</span></div>
+      <div class="carousel-slide portrait"><img src="slides/consumo-8.jpg" alt="slide 8"><span class="slide-num">08</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">03 — decisões editoriais e de design</p>
+  <h2 class="section-title">O porquê de cada<br><em>escolha.</em></h2>
+  <div class="decisions">
+    <div class="decision-card">
+      <p class="decision-element">Apuração de fontes primárias</p>
+      <p class="decision-why">Todos os dados foram apurados em fontes verificáveis — TRVL Lab/Sebrae, ALL Accor (2026), CVC, Ministério do Turismo + FGV. O rigor jornalístico na seleção de fontes é o que diferencia um infográfico com autoridade de um post com dado inventado.</p>
+    </div>
+    <div class="decision-card green">
+      <p class="decision-element">Hierarquia de informação no design</p>
+      <p class="decision-why">Cada slide foi estruturado com uma hierarquia clara: título conceitual → dado central → contexto → CTA implícito. A lógica editorial guia a leitura e impede que a estética esvazie o conteúdo.</p>
+    </div>
+    <div class="decision-card dark">
+      <p class="decision-element">Identidade visual consistente com variação de tom</p>
+      <p class="decision-why">Os informativos mantêm a mesma base visual da marca mas variam o tom conforme o conteúdo — fundo escuro para peças de impacto, fundo claro para peças educativas. Consistência de marca sem monotonia.</p>
+    </div>
+    <div class="decision-card">
+      <p class="decision-element">Linguagem editorial sem vícios de agência</p>
+      <p class="decision-why">O copy foi escrito deliberadamente sem os clichês do social media corporativo. A informação fala por si quando bem estruturada.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">04 — aprendizados</p>
+  <div class="learnings">
+    <p class="section-label">✦ o que esse projeto ensinou</p>
+    <h2 class="section-title">Além do <em>conteúdo.</em></h2>
+    <ul class="learning-list">
+      <li><strong>Jornalismo e social media não são opostos.</strong> O rigor de apuração que estrutura uma reportagem é o mesmo que diferencia um conteúdo informativo com autoridade de um post genérico.</li>
+      <li><strong>Fonte citada não é detalhe — é argumento.</strong> Incluir a origem dos dados muda a relação do público com o conteúdo: de entretenimento para referência.</li>
+      <li><strong>Design editorial é design estratégico.</strong> A hierarquia visual não serve à estética — serve à compreensão.</li>
+      <li><strong>Conteúdo educativo converte melhor do que conteúdo promocional.</strong> Peças que ensinam algo constroem confiança antes de pedir qualquer ação.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note">social media · jornalismo · design</span>
+</div>
+
+<script>
+// Drag to scroll carousels
+document.querySelectorAll('.carousel').forEach(carousel => {
+  let isDown = false, startX, scrollLeft;
+  carousel.addEventListener('mousedown', e => { isDown = true; carousel.classList.add('active'); startX = e.pageX - carousel.offsetLeft; scrollLeft = carousel.scrollLeft; });
+  carousel.addEventListener('mouseleave', () => { isDown = false; carousel.classList.remove('active'); });
+  carousel.addEventListener('mouseup', () => { isDown = false; carousel.classList.remove('active'); });
+  carousel.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - carousel.offsetLeft; const walk = (x - startX) * 1.5; carousel.scrollLeft = scrollLeft - walk; });
+});
+</script>
+</body>
+</html>
