@@ -33,11 +33,9 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 .section p{color:var(--charcoal-lt);margin-bottom:1rem;}
 .section p strong{color:var(--charcoal);}
 
-/* COLLAB BADGE */
 .collab-badge{display:inline-flex;align-items:center;gap:10px;background:var(--white);border:1.5px solid var(--rule);border-radius:100px;padding:8px 16px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--charcoal-lt);margin-bottom:1.5rem;}
 .collab-badge strong{color:var(--purple);}
 
-/* DESAFIO IDs */
 .id-compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;}
 .id-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem;}
 .id-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;font-weight:500;}
@@ -46,23 +44,26 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 .id-desc{font-size:13px;color:var(--charcoal-lt);line-height:1.6;}
 .id-result{background:var(--cream-dk);border:1.5px solid var(--rule);border-left:4px solid var(--charcoal);border-radius:8px;padding:1rem 1.25rem;margin-top:0.5rem;font-size:13px;color:var(--charcoal);line-height:1.6;}
 
-.carousel-block{margin-bottom:3rem;}
-.carousel-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1rem;}
-.carousel-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;}
-.carousel-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
-.carousel-source{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:12px;}
-.carousel{display:flex;gap:12px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;}
+/* PEÇA HEADER */
+.peca-header{margin-bottom:0.75rem;}
+.peca-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px;}
+.peca-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.peca-slides{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+.peca-source{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);}
+.peca-collab{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:#fafaf7;background:#3d2070;padding:3px 10px;border-radius:100px;}
+
+.carousel-block{margin-bottom:2.5rem;}
+.carousel{display:flex;gap:12px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;margin-top:12px;}
 .carousel:active{cursor:grabbing;}
 .carousel::-webkit-scrollbar{height:4px;}
 .carousel::-webkit-scrollbar-track{background:var(--cream-dk);border-radius:2px;}
 .carousel::-webkit-scrollbar-thumb{background:var(--charcoal-lt);border-radius:2px;}
 .carousel-slide{flex-shrink:0;scroll-snap-align:start;border-radius:12px;overflow:hidden;border:1.5px solid var(--rule);position:relative;}
 .carousel-slide.portrait{width:240px;height:300px;}
-.carousel-slide.story{width:168px;height:300px;}
 .carousel-slide img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform 0.3s;}
 .carousel-slide:hover img{transform:scale(1.03);}
 .slide-num{position:absolute;top:10px;left:10px;background:rgba(0,0,0,0.55);color:white;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;padding:3px 8px;border-radius:100px;}
-.collab-tag{position:absolute;top:10px;right:10px;background:rgba(61,32,112,0.8);color:#fafaf7;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:100px;}
+.slide-collab{position:absolute;top:10px;right:10px;background:rgba(61,32,112,0.8);color:#fafaf7;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:100px;}
 
 .decisions{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
 .decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--purple);}
@@ -100,16 +101,16 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
   <div class="case-meta">
     <span class="meta-tag tag-social">Social Media</span>
     <span class="meta-tag tag-jorn">Estratégia Narrativa</span>
-    <span class="meta-tag tag-design">Collab · Dupla Identidade</span>
+    <span class="meta-tag tag-design">Dupla Identidade · Collab</span>
   </div>
   <h1 class="case-title">Holmy —<br><em>Semana das Mulheres.</em></h1>
-  <p class="case-subtitle">Série editorial criada para o Dia Internacional da Mulher — uma narrativa construída em torno de dados reais, depoimentos e o desafio de unir duas identidades visuais distintas em uma linguagem coerente.</p>
+  <p class="case-subtitle">Série editorial criada para o Dia Internacional da Mulher — narrativa construída com dados reais, depoimentos e o desafio de unir duas identidades visuais distintas em uma linguagem coerente.</p>
 </div>
 
 <div class="ficha">
-  <div class="ficha-item"><p class="ficha-label">Formato</p><p class="ficha-value">Feed + Story</p></div>
+  <div class="ficha-item"><p class="ficha-label">Formato</p><p class="ficha-value">Carrossel · Feed</p></div>
   <div class="ficha-item"><p class="ficha-label">Plataforma</p><p class="ficha-value">Instagram</p></div>
-  <div class="ficha-item"><p class="ficha-label">Collab</p><p class="ficha-value">@weforwoman</p></div>
+  <div class="ficha-item"><p class="ficha-label">Collab (1 peça)</p><p class="ficha-value">@weforwoman</p></div>
   <div class="ficha-item"><p class="ficha-label">Autonomia</p><p class="ficha-value">Pauta + Copy + Arte</p></div>
   <div class="ficha-item"><p class="ficha-label">Aprovação</p><p class="ficha-value">Cliente</p></div>
   <div class="ficha-item"><p class="ficha-label">Marca</p><p class="ficha-value">Holmy</p></div>
@@ -119,23 +120,9 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
   <p class="section-label">01 — contexto</p>
   <h2 class="section-title">Mais que uma <em>data comemorativa.</em></h2>
   <p>O 8 de março é uma das datas em que o Instagram fica saturado de conteúdo genérico. O desafio era criar algo que se sustentasse além da data e que fosse verdadeiramente relevante para o público da Holmy.</p>
-  <p>A decisão foi transformar a data em uma <strong>série editorial com lógica narrativa progressiva</strong>, sustentada por dados reais sobre turismo feminino e ancorada em uma collab com a @weforwoman — plataforma com audiência qualificada no mesmo segmento.</p>
+  <p>A decisão foi transformar a data em uma <strong>série editorial com lógica narrativa progressiva</strong>, sustentada por dados reais sobre turismo feminino. Uma das peças foi produzida em collab com a @weforwoman — plataforma com audiência qualificada no mesmo segmento. As demais foram produções independentes da Holmy.</p>
 
-  <div class="collab-badge">✦ collab: <strong>@holmy</strong> + <strong>@weforwoman</strong></div>
 
-  <p>A collab trouxe um desafio específico de design: unir duas identidades visuais distintas em peças que funcionassem para os dois perfis sem perder coerência.</p>
-
-  <div class="id-compare">
-    <div class="id-card id-holmy">
-      <p class="id-label">Holmy</p>
-      <p class="id-desc">Paleta quente e terrosa, fotografias de hospedagem, tipografia serif com peso, atmosfera de refúgio e descanso.</p>
-    </div>
-    <div class="id-card id-wfw">
-      <p class="id-label">We for Woman</p>
-      <p class="id-desc">Paleta verde sage, linguagem de movimento feminino, tom de comunidade e empoderamento, estética mais clean.</p>
-    </div>
-  </div>
-  <div class="id-result"><strong>Solução:</strong> o elemento visual do cartão-postal funcionou como território neutro — reconhecível para os dois públicos sem impor a identidade de nenhum dos dois. As fotografias de contexto (natureza, mulheres viajando) serviram como ponte entre os universos.</div>
 </div>
 
 <hr class="divider">
@@ -146,48 +133,34 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 
   <!-- Mala Pronta Feed -->
   <div class="carousel-block">
-    <div class="carousel-header">
-      <span class="carousel-title">Mala Pronta, Coração Aberto — feed</span>
-      <span class="carousel-subtitle">7 slides</span>
+    <div class="peca-header">
+      <p class="peca-title">Mala Pronta, Coração Aberto</p>
+      <div class="peca-meta">
+        <span class="peca-slides">7 slides</span>
+        <span class="peca-collab">collab @weforwoman</span>
+        <span class="peca-source">Fontes: CVC · Ministério do Turismo + FGV · Adventure Horizons Africa</span>
+      </div>
     </div>
-    <p class="carousel-source">Collab @holmy + @weforwoman · Fontes: CVC · Ministério do Turismo + FGV · Adventure Horizons Africa</p>
     <div class="carousel">
-      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-1.jpg" alt="slide 1"><span class="slide-num">01</span><span class="collab-tag">collab</span></div>
-      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-2.jpg" alt="slide 2"><span class="slide-num">02</span><span class="collab-tag">collab</span></div>
-      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-3.jpg" alt="slide 3"><span class="slide-num">03</span><span class="collab-tag">collab</span></div>
-      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-4.jpg" alt="slide 4"><span class="slide-num">04</span><span class="collab-tag">collab</span></div>
-      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-5.jpg" alt="slide 5"><span class="slide-num">05</span><span class="collab-tag">collab</span></div>
-      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-6.jpg" alt="slide 6"><span class="slide-num">06</span><span class="collab-tag">collab</span></div>
-      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-7.jpg" alt="slide 7"><span class="slide-num">07</span><span class="collab-tag">collab</span></div>
+      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-1.jpg" alt="slide 1"><span class="slide-num">01</span><span class="slide-collab">collab</span></div>
+      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-2.jpg" alt="slide 2"><span class="slide-num">02</span><span class="slide-collab">collab</span></div>
+      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-3.jpg" alt="slide 3"><span class="slide-num">03</span><span class="slide-collab">collab</span></div>
+      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-4.jpg" alt="slide 4"><span class="slide-num">04</span><span class="slide-collab">collab</span></div>
+      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-5.jpg" alt="slide 5"><span class="slide-num">05</span><span class="slide-collab">collab</span></div>
+      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-6.jpg" alt="slide 6"><span class="slide-num">06</span><span class="slide-collab">collab</span></div>
+      <div class="carousel-slide portrait"><img src="slides/mulheres-feed-7.jpg" alt="slide 7"><span class="slide-num">07</span><span class="slide-collab">collab</span></div>
     </div>
   </div>
 
-  <!-- Mala Pronta Story -->
+  <!-- Passaporte / Anfitriãs -->
   <div class="carousel-block">
-    <div class="carousel-header">
-      <span class="carousel-title">Mala Pronta, Coração Aberto — story</span>
-      <span class="carousel-subtitle">8 stories</span>
+    <div class="peca-header">
+      <p class="peca-title">Anfitriãs Holmy</p>
+      <div class="peca-meta">
+        <span class="peca-slides">7 slides</span>
+        <span class="peca-source">Produção independente Holmy · Depoimentos reais</span>
+      </div>
     </div>
-    <p class="carousel-source">Versão Stories com engajamento direto ao público</p>
-    <div class="carousel">
-      <div class="carousel-slide story"><img src="slides/mulheres-story-1.jpg" alt="story 1"><span class="slide-num">01</span></div>
-      <div class="carousel-slide story"><img src="slides/mulheres-story-2.jpg" alt="story 2"><span class="slide-num">02</span></div>
-      <div class="carousel-slide story"><img src="slides/mulheres-story-3.jpg" alt="story 3"><span class="slide-num">03</span></div>
-      <div class="carousel-slide story"><img src="slides/mulheres-story-4.jpg" alt="story 4"><span class="slide-num">04</span></div>
-      <div class="carousel-slide story"><img src="slides/mulheres-story-5.jpg" alt="story 5"><span class="slide-num">05</span></div>
-      <div class="carousel-slide story"><img src="slides/mulheres-story-6.jpg" alt="story 6"><span class="slide-num">06</span></div>
-      <div class="carousel-slide story"><img src="slides/mulheres-story-7.jpg" alt="story 7"><span class="slide-num">07</span></div>
-      <div class="carousel-slide story"><img src="slides/mulheres-story-8.jpg" alt="story 8"><span class="slide-num">08</span></div>
-    </div>
-  </div>
-
-  <!-- Passaportes -->
-  <div class="carousel-block">
-    <div class="carousel-header">
-      <span class="carousel-title">Anfitriãs Holmy — passaportes</span>
-      <span class="carousel-subtitle">7 slides</span>
-    </div>
-    <p class="carousel-source">Série de depoimentos reais de anfitriãs da plataforma</p>
     <div class="carousel">
       <div class="carousel-slide portrait"><img src="slides/passaporte-1.jpg" alt="slide 1"><span class="slide-num">01</span></div>
       <div class="carousel-slide portrait"><img src="slides/passaporte-2.jpg" alt="slide 2"><span class="slide-num">02</span></div>
@@ -198,6 +171,60 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
       <div class="carousel-slide portrait"><img src="slides/passaporte-7.jpg" alt="slide 7"><span class="slide-num">07</span></div>
     </div>
   </div>
+
+  <div style="background:var(--cream-dk);border:1.5px solid var(--rule);border-left:4px solid var(--green);border-radius:8px;padding:1rem 1.25rem;margin-bottom:2.5rem;font-size:14px;color:var(--charcoal);line-height:1.7;">
+    <strong>Sobre as Anfitriãs Holmy:</strong> esta série apresenta as donas das hospedagens cadastradas na plataforma — empreendedoras que escolheram a Holmy para anunciar e se tornaram grandes parceiras da marca. O formato passaporte foi escolhido para dar voz a quem está por trás das casas: cada uma tem história, propósito e trajetória.
+  </div>
+
+  <!-- Mulheres que Inspiram -->
+  <div class="carousel-block">
+    <div class="peca-header">
+      <p class="peca-title">Mulheres que Inspiram: Brasileiras Viajantes na História</p>
+      <div class="peca-meta">
+        <span class="peca-slides">12 slides</span>
+        <span class="peca-source">Produção independente Holmy · Apuração histórica</span>
+      </div>
+    </div>
+    <div class="carousel">
+      <div class="carousel-slide portrait"><img src="slides/anita-1.jpg" alt="slide 1"><span class="slide-num">01</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-2.jpg" alt="slide 2"><span class="slide-num">02</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-3.jpg" alt="slide 3"><span class="slide-num">03</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-4.jpg" alt="slide 4"><span class="slide-num">04</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-5.jpg" alt="slide 5"><span class="slide-num">05</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-6.jpg" alt="slide 6"><span class="slide-num">06</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-7.jpg" alt="slide 7"><span class="slide-num">07</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-8.jpg" alt="slide 8"><span class="slide-num">08</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-9.jpg" alt="slide 9"><span class="slide-num">09</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-10.jpg" alt="slide 10"><span class="slide-num">10</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-11.jpg" alt="slide 11"><span class="slide-num">11</span></div>
+      <div class="carousel-slide portrait"><img src="slides/anita-12.jpg" alt="slide 12"><span class="slide-num">12</span></div>
+    </div>
+  </div>
+
+  <!-- Por Trás da Holmy -->
+  <div class="carousel-block">
+    <div class="peca-header">
+      <p class="peca-title">Por Trás da Holmy</p>
+      <div class="peca-meta">
+        <span class="peca-slides">11 slides</span>
+        <span class="peca-source">Produção independente Holmy</span>
+      </div>
+    </div>
+    <div class="carousel">
+      <div class="carousel-slide portrait"><img src="slides/orgulho-1.jpg" alt="slide 1"><span class="slide-num">01</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-2.jpg" alt="slide 2"><span class="slide-num">02</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-3.jpg" alt="slide 3"><span class="slide-num">03</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-4.jpg" alt="slide 4"><span class="slide-num">04</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-5.jpg" alt="slide 5"><span class="slide-num">05</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-6.jpg" alt="slide 6"><span class="slide-num">06</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-7.jpg" alt="slide 7"><span class="slide-num">07</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-8.jpg" alt="slide 8"><span class="slide-num">08</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-9.jpg" alt="slide 9"><span class="slide-num">09</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-10.jpg" alt="slide 10"><span class="slide-num">10</span></div>
+      <div class="carousel-slide portrait"><img src="slides/orgulho-11.jpg" alt="slide 11"><span class="slide-num">11</span></div>
+    </div>
+  </div>
+
 </div>
 
 <hr class="divider">
@@ -207,20 +234,20 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
   <h2 class="section-title">O porquê de cada<br><em>escolha.</em></h2>
   <div class="decisions">
     <div class="decision-card">
-      <p class="decision-element">Cartão-postal como elemento unificador</p>
-      <p class="decision-why">A linguagem do cartão-postal atravessa toda a série como território visual neutro — funcionou para a identidade da Holmy (hospitalidade, deslocamento) e para a @weforwoman (registro de jornada) sem impor nenhum dos dois universos.</p>
+      <p class="decision-element">Cartão-postal como elemento unificador da collab</p>
+      <p class="decision-why">A linguagem do cartão-postal funcionou como território visual neutro — representava os dois universos (hospitalidade da Holmy e registro de jornada da @weforwoman) sem impor nenhum dos dois. Foi a solução para o desafio de unir duas identidades sem diluir nenhuma.</p>
     </div>
     <div class="decision-card green">
       <p class="decision-element">Dados antes do discurso</p>
-      <p class="decision-why">A série foi estruturada para chegar ao emocional passando pelo factual — CVC, FGV, Adventure Horizons Africa aparecem antes das afirmações de valor, dando autoridade à narrativa.</p>
+      <p class="decision-why">A série foi estruturada para chegar ao emocional passando pelo factual — CVC, FGV, Adventure Horizons Africa aparecem antes das afirmações de valor, dando autoridade à narrativa e evitando que o conteúdo pareça apenas romantização.</p>
     </div>
     <div class="decision-card dark">
-      <p class="decision-element">Depoimentos reais como substância da collab</p>
-      <p class="decision-why">O depoimento da fundadora da We for Woman sustenta a collab com conteúdo, não com logotipo. A @weforwoman foi incluída porque sua audiência e propósito são relevantes para o tema — não apenas para alcance.</p>
+      <p class="decision-element">Collab com substância, não com logotipo</p>
+      <p class="decision-why">A @weforwoman foi incluída porque sua audiência e propósito são diretamente relevantes para o tema. O depoimento da fundadora sustenta a parceria com conteúdo real — não é uma troca de marcação de perfil.</p>
     </div>
     <div class="decision-card">
-      <p class="decision-element">Série passaportes — humanizar a marca pelo lado de dentro</p>
-      <p class="decision-why">Mostrar as anfitriãs reais da Holmy inverte o olhar: em vez de falar só de quem hospeda, mostra quem é a marca. Os depoimentos originais foram mantidos, apenas pontuados e ajustados gramaticalmente.</p>
+      <p class="decision-element">Anfitriãs como protagonistas, não como produto</p>
+      <p class="decision-why">Apresentar quem está por trás das hospedagens — com suas histórias e motivações — gera mais confiança do que qualquer descrição de serviço. A escolha pelo formato passaporte reforça que são pessoas reais, não só anunciantes.</p>
     </div>
   </div>
 </div>
@@ -233,10 +260,10 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
     <p class="section-label">✦ o que esse projeto ensinou</p>
     <h2 class="section-title">Além da <em>data.</em></h2>
     <ul class="learning-list">
-      <li><strong>Unir duas identidades exige encontrar o que é comum, não o que é diferente.</strong> O cartão-postal funcionou porque representava os dois universos — não era um meio-termo, era um ponto de encontro.</li>
-      <li><strong>Datas comemorativas são oportunidades narrativas, não obrigações.</strong> A diferença entre um post genérico e uma série com impacto está na decisão de construir uma narrativa.</li>
-      <li><strong>Collab qualificada vale mais do que collab grande.</strong> Trabalhar com uma marca de propósito alinhado — e sustentar isso com conteúdo real — é mais estratégico do que buscar números de alcance.</li>
-      <li><strong>Dados humanizam quando contextualizados.</strong> Um número isolado informa. Um número dentro de uma história move.</li>
+      <li><strong>Unir duas identidades exige encontrar o que é comum, não fazer concessões.</strong> O cartão-postal não foi um meio-termo — foi um ponto de encontro real entre os dois universos.</li>
+      <li><strong>Datas comemorativas são oportunidades narrativas, não obrigações de pauta.</strong> A diferença entre um post genérico e uma série com impacto está na decisão de construir uma narrativa com começo, meio e fim.</li>
+      <li><strong>Collab qualificada vale mais do que collab de alcance.</strong> Trabalhar com uma marca de propósito alinhado e sustentar isso com conteúdo real é mais estratégico do que buscar números de exposição.</li>
+      <li><strong>Dados humanizam quando contextualizados.</strong> Um número isolado informa. Um número dentro de uma história move o público a agir.</li>
     </ul>
   </div>
 </div>
