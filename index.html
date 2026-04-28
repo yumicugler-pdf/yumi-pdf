@@ -191,7 +191,11 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   .tools-header{padding:3rem 1.5rem 1.5rem;}
   nav{padding:1rem 1.5rem;}
   .nav-links a{padding:5px 10px;font-size:10px;}
+  .nav-email{display:none;}
   .hero-left{padding:2.5rem 1.5rem;}
+  .hero-cta{flex-wrap:wrap;}
+  body{cursor:auto;}
+  .cursor,.cursor-ring{display:none;}
   footer{flex-direction:column;gap:6px;padding:1.5rem;text-align:center;}
 }
 </style>
@@ -207,7 +211,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
     <li><a href="#" id="nav-portfolio" class="nav-active" onclick="showPage('portfolio');return false;">portfólio</a></li>
     <li><a href="#" id="nav-ferramentas" onclick="showPage('ferramentas');return false;">ferramentas</a></li>
   </ul>
-  <a href="mailto:yumicugler@outlook.com" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--charcoal-lt);text-decoration:none;cursor:none;transition:color 0.2s;" onmouseenter="this.style.color='#3d2070'" onmouseleave="this.style.color='var(--charcoal-lt)'">yumicugler@outlook.com</a>
+  <a href="mailto:yumicugler@outlook.com" class="nav-email" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--charcoal-lt);text-decoration:none;cursor:none;transition:color 0.2s;" onmouseenter="this.style.color='#3d2070'" onmouseleave="this.style.color='var(--charcoal-lt)'">yumicugler@outlook.com</a>
 </nav>
 
 <!-- ═══ PORTFÓLIO ═══ -->
@@ -322,7 +326,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <span class="subcat-btn">Radiojornalismo</span>
         <span class="subcat-btn">Matérias Escritas</span>
       </div>
-      <div class="work-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="work-grid">
 
         <div class="work-card">
           <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🚌</div>
