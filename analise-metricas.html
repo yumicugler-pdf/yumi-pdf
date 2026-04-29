@@ -4,25 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Análise de Métricas — Yumi Cugler</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--green:#5a8a3c;--green-lt:#8fbe6a;--green-pale:#d4ebbb;--purple:#3d2070;--purple-md:#6b47b8;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
 body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;min-height:100vh;}
 nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--cream);z-index:100;}
-.nav-logo{font-family:'Fraunces',serif;font-size:21px;font-weight:900;color:var(--charcoal);text-decoration:none;letter-spacing:-0.02em;}
-.nav-logo span{color:#3d2070;}
+.nav-logo{font-family:'cooper-black',serif;font-size:21px;font-weight:900;color:var(--charcoal);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--green);}
 .nav-back{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
 .nav-back:hover{color:#3d2070;}
 .page-header{padding:4rem 3.5rem 2.5rem;border-bottom:2px solid var(--charcoal);}
 .page-header-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#5a8a3c;margin-bottom:0.75rem;}
-.page-header-title{font-family:'Fraunces',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:0.95;margin-bottom:0.75rem;}
+.page-header-title{font-family:'cooper-black',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:0.95;margin-bottom:0.75rem;}
 .page-header-title em{font-style:italic;color:#3d2070;}
 .page-header-sub{color:var(--charcoal-lt);max-width:560px;font-size:15px;}
 .main{padding:3rem 3.5rem;max-width:960px;}
 .section{margin-bottom:3rem;}
-.section-title{font-family:'Fraunces',serif;font-size:24px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:2px solid var(--charcoal);}
-.form-card{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;padding:2rem;box-shadow:4px 4px 0 var(--charcoal);}
+.section-title{font-family:'cooper-black',serif;font-size:24px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:2px solid var(--charcoal);}
+.form-card{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;padding:2rem;box-shadow:4px 4px 0 var(--green);}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
 .field label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);}
 .field input,.field select,.field textarea{background:var(--cream);border:1.5px solid var(--rule);border-radius:8px;padding:10px 14px;font-family:'Cabin',sans-serif;font-size:14px;color:var(--charcoal);transition:border 0.15s;outline:none;width:100%;}
@@ -44,7 +45,7 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 .result-card{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;overflow:hidden;box-shadow:4px 4px 0 var(--charcoal);display:none;}
 .result-card.show{display:block;}
 .result-header{background:var(--charcoal);padding:1.5rem 2rem;display:flex;align-items:center;gap:12px;}
-.result-header-title{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--cream);letter-spacing:-0.02em;}
+.result-header-title{font-family:'cooper-black',serif;font-size:22px;font-weight:900;color:var(--cream);letter-spacing:-0.02em;}
 .result-body{padding:2rem;}
 .result-block{margin-bottom:2rem;}
 .result-block:last-child{margin-bottom:0;}
@@ -59,7 +60,7 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 @keyframes blink{0%,80%,100%{opacity:0.2;}40%{opacity:1;}}
 .loading-text{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-top:1rem;}
 footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:3rem;}
-.footer-name{font-family:'Fraunces',serif;font-size:17px;font-weight:700;font-style:italic;}
+.footer-name{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;}
 .footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
 @media(max-width:768px){.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}.preview-grid{grid-template-columns:repeat(3,1fr);}footer{padding:1.5rem;flex-direction:column;gap:6px;}}
 </style>

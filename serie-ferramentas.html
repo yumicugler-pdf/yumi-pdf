@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ferramentas do Claude — Yumi Cugler</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -48,7 +49,7 @@ nav {
 }
 
 .nav-logo {
-  font-family: 'Fraunces', serif;
+  font-family: 'cooper-black', serif;
   font-size: 20px;
   font-weight: 900;
   color: var(--charcoal);
@@ -120,7 +121,7 @@ nav {
 }
 
 .serie-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'cooper-black', serif;
   font-size: clamp(40px, 6vw, 72px);
   font-weight: 900;
   letter-spacing: -0.03em;
@@ -157,7 +158,7 @@ nav {
 }
 
 .meta-value {
-  font-family: 'Fraunces', serif;
+  font-family: 'cooper-black', serif;
   font-size: 28px;
   font-weight: 900;
   font-style: italic;
@@ -191,7 +192,7 @@ nav {
 }
 
 .section-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'cooper-black', serif;
   font-size: clamp(28px, 3.5vw, 40px);
   font-weight: 900;
   letter-spacing: -0.02em;
@@ -301,7 +302,7 @@ nav {
 }
 
 .tool-number {
-  font-family: 'Fraunces', serif;
+  font-family: 'cooper-black', serif;
   font-size: 52px;
   font-weight: 900;
   font-style: italic;
@@ -316,7 +317,7 @@ nav {
 .tool-header-right { flex: 1; }
 
 .tool-name {
-  font-family: 'Fraunces', serif;
+  font-family: 'cooper-black', serif;
   font-size: 26px;
   font-weight: 900;
   letter-spacing: -0.02em;
@@ -460,7 +461,7 @@ footer {
 }
 
 .footer-name {
-  font-family: 'Fraunces', serif;
+  font-family: 'cooper-black', serif;
   font-size: 16px;
   font-weight: 700;
   font-style: italic;
@@ -482,6 +483,54 @@ footer {
   nav { padding: 1rem 1.5rem; }
   footer { flex-direction: column; gap: 6px; padding: 1.5rem; text-align: center; }
   .learnings { padding: 3rem 1.5rem; }
+  .tool-access-section { padding: 3rem 1.5rem; }
+  .tool-access-grid { grid-template-columns: 1fr; }
+}
+
+/* ACESSO RÁPIDO */
+.tool-access-section {
+  padding: 4rem 2rem;
+  background: var(--cream);
+}
+.tool-access-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.tool-access-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.tool-access-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--white);
+  border: 1.5px solid var(--rule);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--charcoal);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.tool-access-card:hover {
+  border-color: var(--green);
+  box-shadow: 4px 4px 0 var(--green);
+  transform: translate(-2px, -2px);
+}
+.tool-access-label {
+  font-family: 'cooper-black', serif;
+  font-size: 17px;
+  line-height: 1.2;
+}
+.tool-access-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-top: auto;
 }
 </style>
 </head>
@@ -711,6 +760,28 @@ footer {
     </div>
   </div>
 
+</section>
+
+<!-- ACESSO RÁPIDO ÀS FERRAMENTAS -->
+<section class="tool-access-section">
+  <div class="tool-access-inner">
+    <p class="section-eyebrow">✦ acesso direto</p>
+    <h2 class="section-title">Experimente as <em>ferramentas.</em></h2>
+    <div class="tool-access-grid">
+      <a href="analise-metricas.html" class="tool-access-card">
+        <span class="tool-access-label">Análise de Métricas</span>
+        <span class="tool-access-cta">abrir →</span>
+      </a>
+      <a href="organizador-entregaveis.html" class="tool-access-card">
+        <span class="tool-access-label">Organizador de Entregáveis</span>
+        <span class="tool-access-cta">abrir →</span>
+      </a>
+      <a href="foco.html" class="tool-access-card">
+        <span class="tool-access-label">Modo Foco</span>
+        <span class="tool-access-cta">abrir →</span>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- APRENDIZADOS -->
