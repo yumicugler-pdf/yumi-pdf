@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Sinal de Socorro | Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--green);}
+.breadcrumb span{opacity:0.4;}
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-jorn{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-av{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.tag-np{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(34px,5vw,58px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+.divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.stamp{display:inline-flex;align-items:center;gap:8px;background:var(--charcoal);color:var(--cream);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:1.5rem;}
+.stamp::before{content:'●';color:var(--green);font-size:8px;}
+.content-card{background:var(--white);border:2px solid var(--charcoal);border-radius:14px;padding:2rem;margin-top:1.5rem;}
+.content-card p{color:var(--charcoal-lt);margin-bottom:1rem;font-size:15px;line-height:1.75;}
+.content-card p:last-child{margin-bottom:0;}
+.content-card p strong{color:var(--charcoal);}
+.gesture-info{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem;}
+.gesture-step{background:var(--cream-dk);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem;}
+.gesture-step-num{font-family:'cooper-black',serif;font-size:32px;font-weight:900;color:var(--green);line-height:1;margin-bottom:6px;}
+.gesture-step-text{font-size:13px;color:var(--charcoal-lt);line-height:1.6;}
+.gesture-step-text strong{color:var(--charcoal);}
+.canal-badge{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;border-radius:100px;padding:8px 18px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;margin-top:1.5rem;}
+.canal-badge span{font-family:'cooper-black',serif;font-size:16px;font-weight:900;font-style:italic;}
+.video-section{margin-bottom:3.5rem;}
+.video-wrap{background:var(--charcoal);border:2px solid var(--charcoal);border-radius:14px;overflow:hidden;position:relative;}
+.video-wrap video{width:100%;display:block;max-height:540px;background:#000;}
+.video-label{background:var(--charcoal);padding:0.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;}
+.video-label-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,242,232,0.6);}
+.video-label-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--green);}
+.video-unavailable{background:var(--cream-dk);border:2px dashed var(--rule);border-radius:14px;padding:3rem 2rem;text-align:center;display:none;}
+.video-unavailable-icon{font-size:36px;margin-bottom:1rem;}
+.video-unavailable-text{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);}
+.learnings{background:var(--purple);border-radius:14px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:var(--purple-lt);}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--green);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+@media(max-width:600px){.gesture-info{grid-template-columns:1fr;}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="index.html">portfólio</a><span>/</span>
+  <span style="color:var(--charcoal);">sinal de socorro</span>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-jorn">Jornalismo</span>
+    <span class="meta-tag tag-av">Audiovisual</span>
+    <span class="meta-tag tag-np">Não Veiculado</span>
+  </div>
+  <h1 class="case-title">O Sinal Universal<br>de <em>Socorro.</em></h1>
+  <p class="case-subtitle">Vídeo informativo produzido para o BRT Sorocaba sobre o gesto de socorro para mulheres em situação de violência doméstica — produzido fora da função principal, nunca exibido.</p>
+
+  <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--cream-dk);border-left:4px solid var(--charcoal);border-radius:0 10px 10px 0;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;">nota</p>
+    <p style="font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">Um vídeo que não foi ao ar — mas que importa.</p>
+  </div>
+</div>
+
+<!-- 01 CONTEXTO -->
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">Como esse vídeo<br><em>surgiu.</em></h2>
+  <p>Produzido durante a atuação no <strong>BRT Sorocaba</strong>. Mesmo trabalhando na área operacional, fui chamada para contribuir com esse conteúdo — o que tornou o projeto significativo além da entrega.</p>
+  <p>O vídeo não foi veiculado, mas o processo foi um aprendizado real: aprendi a me portar sem performar, e explorei o audiovisual com mais liberdade do que esperava.</p>
+</div>
+
+<hr class="divider">
+
+<!-- 02 O CONTEÚDO -->
+<div class="section">
+  <p class="section-label">02 — o conteúdo</p>
+  <h2 class="section-title">O gesto que pode<br><em>salvar uma vida.</em></h2>
+  <p>O vídeo explica o <strong>sinal universal de socorro com as mãos</strong> — um gesto criado para comunicar perigo silenciosamente, em situações em que pedir ajuda em voz alta é impossível ou perigoso.</p>
+
+  <div class="content-card">
+    <p><strong>O que é o sinal?</strong> Um gesto simples, discreto e reconhecível: a palma da mão virada para frente, com o polegar dobrado sobre ela, seguido do fechamento dos outros dedos por cima — como se a mão "engolisse" o polegar.</p>
+    <p>Criado em 2020 pela organização canadense Canadian Women's Foundation e rapidamente adotado ao redor do mundo, o sinal foi concebido para comunicar "estou em perigo, preciso de ajuda" de forma não-verbal — especialmente em vídeo-chamadas, situações de isolamento ou qualquer contexto em que o agressor esteja presente.</p>
+    <p><strong>Por que no BRT?</strong> O transporte público é um dos poucos espaços onde mulheres em situação de violência doméstica têm contato com outras pessoas. Disseminar esse conteúdo em um ambiente de circulação cotidiana tem potencial real de alcance.</p>
+  </div>
+
+  <div class="gesture-info">
+    <div class="gesture-step">
+      <div class="gesture-step-num">01</div>
+      <div class="gesture-step-text"><strong>Levante a palma</strong> da mão aberta em direção à câmera ou à pessoa.</div>
+    </div>
+    <div class="gesture-step">
+      <div class="gesture-step-num">02</div>
+      <div class="gesture-step-text"><strong>Dobre o polegar</strong> sobre a palma da mão.</div>
+    </div>
+    <div class="gesture-step">
+      <div class="gesture-step-num">03</div>
+      <div class="gesture-step-text"><strong>Feche os dedos</strong> sobre o polegar dobrado.</div>
+    </div>
+    <div class="gesture-step">
+      <div class="gesture-step-num">04</div>
+      <div class="gesture-step-text"><strong>Reconheça o sinal</strong> e acione o canal de denúncia mais próximo.</div>
+    </div>
+  </div>
+
+  <div class="canal-badge">canal <span>153</span> — disque-denúncia Sorocaba</div>
+
+  <div style="margin-top:1.5rem;">
+    <span class="stamp">produzido para BRT Sorocaba · não veiculado</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 03 O VÍDEO -->
+<div class="video-section">
+  <p class="section-label">03 — o vídeo</p>
+  <h2 class="section-title" style="margin-bottom:1.5rem;">O material<br><em>produzido.</em></h2>
+  <div class="video-wrap">
+    <div class="video-label">
+      <span class="video-label-title">Sinal Universal de Socorro com as Mãos</span>
+      <span class="video-label-tag">BRT Sorocaba · 2023</span>
+    </div>
+    <video controls preload="metadata">
+      <source src="slides/sinal-socorro.mp4" type="video/mp4">
+      Seu navegador não suporta reprodução de vídeo.
+    </video>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 04 APRENDIZADO -->
+<div class="section">
+  <p class="section-label">04 — aprendizado</p>
+  <h2 class="section-title">O que<br><em>ficou.</em></h2>
+  <div class="learnings">
+    <p class="section-label">presença sem performance</p>
+    <h3 class="section-title" style="font-size:20px;">Esse projeto me mostrou que o<br><em>audiovisual pede uma entrega diferente.</em></h3>
+    <ul class="learning-list">
+      <li><strong>Menos controle, mais escuta.</strong> O audiovisual exige presença — não roteiro decorado. Aprendi a confiar no momento em vez de querer controlar cada detalhe.</li>
+      <li><strong>O conteúdo importa mais que o canal.</strong> Mesmo sem veiculação, a pesquisa, o roteiro e a produção foram exercícios reais — o registro existe mesmo que o público não tenha visto.</li>
+      <li><strong>Contribuição fora da função.</strong> Trabalhar em algo de segurança feminina dentro de um contexto operacional mostrou que o escopo da comunicação vai além do cargo.</li>
+      <li><strong>O não-veiculado também é portfólio.</strong> Nem tudo que se produz chega ao ar — mas o processo tem valor e merece registro.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note"><a href="index.html" style="color:var(--charcoal-lt);text-decoration:none;">← voltar ao portfólio</a></span>
+</div>
+
+</body>
+</html>
