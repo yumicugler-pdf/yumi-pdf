@@ -49,9 +49,6 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 .video-label{background:var(--charcoal);padding:0.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;}
 .video-label-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,242,232,0.6);}
 .video-label-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--green);}
-.video-unavailable{background:var(--cream-dk);border:2px dashed var(--rule);border-radius:14px;padding:3rem 2rem;text-align:center;display:none;}
-.video-unavailable-icon{font-size:36px;margin-bottom:1rem;}
-.video-unavailable-text{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);}
 .learnings{background:var(--purple);border-radius:14px;padding:2rem;margin-top:1.5rem;}
 .learnings .section-label{color:var(--purple-lt);}
 .learnings .section-title{color:var(--white);}
@@ -148,10 +145,9 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
       <span class="video-label-title">Sinal Universal de Socorro com as Mãos</span>
       <span class="video-label-tag">BRT Sorocaba · 2023</span>
     </div>
-    <video controls preload="metadata">
-      <source src="slides/sinal-socorro.mp4" type="video/mp4">
-      Seu navegador não suporta reprodução de vídeo.
-    </video>
+    <div style="position:relative;padding-bottom:177.78%;height:0;overflow:hidden;">
+      <iframe src="https://www.youtube.com/embed/kvmhSiYyviE" title="Sinal Universal de Socorro com as Mãos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+    </div>
   </div>
 </div>
 
