@@ -327,14 +327,14 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <span class="work-area-name">Jornalismo</span>
       </div>
       <div class="subcats">
-        <span class="subcat-btn active">Todos</span>
-        <span class="subcat-btn">Audiovisual</span>
-        <span class="subcat-btn">Radiojornalismo</span>
-        <span class="subcat-btn">Matérias Escritas</span>
+        <span class="subcat-btn active" data-filter="todos">Todos</span>
+        <span class="subcat-btn" data-filter="audiovisual">Audiovisual</span>
+        <span class="subcat-btn" data-filter="radio">Radiojornalismo</span>
+        <span class="subcat-btn" data-filter="escrita">Matérias Escritas</span>
       </div>
-      <div class="work-grid">
+      <div class="work-grid" id="jorn-grid">
 
-        <div class="work-card">
+        <div class="work-card" data-cats="escrita">
           <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🚌</div>
           <div class="work-card-body">
             <span class="work-card-tag tag-jornalismo">Reportagem · Abril 2025</span>
@@ -344,7 +344,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
           </div>
         </div>
 
-        <div class="work-card">
+        <div class="work-card" data-cats="escrita">
           <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🧠</div>
           <div class="work-card-body">
             <span class="work-card-tag tag-jornalismo">Reportagem Analítica · Dezembro 2025</span>
@@ -354,7 +354,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
           </div>
         </div>
 
-        <div class="work-card">
+        <div class="work-card" data-cats="escrita featured">
           <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🦯</div>
           <div class="work-card-body">
             <span class="work-card-tag tag-jornalismo">Reportagem · Março 2025</span>
@@ -364,7 +364,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
           </div>
         </div>
 
-        <div class="work-card">
+        <div class="work-card" data-cats="escrita">
           <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🤝</div>
           <div class="work-card-body">
             <span class="work-card-tag tag-jornalismo">Reportagem Institucional · Maio 2025</span>
@@ -374,7 +374,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
           </div>
         </div>
 
-        <div class="work-card">
+        <div class="work-card" data-cats="escrita">
           <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🚗</div>
           <div class="work-card-body">
             <span class="work-card-tag tag-jornalismo">Cobertura Fotojornalística · Maio 2025</span>
@@ -384,7 +384,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
           </div>
         </div>
 
-        <div class="work-card">
+        <div class="work-card" data-cats="audiovisual featured">
           <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">✋</div>
           <div class="work-card-body">
             <span class="work-card-tag tag-jornalismo">Audiovisual · Jornalismo</span>
@@ -394,6 +394,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
           </div>
         </div>
 
+        <div class="jorn-empty" style="display:none;grid-column:1/-1;padding:3rem;text-align:center;color:var(--charcoal-lt);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;border:1.5px dashed var(--rule);border-radius:14px;">em breve</div>
       </div>
     </div>
 
@@ -583,6 +584,33 @@ function initReveals(){
   reveals.forEach(el=>obs.observe(el));
 }
 initReveals();
+
+(function initJornFilter(){
+  const area=document.querySelector('.area-jornalismo');
+  if(!area)return;
+  const btns=area.querySelectorAll('.subcat-btn');
+  const cards=area.querySelectorAll('.work-card[data-cats]');
+  const empty=area.querySelector('.jorn-empty');
+  function applyFilter(filter){
+    let visible=0;
+    cards.forEach(card=>{
+      const cats=card.dataset.cats||'';
+      const show=filter==='todos'?cats.includes('featured'):cats.includes(filter);
+      card.style.display=show?'':'none';
+      if(show)visible++;
+    });
+    if(empty)empty.style.display=visible===0?'block':'none';
+  }
+  btns.forEach(btn=>{
+    btn.style.cursor='pointer';
+    btn.addEventListener('click',()=>{
+      btns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.dataset.filter||'todos');
+    });
+  });
+  applyFilter('todos');
+})();
 </script>
 </body>
 </html>
