@@ -66,17 +66,8 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:3rem;}
 .footer-name{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;}
 .footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
-.api-banner{background:var(--cream-dk);border-bottom:1.5px solid var(--rule);padding:0.6rem 2.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
-.api-status{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);}
-.api-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.api-dot.ok{background:var(--green);}
-.api-dot.err{background:#c0392b;}
-.api-input{background:var(--white);border:1.5px solid var(--rule);border-radius:8px;padding:5px 12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal);outline:none;width:240px;}
-.api-input:focus{border-color:var(--green);}
-.api-btn{background:var(--charcoal);color:var(--cream);border:none;border-radius:100px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.15s;}
-.api-btn:hover{background:var(--green);}
-.api-clear{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);cursor:pointer;text-decoration:underline;text-transform:uppercase;}
-@media(max-width:768px){.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}.preview-grid{grid-template-columns:repeat(3,1fr);}footer{padding:1.5rem;flex-direction:column;gap:6px;}.api-banner{padding:0.6rem 1.5rem;}}
+.gemini-note{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);letter-spacing:0.06em;margin-top:0.75rem;opacity:0.7;}
+@media(max-width:768px){.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}.preview-grid{grid-template-columns:repeat(2,1fr);}footer{padding:1.5rem;flex-direction:column;gap:6px;}}
 </style>
 </head>
 <body>
@@ -84,14 +75,6 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <a href="index.html" class="nav-logo">Yumi<span>.</span></a>
   <a href="index.html" class="nav-back">← voltar</a>
 </nav>
-<div class="api-banner" id="api-banner">
-  <div class="api-status"><div class="api-dot err" id="api-dot"></div><span id="api-text">chave de API não configurada</span></div>
-  <div id="api-input-row" style="display:flex;gap:8px;align-items:center;">
-    <input type="password" class="api-input" id="api-key-input" placeholder="sk-ant-...">
-    <button class="api-btn" onclick="saveApiKey()">salvar</button>
-  </div>
-  <button class="api-clear" id="api-clear-btn" onclick="clearApiKey()" style="display:none;">trocar chave</button>
-</div>
 <div class="page-header">
   <p class="page-header-label">✦ ferramenta</p>
   <h1 class="page-header-title">Análise de<br><em>Métricas.</em></h1>
@@ -121,6 +104,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <input type="text" id="input-contexto" placeholder="Ex: publiquei menos em setembro, estou testando Reels desde outubro...">
       </div>
       <button class="btn-primary" id="btn-analisar" onclick="analisar()">→ analisar métricas</button>
+      <p class="gemini-note">Respostas geradas pelo Gemini (Google) — em constante melhoria.</p>
     </div>
   </div>
 
@@ -142,34 +126,19 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <span class="footer-copy">análise de métricas · by yumicugler.pdf</span>
 </footer>
 <script>
-function getApiKey(){return localStorage.getItem('yumi-api-key')||'';}
-function saveApiKey(){
-  const k=document.getElementById('api-key-input').value.trim();
-  if(!k)return;
-  localStorage.setItem('yumi-api-key',k);
-  updateApiUI();
-}
-function clearApiKey(){localStorage.removeItem('yumi-api-key');updateApiUI();}
-function updateApiUI(){
-  const ok=!!getApiKey();
-  document.getElementById('api-dot').className='api-dot '+(ok?'ok':'err');
-  document.getElementById('api-text').textContent=ok?'chave configurada':'chave de API não configurada';
-  document.getElementById('api-input-row').style.display=ok?'none':'flex';
-  document.getElementById('api-clear-btn').style.display=ok?'inline':'none';
-}
-updateApiUI();
+const GEMINI_KEY='AIzaSyDeMJv2lcYKXw6EqxkIGx3Av04ckz6C1UQ';
 
-let uploadedImages = [];
+let uploadedImages=[];
 
 function handleFiles(files){
-  const grid = document.getElementById('preview-grid');
+  const grid=document.getElementById('preview-grid');
   Array.from(files).forEach(file=>{
-    const reader = new FileReader();
-    reader.onload = e=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
       uploadedImages.push(e.target.result);
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      img.className = 'preview-img';
+      const img=document.createElement('img');
+      img.src=e.target.result;
+      img.className='preview-img';
       grid.appendChild(img);
     };
     reader.readAsDataURL(file);
@@ -177,19 +146,17 @@ function handleFiles(files){
 }
 
 async function analisar(){
-  const texto    = document.getElementById('input-texto').value.trim();
-  const objetivo = document.getElementById('input-objetivo').value.trim();
-  const contexto = document.getElementById('input-contexto').value.trim();
+  const texto   =document.getElementById('input-texto').value.trim();
+  const objetivo=document.getElementById('input-objetivo').value.trim();
+  const contexto=document.getElementById('input-contexto').value.trim();
 
-  if(!texto && uploadedImages.length===0){ alert('Envie prints ou descreva os dados para continuar.'); return; }
-  const apiKey=getApiKey();
-  if(!apiKey){alert('Configure sua chave de API primeiro (barra no topo da página).');return;}
+  if(!texto&&uploadedImages.length===0){alert('Envie prints ou descreva os dados para continuar.');return;}
 
   document.getElementById('btn-analisar').disabled=true;
   document.getElementById('result-card').classList.remove('show');
   document.getElementById('loading-card').classList.add('show');
 
-  const systemPrompt = `Você é especialista sênior em marketing digital e social media — com profundidade real em análise de dados, estratégia de conteúdo e comportamento de audiência. Você analisa métricas como alguém que trabalha com isso há anos: vai além dos números e entrega leitura estratégica real.
+  const systemPrompt=`Você é especialista sênior em marketing digital e social media — com profundidade real em análise de dados, estratégia de conteúdo e comportamento de audiência. Você analisa métricas como alguém que trabalha com isso há anos: vai além dos números e entrega leitura estratégica real.
 
 Ao analisar os dados, estruture sua resposta em três blocos obrigatórios:
 
@@ -204,40 +171,28 @@ Por que está acontecendo o que está acontecendo. Identifique padrões, gargalo
 
 Use linguagem direta, sem rodeios e sem enrolação. Escreva em português. Use **negrito** para destacar pontos críticos.`;
 
-  const userContent = [];
-
-  if(uploadedImages.length>0){
-    uploadedImages.forEach(img=>{
-      const base64 = img.split(',')[1];
-      const mime   = img.split(';')[0].split(':')[1];
-      userContent.push({type:'image',source:{type:'base64',media_type:mime,data:base64}});
-    });
-  }
-
-  let userText = `Analise estas métricas de social media.`;
-  if(objetivo) userText += `\n\nOBJETIVO DO PERFIL: ${objetivo}`;
-  if(contexto) userText += `\nCONTEXTO: ${contexto}`;
-  if(texto)    userText += `\n\nDADOS:\n${texto}`;
-  userContent.push({type:'text',text:userText});
+  const parts=[];
+  uploadedImages.forEach(img=>{
+    parts.push({inline_data:{mime_type:img.split(';')[0].split(':')[1],data:img.split(',')[1]}});
+  });
+  let userText='Analise estas métricas de social media.';
+  if(objetivo)userText+=`\n\nOBJETIVO DO PERFIL: ${objetivo}`;
+  if(contexto)userText+=`\nCONTEXTO: ${contexto}`;
+  if(texto)userText+=`\n\nDADOS:\n${texto}`;
+  parts.push({text:userText});
 
   try{
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key':apiKey,
-        'anthropic-version':'2023-06-01',
-        'anthropic-dangerous-direct-browser-access':'true'
-      },
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-haiku-4-5-20251001',
-        max_tokens:1500,
-        system:systemPrompt,
-        messages:[{role:'user',content:userContent}]
+        system_instruction:{parts:[{text:systemPrompt}]},
+        contents:[{role:'user',parts}],
+        generationConfig:{maxOutputTokens:1500}
       })
     });
-    const data = await res.json();
-    const text = data.content.map(i=>i.text||'').join('');
+    const data=await res.json();
+    const text=data.candidates[0].content.parts[0].text;
     renderResult(text);
   }catch(e){
     document.getElementById('loading-card').classList.remove('show');
