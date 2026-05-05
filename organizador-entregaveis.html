@@ -191,19 +191,20 @@ Use linguagem direta e profissional. Escreva em português. Use **negrito** para
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        system_instruction:{parts:[{text:systemPrompt}]},
+        systemInstruction:{parts:[{text:systemPrompt}]},
         contents:[{role:'user',parts:[{text:userText}]}],
         generationConfig:{maxOutputTokens:1500}
       })
     });
     const data=await res.json();
+    if(!data.candidates){throw new Error(JSON.stringify(data));}
     const text=data.candidates[0].content.parts[0].text;
     document.getElementById('result-title').textContent=nome;
     document.getElementById('result-sub').textContent=areaLabel[area]+(prazo?' · Prazo: '+prazo:'');
     renderResult(text);
   }catch(e){
     document.getElementById('loading-card').classList.remove('show');
-    alert('Erro ao processar. Tente novamente.');
+    alert('Erro: '+e.message);
     document.getElementById('btn-organizar').disabled=false;
     console.error(e);
   }

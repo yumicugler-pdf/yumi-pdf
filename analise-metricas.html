@@ -186,17 +186,18 @@ Use linguagem direta, sem rodeios e sem enrolação. Escreva em português. Use 
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        system_instruction:{parts:[{text:systemPrompt}]},
+        systemInstruction:{parts:[{text:systemPrompt}]},
         contents:[{role:'user',parts}],
         generationConfig:{maxOutputTokens:1500}
       })
     });
     const data=await res.json();
+    if(!data.candidates){throw new Error(JSON.stringify(data));}
     const text=data.candidates[0].content.parts[0].text;
     renderResult(text);
   }catch(e){
     document.getElementById('loading-card').classList.remove('show');
-    alert('Erro ao analisar. Tente novamente.');
+    alert('Erro: '+e.message);
     document.getElementById('btn-analisar').disabled=false;
     console.error(e);
   }
