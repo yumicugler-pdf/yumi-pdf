@@ -38,7 +38,7 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 .folders-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:2rem;display:flex;align-items:center;gap:10px;}
 .folders-label::after{content:'';flex:1;height:1px;background:var(--rule);}
 
-.folder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.folder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
 
 .folder-card{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;transition:transform 0.2s,box-shadow 0.2s;display:block;}
 .folder-card:hover{transform:translateY(-5px);box-shadow:6px 6px 0 var(--charcoal);}
@@ -130,6 +130,19 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <span class="folder-tag tag-insp">Inspiracionais</span>
         <h2 class="folder-name">Identificação, segmentação e engajamento</h2>
         <p class="folder-desc">Conteúdo que cria espelho — copy construído por perfil de identidade de viagem, não por produto.</p>
+        <span class="folder-cta">ver case →</span>
+      </div>
+    </a>
+
+    <a href="case-holmy-reels.html" class="folder-card">
+      <div class="folder-cover" style="background:var(--charcoal);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'cooper-black',serif;font-size:48px;font-weight:900;font-style:italic;color:var(--cream);opacity:0.25;">▶</span>
+        <span class="folder-cover-count">3 peças</span>
+      </div>
+      <div class="folder-body">
+        <span class="folder-tag" style="color:var(--purple-md);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);">Reels</span>
+        <h2 class="folder-name">Informar, converter e criar desejo</h2>
+        <p class="folder-desc">Três Reels verticais para o Instagram da Holmy — roteiro, narração e direção de conteúdo em vídeo.</p>
         <span class="folder-cta">ver case →</span>
       </div>
     </a>
