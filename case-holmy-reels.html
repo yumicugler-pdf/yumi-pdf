@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Reels Holmy | Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--purple-md:#6b47b8;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--green);}
+.breadcrumb span{opacity:0.4;}
+
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-social{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);}
+.tag-av{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-story{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(34px,5vw,58px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+
+.reel-block{margin-bottom:4rem;}
+.reel-header{margin-bottom:1.5rem;}
+.reel-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:0.4rem;}
+.reel-title{font-family:'cooper-black',serif;font-size:22px;font-weight:900;letter-spacing:-0.02em;line-height:1.15;margin-bottom:0.75rem;}
+.reel-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:0.75rem;}
+.reel-desc{font-size:14px;color:var(--charcoal-lt);line-height:1.7;max-width:600px;}
+.reel-desc strong{color:var(--charcoal);}
+
+.reel-video-wrap{display:flex;justify-content:center;margin-top:1.5rem;}
+.reel-video-inner{width:100%;max-width:340px;}
+.reel-video-frame{position:relative;width:100%;padding-bottom:177.78%;height:0;overflow:hidden;border:2px solid var(--charcoal);border-radius:14px;box-shadow:4px 4px 0 var(--charcoal);}
+.reel-video-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:12px;}
+.reel-video-label{background:var(--charcoal);padding:0.65rem 1rem;display:flex;align-items:center;justify-content:space-between;border-radius:0 0 12px 12px;margin-top:-2px;}
+.reel-video-label-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,242,232,0.6);}
+.reel-video-label-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--green);}
+
+.placeholder-wrap{display:flex;justify-content:center;margin-top:1.5rem;}
+.placeholder-inner{width:100%;max-width:340px;}
+.placeholder-frame{position:relative;width:100%;padding-bottom:177.78%;height:0;overflow:hidden;border:2px dashed var(--rule);border-radius:14px;background:var(--cream-dk);}
+.placeholder-content{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:2rem;}
+.placeholder-icon{font-size:32px;opacity:0.3;}
+.placeholder-text{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);text-align:center;line-height:1.8;}
+
+.divider{border:none;border-top:1px solid var(--rule);margin:3rem 0;}
+
+.learnings{background:var(--purple);border-radius:14px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:var(--purple-lt);}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--purple);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+
+@media(max-width:600px){
+  body{padding:2rem 1.25rem 4rem;}
+  .reel-video-inner,.placeholder-inner{max-width:100%;}
+  .case-footer{flex-direction:column;gap:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div style="margin-bottom:1.5rem;">
+  <div class="breadcrumb">
+    <a href="index.html">portfólio</a><span>/</span>
+    <a href="holmy.html">holmy</a><span>/</span>
+    <span style="color:var(--charcoal);">reels</span>
+  </div>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-social">Social Media</span>
+    <span class="meta-tag tag-av">Audiovisual</span>
+    <span class="meta-tag tag-story">Storytelling</span>
+  </div>
+  <h1 class="case-title">Reels —<br><em>Holmy.</em></h1>
+  <p class="case-subtitle">Três formatos, três intenções: informar, converter e criar desejo. Roteiro, narração e direção de conteúdo em vídeo vertical para o Instagram da Holmy.</p>
+</div>
+
+<!-- REEL 1 -->
+<div class="reel-block">
+  <div class="reel-header">
+    <p class="reel-num">peça 01</p>
+    <h2 class="reel-title">[URL_REEL_1]</h2>
+    <div class="reel-tags">
+      <span class="meta-tag tag-social">Social Media</span>
+      <span class="meta-tag tag-av">Audiovisual</span>
+      <span class="meta-tag tag-story" style="color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);">Jornalismo Aplicado</span>
+    </div>
+    <p class="reel-desc">Reel baseado em dado real sobre a preferência de viajantes por destinos de altitude — pesquisa, roteiro e narração em voz própria. O ponto de partida foi o próprio catálogo da Holmy, que concentrava hospedagens na Serra da Mantiqueira, região com <strong>alta procura pelo público da plataforma</strong>.</p>
+  </div>
+  <div class="placeholder-wrap">
+    <div class="placeholder-inner">
+      <div class="placeholder-frame">
+        <div class="placeholder-content">
+          <div class="placeholder-icon">▶</div>
+          <p class="placeholder-text">URL do Reel 1<br>a ser inserida</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- REEL 2 -->
+<div class="reel-block">
+  <div class="reel-header">
+    <p class="reel-num">peça 02</p>
+    <h2 class="reel-title">[URL_REEL_2]</h2>
+    <div class="reel-tags">
+      <span class="meta-tag tag-social">Social Media</span>
+      <span class="meta-tag tag-story" style="color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);">Conteúdo Patrocinado</span>
+    </div>
+    <p class="reel-desc">Reel promocional da Cabana Everest. O objetivo era fazer o espectador se sentir dentro da hospedagem antes de chegar lá — vídeo patrocinado, com foco em <strong>imersão e conversão</strong>.</p>
+  </div>
+  <div class="placeholder-wrap">
+    <div class="placeholder-inner">
+      <div class="placeholder-frame">
+        <div class="placeholder-content">
+          <div class="placeholder-icon">▶</div>
+          <p class="placeholder-text">URL do Reel 2<br>a ser inserida</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- REEL 3 -->
+<div class="reel-block">
+  <div class="reel-header">
+    <p class="reel-num">peça 03</p>
+    <h2 class="reel-title">[URL_REEL_3]</h2>
+    <div class="reel-tags">
+      <span class="meta-tag tag-social">Social Media</span>
+      <span class="meta-tag tag-story">Storytelling</span>
+    </div>
+    <p class="reel-desc">Reel aspiracional com imagens do banco da Holmy. Linha editorial distinta dos informativos — <strong>narrativa visual como argumento de desejo</strong>.</p>
+  </div>
+  <div class="placeholder-wrap">
+    <div class="placeholder-inner">
+      <div class="placeholder-frame">
+        <div class="placeholder-content">
+          <div class="placeholder-icon">▶</div>
+          <p class="placeholder-text">URL do Reel 3<br>a ser inserida</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- APRENDIZADO -->
+<div class="section">
+  <div class="learnings">
+    <p class="section-label">aprendizado</p>
+    <h2 class="section-title">O que o <em>formato ensinou.</em></h2>
+    <ul class="learning-list">
+      <li><strong>Vídeo vertical exige outra gramática.</strong> Não é só girar a câmera — é pensar o ritmo, o texto e o enquadramento para um consumo rápido e sem áudio.</li>
+      <li><strong>Dado transforma entretenimento em credibilidade.</strong> O Reel informativo ganhou mais tração justamente porque tinha uma fonte por trás da narrativa.</li>
+      <li><strong>Imersão é diferente de estética.</strong> O Reel da Cabana Everest mostrou que o objetivo não é bonito — é fazer a pessoa querer estar lá.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi <span>Cugler.</span></span>
+  <span class="footer-note">social media · holmy · reels</span>
+</div>
+
+</body>
+</html>
