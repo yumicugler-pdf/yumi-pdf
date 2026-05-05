@@ -59,7 +59,22 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
 .footer-name{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;}
 .footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
 .gemini-note{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);letter-spacing:0.06em;margin-top:0.75rem;opacity:0.7;}
-@media(max-width:768px){.input-row{grid-template-columns:1fr;}.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}footer{padding:1.5rem;flex-direction:column;gap:6px;}}
+.api-banner{background:var(--white);border-bottom:3px solid var(--green);padding:1.25rem 3.5rem;}
+.api-banner-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:0.6rem;}
+.api-banner-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;}
+.api-field{display:flex;flex-direction:column;gap:4px;flex:1;min-width:220px;}
+.api-field label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);}
+.api-field input{background:var(--cream);border:1.5px solid var(--rule);border-radius:8px;padding:9px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--charcoal);outline:none;transition:border 0.15s;width:100%;}
+.api-field input:focus{border-color:var(--green);}
+.btn-save-key{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;border:2px solid var(--green);border-radius:100px;padding:9px 20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn-save-key:hover{background:var(--charcoal);border-color:var(--charcoal);}
+.api-hint{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);margin-top:6px;letter-spacing:0.04em;}
+.api-hint a{color:var(--green);text-decoration:none;}
+.api-hint a:hover{text-decoration:underline;}
+.key-status{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;margin-top:4px;}
+.key-ok{color:var(--green);}
+.key-missing{color:#c0392b;}
+@media(max-width:768px){.input-row{grid-template-columns:1fr;}.main,.page-header,.api-banner{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}footer{padding:1.5rem;flex-direction:column;gap:6px;}}
 </style>
 </head>
 <body>
@@ -67,6 +82,20 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <a href="index.html" class="nav-logo">Yumi<span>.</span></a>
   <a href="index.html" class="nav-back">← voltar</a>
 </nav>
+
+<div class="api-banner">
+  <p class="api-banner-title">✦ Chave de acesso — Gemini (Google)</p>
+  <div class="api-banner-row">
+    <div class="api-field">
+      <label>Cole sua chave gratuita aqui</label>
+      <input type="password" id="api-key-input" placeholder="AIzaSy...">
+    </div>
+    <button class="btn-save-key" onclick="saveKey()">✓ salvar</button>
+  </div>
+  <p class="api-hint">Chave gratuita, sem cartão de crédito → <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a></p>
+  <p class="key-status" id="key-status"></p>
+</div>
+
 <div class="page-header">
   <p class="page-header-label">✦ ferramenta</p>
   <h1 class="page-header-title">Organizador de<br><em>Entregáveis.</em></h1>
@@ -144,9 +173,27 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <span class="footer-copy">organizador de entregáveis · by yumicugler.pdf</span>
 </footer>
 <script>
-const GEMINI_KEY='AIzaSyDeMJv2lcYKXw6EqxkIGx3Av04ckz6C1UQ';
+const KEY_STORE='yumi-gemini-key';
+
+function saveKey(){
+  const v=document.getElementById('api-key-input').value.trim();
+  if(!v){alert('Cole sua chave antes de salvar.');return;}
+  localStorage.setItem(KEY_STORE,v);
+  document.getElementById('api-key-input').value='';
+  showKeyStatus();
+}
+function showKeyStatus(){
+  const el=document.getElementById('key-status');
+  if(localStorage.getItem(KEY_STORE)){
+    el.className='key-status key-ok';el.textContent='✓ chave salva';
+  }else{
+    el.className='key-status key-missing';el.textContent='Nenhuma chave salva — cole acima para começar.';
+  }
+}
 
 async function organizar(){
+  const GEMINI_KEY=localStorage.getItem(KEY_STORE);
+  if(!GEMINI_KEY){alert('Salve sua chave Gemini primeiro (topo da página).');return;}
   const nome     = document.getElementById('input-nome').value.trim();
   const descricao= document.getElementById('input-descricao').value.trim();
   if(!nome||!descricao){alert('Preencha pelo menos o nome e a descrição do projeto.');return;}
@@ -251,6 +298,8 @@ function downloadResultOrg(){
   a.href=url;a.download=`${title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')}-${Date.now()}.html`;
   a.click();URL.revokeObjectURL(url);
 }
+
+showKeyStatus();
 </script>
 </body>
 </html>
