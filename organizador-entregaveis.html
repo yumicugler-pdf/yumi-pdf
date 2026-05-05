@@ -53,7 +53,17 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:3rem;}
 .footer-name{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;}
 .footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
-@media(max-width:768px){.input-row{grid-template-columns:1fr;}.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}footer{padding:1.5rem;flex-direction:column;gap:6px;}}
+.api-banner{background:var(--cream-dk);border-bottom:1.5px solid var(--rule);padding:0.6rem 2.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.api-status{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);}
+.api-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.api-dot.ok{background:var(--green);}
+.api-dot.err{background:#c0392b;}
+.api-input{background:var(--white);border:1.5px solid var(--rule);border-radius:8px;padding:5px 12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal);outline:none;width:240px;}
+.api-input:focus{border-color:var(--green);}
+.api-btn{background:var(--charcoal);color:var(--cream);border:none;border-radius:100px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.15s;}
+.api-btn:hover{background:var(--green);}
+.api-clear{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);cursor:pointer;text-decoration:underline;text-transform:uppercase;}
+@media(max-width:768px){.input-row{grid-template-columns:1fr;}.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}footer{padding:1.5rem;flex-direction:column;gap:6px;}.api-banner{padding:0.6rem 1.5rem;}}
 </style>
 </head>
 <body>
@@ -61,6 +71,14 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <a href="index.html" class="nav-logo">Yumi<span>.</span></a>
   <a href="index.html" class="nav-back">← voltar</a>
 </nav>
+<div class="api-banner" id="api-banner">
+  <div class="api-status"><div class="api-dot err" id="api-dot"></div><span id="api-text">chave de API não configurada</span></div>
+  <div id="api-input-row" style="display:flex;gap:8px;align-items:center;">
+    <input type="password" class="api-input" id="api-key-input" placeholder="sk-ant-...">
+    <button class="api-btn" onclick="saveApiKey()">salvar</button>
+  </div>
+  <button class="api-clear" id="api-clear-btn" onclick="clearApiKey()" style="display:none;">trocar chave</button>
+</div>
 <div class="page-header">
   <p class="page-header-label">✦ ferramenta</p>
   <h1 class="page-header-title">Organizador de<br><em>Entregáveis.</em></h1>
@@ -135,6 +153,23 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <span class="footer-copy">organizador de entregáveis · by yumicugler.pdf</span>
 </footer>
 <script>
+function getApiKey(){return localStorage.getItem('yumi-api-key')||'';}
+function saveApiKey(){
+  const k=document.getElementById('api-key-input').value.trim();
+  if(!k)return;
+  localStorage.setItem('yumi-api-key',k);
+  updateApiUI();
+}
+function clearApiKey(){localStorage.removeItem('yumi-api-key');updateApiUI();}
+function updateApiUI(){
+  const ok=!!getApiKey();
+  document.getElementById('api-dot').className='api-dot '+(ok?'ok':'err');
+  document.getElementById('api-text').textContent=ok?'chave configurada':'chave de API não configurada';
+  document.getElementById('api-input-row').style.display=ok?'none':'flex';
+  document.getElementById('api-clear-btn').style.display=ok?'inline':'none';
+}
+updateApiUI();
+
 async function organizar(){
   const nome     = document.getElementById('input-nome').value.trim();
   const descricao= document.getElementById('input-descricao').value.trim();
@@ -145,6 +180,8 @@ async function organizar(){
   const prazo   = document.getElementById('input-prazo').value;
   const nivel   = document.getElementById('input-nivel').value;
 
+  const apiKey=getApiKey();
+  if(!apiKey){alert('Configure sua chave de API primeiro (barra no topo da página).');return;}
   document.getElementById('btn-organizar').disabled=true;
   document.getElementById('result-card').classList.remove('show');
   document.getElementById('loading-card').classList.add('show');
@@ -181,9 +218,14 @@ Use linguagem direta e profissional. Escreva em português. Use **negrito** para
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'claude-haiku-4-5-20251001',
         max_tokens:1500,
         system:systemPrompt,
         messages:[{role:'user',content:userText}]
