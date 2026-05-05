@@ -36,6 +36,7 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 .upload-text strong{color:var(--charcoal);}
 #file-input{display:none;}
 .preview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1rem;}
+@media(max-width:500px){.preview-grid{grid-template-columns:repeat(2,1fr);}}
 .preview-img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1.5px solid var(--rule);}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fafaf7;border:2px solid var(--green);border-radius:100px;padding:11px 26px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-top:0.5rem;}
 .btn-primary:hover{background:var(--charcoal);border-color:var(--charcoal);}
@@ -47,6 +48,9 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 .result-header{background:var(--charcoal);padding:1.5rem 2rem;display:flex;align-items:center;gap:12px;}
 .result-header-title{font-family:'cooper-black',serif;font-size:22px;font-weight:900;color:var(--cream);letter-spacing:-0.02em;}
 .result-body{padding:2rem;}
+.result-footer{padding:1rem 2rem 1.5rem;border-top:1px solid var(--rule);display:flex;justify-content:flex-end;}
+.btn-download{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--charcoal-lt);border:1.5px solid var(--rule);border-radius:100px;padding:8px 20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;}
+.btn-download:hover{border-color:var(--green);color:var(--green);}
 .result-block{margin-bottom:2rem;}
 .result-block:last-child{margin-bottom:0;}
 .result-block-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#5a8a3c;margin-bottom:0.75rem;padding-bottom:6px;border-bottom:1px solid var(--rule);}
@@ -130,6 +134,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
       <div class="result-header-title">Diagnóstico Estratégico</div>
     </div>
     <div class="result-body" id="result-body"></div>
+    <div class="result-footer"><button class="btn-download" onclick="downloadResultMet()">↓ baixar documento</button></div>
   </div>
 </div>
 <footer>
@@ -257,6 +262,23 @@ function renderResult(text){
   document.getElementById('result-card').classList.add('show');
   document.getElementById('btn-analisar').disabled=false;
   document.getElementById('result-card').scrollIntoView({behavior:'smooth'});
+}
+
+function downloadResultMet(){
+  const bodyHtml=document.getElementById('result-body').innerHTML;
+  const date=new Date().toLocaleDateString('pt-BR');
+  const doc=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Diagnóstico Estratégico</title>
+<style>body{font-family:Georgia,serif;max-width:700px;margin:48px auto;padding:0 24px;color:#2a2a2e;line-height:1.75;}h1{font-size:26px;margin-bottom:4px;letter-spacing:-0.02em;}
+.meta{font-size:11px;color:#999;margin-bottom:36px;font-family:monospace;}
+.result-block{margin-bottom:28px;border-top:1px solid #e0ddd4;padding-top:20px;}
+.result-block-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#5a8a3c;font-family:monospace;margin-bottom:10px;}
+.result-text{font-size:15px;color:#2a2a2e;}strong{color:#3d2070;}</style></head>
+<body><h1>Diagnóstico Estratégico</h1><p class="meta">Gerado em ${date} · yumicugler.pdf</p>${bodyHtml}</body></html>`;
+  const blob=new Blob([doc],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`diagnostico-metricas-${Date.now()}.html`;
+  a.click();URL.revokeObjectURL(url);
 }
 </script>
 </body>

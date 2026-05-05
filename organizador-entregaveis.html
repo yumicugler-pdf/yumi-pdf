@@ -39,6 +39,9 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 .result-header-title{font-family:'cooper-black',serif;font-size:22px;font-weight:900;color:var(--cream);letter-spacing:-0.02em;}
 .result-header-sub{font-family:'DM Mono',monospace;font-size:11px;color:rgba(245,242,232,0.5);letter-spacing:0.06em;margin-top:4px;}
 .result-body{padding:2rem;}
+.result-footer{padding:1rem 2rem 1.5rem;border-top:1px solid var(--rule);display:flex;justify-content:flex-end;}
+.btn-download{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--charcoal-lt);border:1.5px solid var(--rule);border-radius:100px;padding:8px 20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;}
+.btn-download:hover{border-color:var(--green);color:var(--green);}
 .result-block{margin-bottom:2rem;}
 .result-block:last-child{margin-bottom:0;}
 .result-block-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#3d2070;margin-bottom:0.75rem;padding-bottom:6px;border-bottom:1px solid var(--rule);}
@@ -146,6 +149,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
       <div class="result-header-sub" id="result-sub"></div>
     </div>
     <div class="result-body" id="result-body"></div>
+    <div class="result-footer"><button class="btn-download" onclick="downloadResultOrg()">↓ baixar documento</button></div>
   </div>
 </div>
 <footer>
@@ -244,7 +248,10 @@ Use linguagem direta e profissional. Escreva em português. Use **negrito** para
   }
 }
 
+let _lastResultText='';
+
 function renderResult(text){
+  _lastResultText=text;
   document.getElementById('loading-card').classList.remove('show');
   const labels=['01 — Resumo do Projeto','02 — Diagnóstico','03 — Estrutura Sugerida','04 — Próximos Passos'];
   const parts=text.split(/\*\*0[1234][^*]*\*\*/g).filter(b=>b.trim());
@@ -259,6 +266,25 @@ function renderResult(text){
   document.getElementById('result-card').classList.add('show');
   document.getElementById('btn-organizar').disabled=false;
   document.getElementById('result-card').scrollIntoView({behavior:'smooth'});
+}
+
+function downloadResultOrg(){
+  const title=document.getElementById('result-title').textContent||'Projeto';
+  const sub=document.getElementById('result-sub').textContent;
+  const bodyHtml=document.getElementById('result-body').innerHTML;
+  const date=new Date().toLocaleDateString('pt-BR');
+  const doc=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>${title}</title>
+<style>body{font-family:Georgia,serif;max-width:700px;margin:48px auto;padding:0 24px;color:#2a2a2e;line-height:1.75;}h1{font-size:26px;margin-bottom:4px;letter-spacing:-0.02em;}
+.meta{font-size:11px;color:#999;margin-bottom:36px;font-family:monospace;}
+.result-block{margin-bottom:28px;border-top:1px solid #e0ddd4;padding-top:20px;}
+.result-block-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#5a8a3c;font-family:monospace;margin-bottom:10px;}
+.result-text{font-size:15px;color:#2a2a2e;}strong{color:#3d2070;}</style></head>
+<body><h1>${title}</h1><p class="meta">${sub} · Gerado em ${date} · yumicugler.pdf</p>${bodyHtml}</body></html>`;
+  const blob=new Blob([doc],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`${title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')}-${Date.now()}.html`;
+  a.click();URL.revokeObjectURL(url);
 }
 </script>
 </body>
