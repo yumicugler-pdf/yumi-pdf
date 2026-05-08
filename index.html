@@ -57,7 +57,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .shape-star{position:absolute;color:rgba(255,255,255,0.3);animation:spinSlow 15s linear infinite;z-index:2;font-size:16px;}
 
 /* MARQUEE */
-.marquee-wrap{border-top:2px solid var(--charcoal);border-bottom:2px solid var(--charcoal);background:var(--charcoal);padding:10px 0;overflow:hidden;}
+.marquee-wrap{border-top:2px solid var(--charcoal);border-bottom:2px solid var(--charcoal);background:var(--charcoal);padding:10px 0;overflow-x:clip;overflow-y:visible;position:relative;}
 .marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite;}
 @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 .marquee-item{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream);padding:0 2rem;display:inline-flex;align-items:center;gap:10px;}
@@ -199,6 +199,8 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   .cursor,.cursor-ring{display:none;}
   footer{flex-direction:column;gap:6px;padding:1.5rem;text-align:center;}
   .tool-access-grid{grid-template-columns:1fr;}
+  .marquee-mascot{display:none;}
+  .hero-sig{display:block;margin:0.75rem auto 1.5rem;max-width:140px;}
 }
 .tool-access-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin:1rem 0 1.25rem;}
 .tool-access-card{display:flex;flex-direction:column;gap:0.75rem;background:var(--white);border:1.5px solid var(--rule);border-radius:12px;padding:1rem 1.25rem;text-decoration:none;color:var(--charcoal);transition:border-color 0.15s,box-shadow 0.15s,transform 0.15s;}
@@ -227,7 +229,10 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <section class="hero">
     <div class="hero-left">
       <span class="hero-tag">✦ analista de comunicação</span>
-      <h1 class="hero-name">Yumi<br><em>Cugler.</em></h1>
+      <div style="display:flex;align-items:flex-end;gap:1.25rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <h1 class="hero-name" style="margin-bottom:0;">Yumi<br><em>Cugler.</em></h1>
+        <img src="assinatura.png" alt="" class="hero-sig" style="max-width:180px;height:auto;display:block;flex-shrink:0;opacity:0.9;">
+      </div>
       <p class="hero-desc"><strong>Jornalista e designer de comunicação.</strong> Faço conteúdo com fundamento — para Instagram, para pautas, para o que precisar.</p>
       <div class="hero-pills">
         <span class="pill pill-purple">Design</span>
@@ -268,6 +273,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
       <span class="marquee-item"><span class="marquee-dot"></span>Identidade Visual</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Radiojornalismo</span>
     </div>
+    <img src="mascote.png" alt="" class="marquee-mascot" style="position:absolute;right:3rem;bottom:0;max-width:200px;height:auto;display:block;pointer-events:none;z-index:5;">
   </div>
 
   <section class="about" id="sobre">
@@ -407,7 +413,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
       <div class="work-grid-single">
         <div class="work-card">
           <div class="work-card-img" style="background:#e8efe8;display:flex;align-items:center;justify-content:center;height:160px;overflow:hidden;padding:0;">
-            <img src="holmy-icone.jpg" alt="Holmy" style="width:110px;height:110px;object-fit:contain;display:block;">
+            <img src="holmy-icone.jpg" alt="Holmy" style="width:100%;height:100%;object-fit:cover;display:block;">
           </div>
           <div class="work-card-body">
             <span class="work-card-tag tag-social">Social Media · Conteúdo de Marca</span>
