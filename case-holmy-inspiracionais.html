@@ -35,9 +35,9 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 .section p strong{color:var(--charcoal);}
 
 .carousel-block{margin-bottom:3rem;}
-.carousel-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1rem;}
-.carousel-title-el{font-family:'cooper-black',serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;}
-.carousel-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+.carousel-header{display:flex;align-items:baseline;justify-content:space-between;gap:0.75rem;margin-bottom:1rem;}
+.carousel-title-el{font-family:'cooper-black',serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;min-width:0;}
+.carousel-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;white-space:nowrap;flex-shrink:0;}
 .carousel-source{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:12px;}
 .carousel{display:flex;gap:12px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;}
 .carousel:active{cursor:grabbing;}
