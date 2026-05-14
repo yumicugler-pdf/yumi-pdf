@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organizador de Entregáveis — Local (Claude)</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-lt:#8fbe6a;--green-pale:#d4ebbb;--purple:#3d2070;--purple-md:#6b47b8;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;min-height:100vh;}
+nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--cream);z-index:100;}
+.nav-logo{font-family:'cooper-black',serif;font-size:21px;font-weight:900;color:var(--charcoal);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--green);}
+.nav-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;background:rgba(61,32,112,0.08);color:var(--purple);border:1.5px solid var(--purple-lt);}
+.api-banner{background:var(--cream-dk);border-bottom:1.5px solid var(--rule);padding:0.6rem 2.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.api-status{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);}
+.api-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.api-dot.ok{background:var(--green);}
+.api-dot.err{background:#c0392b;}
+.api-input{background:var(--white);border:1.5px solid var(--rule);border-radius:8px;padding:5px 12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal);outline:none;width:280px;}
+.api-input:focus{border-color:var(--green);}
+.api-btn{background:var(--charcoal);color:var(--cream);border:none;border-radius:100px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.15s;}
+.api-btn:hover{background:var(--purple);}
+.api-clear{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);cursor:pointer;text-decoration:underline;text-transform:uppercase;}
+.page-header{padding:4rem 3.5rem 2.5rem;border-bottom:2px solid var(--charcoal);}
+.page-header-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#3d2070;margin-bottom:0.75rem;}
+.page-header-title{font-family:'cooper-black',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:0.95;margin-bottom:0.75rem;}
+.page-header-title em{font-style:italic;color:#3d2070;}
+.page-header-sub{color:var(--charcoal-lt);max-width:560px;font-size:15px;}
+.main{padding:3rem 3.5rem;max-width:960px;}
+.section{margin-bottom:3rem;}
+.section-title{font-family:'cooper-black',serif;font-size:24px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:2px solid var(--charcoal);}
+.form-card{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;padding:2rem;box-shadow:4px 4px 0 var(--purple);}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
+.field label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);}
+.field input,.field select,.field textarea{background:var(--cream);border:1.5px solid var(--rule);border-radius:8px;padding:10px 14px;font-family:'Cabin',sans-serif;font-size:14px;color:var(--charcoal);transition:border 0.15s;outline:none;width:100%;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);background:var(--white);}
+.field textarea{resize:vertical;min-height:120px;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fafaf7;border:2px solid var(--purple);border-radius:100px;padding:11px 26px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-top:0.5rem;}
+.btn-primary:hover{background:var(--charcoal);border-color:var(--charcoal);}
+.btn-primary:disabled{background:var(--rule);border-color:var(--rule);color:var(--charcoal-lt);cursor:not-allowed;}
+.result-card{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;overflow:hidden;box-shadow:4px 4px 0 var(--purple);display:none;}
+.result-card.show{display:block;}
+.result-header{background:var(--charcoal);padding:1.5rem 2rem;}
+.result-header-title{font-family:'cooper-black',serif;font-size:22px;font-weight:900;color:var(--cream);letter-spacing:-0.02em;}
+.result-header-sub{font-family:'DM Mono',monospace;font-size:11px;color:rgba(245,242,232,0.5);letter-spacing:0.06em;margin-top:4px;}
+.result-body{padding:2rem;}
+.result-footer{padding:1rem 2rem 1.5rem;border-top:1px solid var(--rule);display:flex;justify-content:flex-end;}
+.btn-download{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--charcoal-lt);border:1.5px solid var(--rule);border-radius:100px;padding:8px 20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.15s;}
+.btn-download:hover{border-color:var(--purple);color:var(--purple);}
+.result-block{margin-bottom:2rem;}
+.result-block:last-child{margin-bottom:0;}
+.result-block-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#3d2070;margin-bottom:0.75rem;padding-bottom:6px;border-bottom:1px solid var(--rule);}
+.result-text{font-size:14px;line-height:1.75;color:var(--charcoal);}
+.result-text strong{color:#3d2070;}
+.loading-card{background:var(--white);border:2px solid var(--rule);border-radius:16px;padding:3rem;text-align:center;display:none;}
+.loading-card.show{display:block;}
+.loading-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3d2070;margin:0 3px;animation:blink 1.2s infinite;}
+.loading-dot:nth-child(2){animation-delay:0.2s;}.loading-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes blink{0%,80%,100%{opacity:0.2;}40%{opacity:1;}}
+.loading-text{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-top:1rem;}
+footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:3rem;}
+.footer-name{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;}
+.footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
+@media(max-width:768px){.input-row{grid-template-columns:1fr;}.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}footer{padding:1.5rem;flex-direction:column;gap:6px;}.api-banner{padding:0.6rem 1.5rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-logo">Yumi<span>.</span></a>
+  <span class="nav-badge">● Claude · uso local</span>
+</nav>
+<div class="api-banner">
+  <div class="api-status"><div class="api-dot err" id="api-dot"></div><span id="api-text">chave Anthropic não configurada</span></div>
+  <div id="api-input-row" style="display:flex;gap:8px;align-items:center;">
+    <input type="password" class="api-input" id="api-key-input" placeholder="sk-ant-...">
+    <button class="api-btn" onclick="saveKey()">salvar</button>
+  </div>
+  <button class="api-clear" id="api-clear-btn" onclick="clearKey()" style="display:none;">trocar chave</button>
+</div>
+<div class="page-header">
+  <p class="page-header-label">✦ ferramenta · versão local</p>
+  <h1 class="page-header-title">Organizador de<br><em>Entregáveis.</em></h1>
+  <p class="page-header-sub">Versão local com Claude — para uso pessoal com qualidade máxima.</p>
+</div>
+<div class="main">
+  <div class="section">
+    <h2 class="section-title">Seu projeto</h2>
+    <div class="form-card">
+      <div class="input-row">
+        <div class="field">
+          <label>Nome do projeto ou entregável</label>
+          <input type="text" id="input-nome" placeholder="Ex: Planejamento de conteúdo — outubro">
+        </div>
+        <div class="field">
+          <label>Área</label>
+          <select id="input-area">
+            <option value="social-media">Social Media</option>
+            <option value="jornalismo">Jornalismo</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing Estratégico</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>O que precisa ser entregue?</label>
+        <textarea id="input-descricao" placeholder="Descreva o entregável com o máximo de contexto: o que é, para quem, qual o formato, qual o prazo, o que já existe..."></textarea>
+      </div>
+      <div class="field">
+        <label>Qual é o objetivo final?</label>
+        <input type="text" id="input-objetivo" placeholder="Ex: aumentar engajamento, lançar um produto, publicar uma reportagem...">
+      </div>
+      <div class="field">
+        <label>Qual é o maior desafio ou travamento?</label>
+        <input type="text" id="input-desafio" placeholder="Ex: não sei por onde começar, tenho muito conteúdo mas sem estrutura, prazo curto...">
+      </div>
+      <div class="input-row">
+        <div class="field">
+          <label>Prazo</label>
+          <input type="date" id="input-prazo">
+        </div>
+        <div class="field">
+          <label>Nível de desenvolvimento</label>
+          <select id="input-nivel">
+            <option value="ideia">Só tenho a ideia</option>
+            <option value="rascunho">Tenho rascunho ou notas</option>
+            <option value="meio">Está pela metade</option>
+            <option value="quase">Quase pronto, preciso finalizar</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn-organizar" onclick="organizar()">→ organizar e documentar</button>
+    </div>
+  </div>
+
+  <div class="loading-card" id="loading-card">
+    <span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>
+    <p class="loading-text">estruturando seu projeto com Claude...</p>
+  </div>
+
+  <div class="result-card" id="result-card">
+    <div class="result-header">
+      <div class="result-header-title" id="result-title">Projeto estruturado</div>
+      <div class="result-header-sub" id="result-sub"></div>
+    </div>
+    <div class="result-body" id="result-body"></div>
+    <div class="result-footer"><button class="btn-download" onclick="downloadResult()">↓ baixar documento</button></div>
+  </div>
+</div>
+<footer>
+  <span class="footer-name">Yumi Cugler.</span>
+  <span class="footer-copy">versão local · claude sonnet</span>
+</footer>
+<script>
+function getKey(){return localStorage.getItem('yumi-claude-key')||'';}
+function saveKey(){
+  const k=document.getElementById('api-key-input').value.trim();
+  if(!k)return;
+  localStorage.setItem('yumi-claude-key',k);
+  updateUI();
+}
+function clearKey(){localStorage.removeItem('yumi-claude-key');updateUI();}
+function updateUI(){
+  const ok=!!getKey();
+  document.getElementById('api-dot').className='api-dot '+(ok?'ok':'err');
+  document.getElementById('api-text').textContent=ok?'Claude configurado — pronto para usar':'chave Anthropic não configurada';
+  document.getElementById('api-input-row').style.display=ok?'none':'flex';
+  document.getElementById('api-clear-btn').style.display=ok?'inline':'none';
+}
+updateUI();
+
+async function organizar(){
+  const nome     =document.getElementById('input-nome').value.trim();
+  const descricao=document.getElementById('input-descricao').value.trim();
+  if(!nome||!descricao){alert('Preencha pelo menos o nome e a descrição do projeto.');return;}
+  const key=getKey();
+  if(!key){alert('Configure sua chave Anthropic primeiro.');return;}
+
+  const area   =document.getElementById('input-area').value;
+  const objetivo=document.getElementById('input-objetivo').value.trim();
+  const desafio =document.getElementById('input-desafio').value.trim();
+  const prazo   =document.getElementById('input-prazo').value;
+  const nivel   =document.getElementById('input-nivel').value;
+
+  document.getElementById('btn-organizar').disabled=true;
+  document.getElementById('result-card').classList.remove('show');
+  document.getElementById('loading-card').classList.add('show');
+
+  const areaLabel={'social-media':'Social Media','jornalismo':'Jornalismo','design':'Design','marketing':'Marketing Estratégico','outro':'Comunicação'};
+
+  const systemPrompt=`Você é especialista sênior em comunicação estratégica — com profundidade real em social media, jornalismo, design e marketing. Você organiza projetos como alguém que executa essas áreas há anos: vai direto ao ponto, entende o que está por trás do que a pessoa descreve e entrega estrutura real.
+
+Ao organizar o entregável, estruture sua resposta em quatro blocos obrigatórios:
+
+**01 — RESUMO DO PROJETO**
+Em 3-4 linhas: o que é, para quem, qual o objetivo e o que define sucesso nesse entregável.
+
+**02 — DIAGNÓSTICO**
+O que está claro, o que está faltando, onde está o maior risco ou travamento. Seja honesta e específica.
+
+**03 — ESTRUTURA SUGERIDA**
+Como o entregável deve ser organizado — seções, etapas, formato. Adapte para a área informada.
+
+**04 — PRÓXIMOS PASSOS**
+5 a 7 ações em ordem de prioridade, com o que fazer primeiro. Cada passo deve ser concreto e executável.
+
+Use linguagem direta e profissional. Escreva em português. Use **negrito** para destacar pontos críticos.`;
+
+  let userText=`Projeto: ${nome}\nÁrea: ${areaLabel[area]||area}\nDescrição: ${descricao}`;
+  if(objetivo)userText+=`\nObjetivo: ${objetivo}`;
+  if(desafio)userText+=`\nMaior desafio: ${desafio}`;
+  if(prazo)userText+=`\nPrazo: ${prazo}`;
+  userText+=`\nNível atual: ${nivel}`;
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':key,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1500,
+        system:systemPrompt,
+        messages:[{role:'user',content:userText}]
+      })
+    });
+    const data=await res.json();
+    if(!data.content){throw new Error(JSON.stringify(data));}
+    const text=data.content.map(i=>i.text||'').join('');
+    document.getElementById('result-title').textContent=nome;
+    document.getElementById('result-sub').textContent=areaLabel[area]+(prazo?' · Prazo: '+prazo:'');
+    renderResult(text);
+  }catch(e){
+    document.getElementById('loading-card').classList.remove('show');
+    alert('Erro: '+e.message);
+    document.getElementById('btn-organizar').disabled=false;
+    console.error(e);
+  }
+}
+
+function renderResult(text){
+  document.getElementById('loading-card').classList.remove('show');
+  const labels=['01 — Resumo do Projeto','02 — Diagnóstico','03 — Estrutura Sugerida','04 — Próximos Passos'];
+  const parts=text.split(/\*\*0[1234][^*]*\*\*/g).filter(b=>b.trim());
+  let html='';
+  parts.forEach((b,i)=>{
+    if(i>3)return;
+    const formatted=b.trim().replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    html+=`<div class="result-block"><p class="result-block-label">${labels[i]||''}</p><div class="result-text">${formatted}</div></div>`;
+  });
+  if(!html)html=`<div class="result-block"><div class="result-text">${text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div></div>`;
+  document.getElementById('result-body').innerHTML=html;
+  document.getElementById('result-card').classList.add('show');
+  document.getElementById('btn-organizar').disabled=false;
+  document.getElementById('result-card').scrollIntoView({behavior:'smooth'});
+}
+
+function downloadResult(){
+  const title=document.getElementById('result-title').textContent||'Projeto';
+  const sub=document.getElementById('result-sub').textContent;
+  const bodyHtml=document.getElementById('result-body').innerHTML;
+  const date=new Date().toLocaleDateString('pt-BR');
+  const doc=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>${title}</title>
+<style>body{font-family:Georgia,serif;max-width:700px;margin:48px auto;padding:0 24px;color:#2a2a2e;line-height:1.75;}h1{font-size:26px;margin-bottom:4px;letter-spacing:-0.02em;}
+.meta{font-size:11px;color:#999;margin-bottom:36px;font-family:monospace;}
+.result-block{margin-bottom:28px;border-top:1px solid #e0ddd4;padding-top:20px;}
+.result-block-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#3d2070;font-family:monospace;margin-bottom:10px;}
+.result-text{font-size:15px;color:#2a2a2e;}strong{color:#3d2070;}</style></head>
+<body><h1>${title}</h1><p class="meta">${sub} · Gerado em ${date} · Claude Sonnet · yumicugler.pdf</p>${bodyHtml}</body></html>`;
+  const blob=new Blob([doc],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`${title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')}.html`;
+  a.click();URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

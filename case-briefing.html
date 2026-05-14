@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Briefing Estratégico | Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--green);}
+.breadcrumb span{opacity:0.4;}
+
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-ia{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-design{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.tag-social{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+
+.ficha{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin-bottom:3rem;}
+.ficha-item{background:var(--white);padding:1.25rem;}
+.ficha-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;}
+.ficha-value{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;color:var(--charcoal);}
+
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+
+/* DEVICE MOCKUP */
+.devices-row{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;margin:2rem 0;}
+.device-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);text-align:center;margin-bottom:0.75rem;}
+.device{background:var(--white);border:1.5px solid var(--charcoal);border-radius:28px;padding:10px;box-shadow:4px 4px 0 var(--charcoal);max-width:240px;margin:0 auto;}
+.device-notch{width:70px;height:16px;background:var(--cream-dk);border-radius:8px;margin:0 auto 10px;}
+.device-screen{background:var(--cream);border-radius:20px;overflow:hidden;min-height:380px;display:flex;flex-direction:column;}
+.s-nav{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 8px;border-bottom:1px solid var(--rule);background:var(--white);}
+.s-logo{font-family:'cooper-black',serif;font-size:13px;font-weight:900;color:var(--charcoal);}
+.s-step{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);}
+.s-progress{height:2px;background:var(--rule);}
+.s-progress-fill{height:100%;background:var(--green);width:40%;}
+.s-body{padding:14px 12px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.s-block-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);}
+.s-block-title{font-family:'cooper-black',serif;font-size:16px;font-weight:900;letter-spacing:-0.01em;line-height:1.1;}
+.s-block-title em{font-style:italic;color:var(--purple);}
+.s-field-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;color:var(--charcoal);margin-bottom:3px;}
+.s-input{width:100%;padding:6px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--white);font-size:10px;color:var(--charcoal-lt);font-family:'Cabin',sans-serif;line-height:1.4;}
+.s-input.filled{border-color:#8fbe6a;background:rgba(90,138,60,0.06);color:var(--charcoal);}
+.s-btn-row{display:flex;gap:5px;margin-top:4px;}
+.s-btn{flex:1;padding:7px;border-radius:4px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.06em;border:none;cursor:pointer;}
+.s-btn-primary{background:var(--charcoal);color:var(--white);}
+.s-btn-secondary{background:transparent;border:1px solid var(--rule);color:var(--charcoal-lt);}
+.s-done{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:24px 16px;text-align:center;gap:8px;}
+.s-done-orn{font-size:18px;color:var(--green);}
+.s-done-title{font-family:'cooper-black',serif;font-size:18px;font-weight:900;letter-spacing:-0.02em;}
+.s-done-title em{font-style:italic;color:var(--purple);}
+.s-done-text{font-size:10px;color:var(--charcoal-lt);line-height:1.5;max-width:160px;}
+.s-done-email{font-family:'DM Mono',monospace;font-size:9px;color:var(--charcoal-lt);}
+
+/* DASHBOARD MOCK */
+.dash-mock{border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;background:var(--white);margin:1.5rem 0;}
+.dash-nav-bar{display:flex;justify-content:space-between;align-items:center;padding:0.9rem 1.25rem;border-bottom:1.5px solid var(--charcoal);background:var(--cream);}
+.dash-logo{font-family:'cooper-black',serif;font-size:16px;font-weight:900;color:var(--charcoal);}
+.dash-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);}
+.dash-body{padding:1.25rem;}
+.dash-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:0.35rem;}
+.dash-h{font-family:'cooper-black',serif;font-size:22px;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.2rem;}
+.dash-h em{font-style:italic;color:var(--purple);}
+.dash-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);margin-bottom:1.25rem;}
+.client-card{border:1.5px solid var(--rule);border-radius:8px;padding:0.9rem 1.1rem;margin-bottom:0.6rem;}
+.cc-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.cc-name{font-size:13px;font-weight:600;margin-bottom:2px;}
+.cc-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);}
+.cc-arrow{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);}
+.cc-body{margin-top:0.9rem;padding-top:0.9rem;border-top:1px solid var(--rule);}
+.cc-section{margin-bottom:0.85rem;}
+.cc-section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:0.4rem;}
+.cc-q{font-size:11px;color:var(--charcoal-lt);margin-bottom:2px;}
+.cc-a{font-size:12px;color:var(--charcoal);line-height:1.6;margin-bottom:0.6rem;}
+.an-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--charcoal);color:var(--white);border:none;border-radius:100px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;cursor:pointer;margin-top:0.5rem;}
+.analysis-block{background:var(--cream-dk);border:1.5px solid var(--rule);border-left:4px solid var(--green);border-radius:0 8px 8px 0;padding:1.25rem 1.5rem;margin-top:1rem;}
+.an-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:0.85rem;display:block;}
+.an-section{margin-bottom:1rem;}
+.an-section-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;color:var(--charcoal);margin-bottom:4px;}
+.an-text{font-size:13px;line-height:1.75;color:var(--charcoal-lt);}
+.an-text strong{color:var(--charcoal);}
+.an-hook{border-left:3px solid var(--green-pale);padding-left:10px;margin-bottom:6px;font-family:'cooper-black',serif;font-size:14px;font-style:italic;color:var(--charcoal);line-height:1.5;}
+.client-card-closed{opacity:0.45;}
+
+/* SPLIT ACESSO */
+.split-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin:1.5rem 0;}
+.split-panel{background:var(--white);padding:1.5rem;}
+.split-panel.green-panel{background:rgba(90,138,60,0.06);}
+.split-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:0.75rem;display:block;}
+.split-panel.green-panel .split-label{color:var(--green);}
+.split-title{font-family:'cooper-black',serif;font-size:18px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;}
+.split-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--charcoal-lt);margin-bottom:0.5rem;line-height:1.5;}
+.split-panel.green-panel .split-item{color:var(--charcoal);}
+.split-dot{width:4px;height:4px;border-radius:50%;background:var(--rule);flex-shrink:0;margin-top:8px;}
+.split-panel.green-panel .split-dot{background:var(--green);}
+
+/* BLOCOS */
+.blocks-list{display:flex;flex-direction:column;gap:0;border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin:1.5rem 0;}
+.block-row{display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.25rem;border-bottom:1px solid var(--rule);background:var(--white);}
+.block-row:last-child{border-bottom:none;}
+.block-n{font-family:'cooper-black',serif;font-size:18px;font-weight:900;font-style:italic;color:var(--purple-lt);min-width:28px;padding-top:2px;flex-shrink:0;}
+.block-info h4{font-size:15px;font-weight:600;font-family:'cooper-black',serif;letter-spacing:-0.01em;margin-bottom:2px;}
+.block-info p{font-size:12px;color:var(--charcoal-lt);line-height:1.5;}
+.block-badge{margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:rgba(90,138,60,0.08);border:1.5px solid var(--green-pale);padding:2px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0;align-self:flex-start;margin-top:2px;}
+
+/* TECH */
+.tech-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
+.tech-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;border-radius:100px;border:1.5px solid var(--rule);background:var(--white);color:var(--charcoal-lt);}
+
+/* DECISIONS */
+.decisions{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--green);}
+.decision-card.purple{border-left-color:var(--purple);}
+.decision-element{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px;font-weight:500;}
+.decision-card.purple .decision-element{color:var(--purple);}
+.decision-why{font-size:14px;color:var(--charcoal);line-height:1.6;}
+
+/* LEARNINGS */
+.learnings{background:var(--purple);border-radius:12px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:#c4aff0;}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+
+.divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.demo-frame-wrap{border:2px solid var(--charcoal);border-radius:14px;overflow:hidden;box-shadow:4px 4px 0 var(--green);margin:1.5rem 0;}
+.demo-frame-wrap iframe{width:100%;height:700px;border:none;display:block;}
+.demo-note{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);text-align:center;margin-top:0.75rem;}
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--purple);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+
+@media(max-width:600px){
+  .ficha{grid-template-columns:1fr 1fr;}
+  .devices-row{grid-template-columns:1fr;}
+  .split-grid{grid-template-columns:1fr;}
+  .case-footer{flex-direction:column;gap:1rem;}
+  body{padding:2rem 1.25rem 4rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="index.html">portfólio</a><span>/</span>
+  <a href="serie-ferramentas.html">ferramentas</a><span>/</span>
+  <span style="color:var(--charcoal);">briefing estratégico</span>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-ia">IA · Claude API</span>
+    <span class="meta-tag tag-social">Social Media</span>
+    <span class="meta-tag tag-design">Produto Digital</span>
+  </div>
+  <h1 class="case-title">Briefing<br><em>Estratégico.</em></h1>
+  <p class="case-subtitle">Uma ferramenta que transforma o briefing de cliente em diagnóstico estratégico. O cliente responde no celular — você recebe as respostas organizadas e gera a análise com um clique.</p>
+
+  <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--cream-dk);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;">insight central</p>
+    <p style="font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">O briefing não é burocracia — é a matéria-prima do posicionamento. O problema é que ninguém ensinou o cliente a responder direito.</p>
+  </div>
+</div>
+
+<div class="ficha">
+  <div class="ficha-item"><p class="ficha-label">Tipo</p><p class="ficha-value">Ferramenta IA</p></div>
+  <div class="ficha-item"><p class="ficha-label">Plataforma</p><p class="ficha-value">Web · Mobile-first</p></div>
+  <div class="ficha-item"><p class="ficha-label">Stack</p><p class="ficha-value">React + Claude API</p></div>
+  <div class="ficha-item"><p class="ficha-label">Usuários</p><p class="ficha-value">2 perfis de acesso</p></div>
+  <div class="ficha-item"><p class="ficha-label">Perguntas</p><p class="ficha-value">20 em 5 blocos</p></div>
+  <div class="ficha-item"><p class="ficha-label">Série</p><p class="ficha-value">Ferramentas do Claude</p></div>
+</div>
+
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">O problema<br><em>real do briefing.</em></h2>
+  <p>Toda social media já ouviu alguma versão de "pode fazer o conteúdo do jeito que achar melhor" — e sabe o quanto isso complica, não facilita. O problema não é falta de boa vontade do cliente: é que perguntas abertas mal formuladas não extraem as informações que realmente importam.</p>
+  <p>O briefing padrão de mercado coleta dados superficiais. Esta ferramenta foi criada para coletar <strong>o que o cliente sabe mas não sabe que sabe</strong> — os diferenciais reais, as objeções que enfrenta, o que nunca quer ser comparado. E depois transformar tudo isso em diagnóstico estratégico real, não em resumo das respostas.</p>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">02 — o que o cliente vê</p>
+  <h2 class="section-title">Formulário <em>no celular.</em></h2>
+  <p>O cliente recebe um link. Sem login, sem cadastro. Abre no celular e responde 20 perguntas em 5 blocos — cada uma com contexto do que está sendo pedido. A interface acompanha o progresso e impede avanço com campo vazio.</p>
+
+  <div class="devices-row">
+    <div>
+      <p class="device-label">preenchendo o bloco 02</p>
+      <div class="device">
+        <div class="device-notch"></div>
+        <div class="device-screen">
+          <div class="s-nav">
+            <span class="s-logo">Yumi<span style="color:var(--green);">.</span></span>
+            <span class="s-step">2 / 5</span>
+          </div>
+          <div class="s-progress"><div class="s-progress-fill"></div></div>
+          <div class="s-body">
+            <div>
+              <span class="s-block-tag">02 — A Marca</span>
+              <div class="s-block-title">A <em>Marca.</em></div>
+            </div>
+            <div>
+              <span class="s-field-label">Descreva sua marca em até 3 palavras.</span>
+              <div class="s-input filled">Inteira, presente, honesta</div>
+            </div>
+            <div>
+              <span class="s-field-label">Qual é o maior diferencial da sua marca?</span>
+              <div class="s-input filled" style="min-height:48px;padding-top:6px;">Não vendo método. Vendo permissão pra parar sem culpa.</div>
+            </div>
+            <div>
+              <span class="s-field-label">O que você NUNCA quer ser associada?</span>
+              <div class="s-input" style="color:var(--rule);min-height:36px;">Sua resposta...</div>
+            </div>
+            <div class="s-btn-row">
+              <button class="s-btn s-btn-secondary">← voltar</button>
+              <button class="s-btn s-btn-primary">próximo →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="device-label">após enviar</p>
+      <div class="device">
+        <div class="device-notch"></div>
+        <div class="device-screen">
+          <div class="s-nav">
+            <span class="s-logo">Yumi<span style="color:var(--green);">.</span></span>
+            <span class="s-step">✦ enviado</span>
+          </div>
+          <div class="s-done">
+            <span class="s-done-orn">✦</span>
+            <div class="s-done-title">Pronto, <em>recebido.</em></div>
+            <p class="s-done-text">Obrigada por responder com atenção. Vou analisar cada resposta com cuidado antes do nosso próximo contato.</p>
+            <span class="s-done-email">yumicugler@outlook.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">03 — o que a social media vê</p>
+  <h2 class="section-title">Dashboard <em>privado.</em></h2>
+  <p>O dashboard fica acessível só para você — via código de acesso oculto no rodapé. Todas as respostas chegam organizadas por bloco e por cliente. Com um clique, você gera o diagnóstico estratégico com IA.</p>
+
+  <div class="dash-mock">
+    <div class="dash-nav-bar">
+      <span class="dash-logo">Yumi<span style="color:var(--green);">.</span></span>
+      <span class="dash-tag">✦ dashboard</span>
+    </div>
+    <div class="dash-body">
+      <span class="dash-eyebrow">✦ briefings recebidos</span>
+      <div class="dash-h">Respostas dos <em>clientes.</em></div>
+      <p class="dash-sub">2 briefings recebidos.</p>
+
+      <div class="client-card">
+        <div class="cc-top">
+          <div>
+            <div class="cc-name">Luana · luana@studiosemente.com.br</div>
+            <div class="cc-date">10 mai · 14h32</div>
+          </div>
+          <span class="cc-arrow">↑ fechar</span>
+        </div>
+        <div class="cc-body">
+          <div class="cc-section">
+            <div class="cc-section-label">01 — O Negócio</div>
+            <div class="cc-q">Qual é o principal objetivo da sua presença nas redes agora?</div>
+            <div class="cc-a">Criar autoridade no Instagram e gerar leads para minha mentoria de R$2.500. Hoje chegam pelo boca a boca, mas quero um canal digital que trabalhe por mim.</div>
+          </div>
+          <div class="cc-section">
+            <div class="cc-section-label">02 — A Marca</div>
+            <div class="cc-q">O que você NUNCA quer que sua marca seja associada?</div>
+            <div class="cc-a">Aquela estética de coach de Instagram: frase motivacional sobre fundo bege, citação de Brené Brown, "você merece". Odeio.</div>
+          </div>
+
+          <button class="an-btn">gerar análise estratégica →</button>
+
+          <div class="analysis-block" style="margin-top:1rem;">
+            <span class="an-tag">✦ análise estratégica gerada pela IA</span>
+            <div class="an-section">
+              <div class="an-section-title">✦ o que está acontecendo de verdade</div>
+              <p class="an-text">A Luana sabe o que não quer — e isso é raro. O problema real: a régua de autenticidade ainda não virou linguagem criativa operável. <strong>Tem clareza do "não", mas não tem o formato que a representa.</strong></p>
+            </div>
+            <div class="an-section">
+              <div class="an-section-title">✦ hooks reais — na linguagem dela</div>
+              <div class="an-hook">"A maioria das coaches vai te dizer o que fazer. Eu vou te dar permissão pra parar."</div>
+              <div class="an-hook">"Você já tomou todas as decisões certas. E ainda está esgotada. Vamos falar sobre isso?"</div>
+            </div>
+            <div class="an-section">
+              <div class="an-section-title">✦ as 3 primeiras peças</div>
+              <p class="an-text"><strong>1. Apresentação — o que ela não é.</strong> Diferenciação explícita performa melhor que apresentação genérica.<br><strong>2. Post de nomeação</strong> — dar nome a algo que o público sente mas não articula.<br><strong>3. Resposta à objeção principal</strong> — "coaching funciona mesmo?" com opinião real.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="client-card client-card-closed">
+        <div class="cc-top">
+          <div>
+            <div class="cc-name">Rafael · Marcenaria Própria</div>
+            <div class="cc-date">08 mai · 09h15</div>
+          </div>
+          <span class="cc-arrow" style="color:var(--rule);">↓ ver</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">04 — acesso</p>
+  <h2 class="section-title">Pública para o cliente.<br><em>Privada para você.</em></h2>
+  <p>O mesmo link. Experiências completamente diferentes.</p>
+
+  <div class="split-grid">
+    <div class="split-panel">
+      <span class="split-label">para o cliente</span>
+      <div class="split-title">Formulário aberto.</div>
+      <div class="split-item"><span class="split-dot"></span>recebe o link direto, sem login</div>
+      <div class="split-item"><span class="split-dot"></span>interface limpa, mobile-first</div>
+      <div class="split-item"><span class="split-dot"></span>não vê o dashboard</div>
+      <div class="split-item"><span class="split-dot"></span>vê apenas a tela de confirmação ao enviar</div>
+    </div>
+    <div class="split-panel green-panel">
+      <span class="split-label">para você</span>
+      <div class="split-title">Dashboard protegido.</div>
+      <div class="split-item"><span class="split-dot"></span>acesso via código oculto no rodapé</div>
+      <div class="split-item"><span class="split-dot"></span>todas as respostas salvas com data</div>
+      <div class="split-item"><span class="split-dot"></span>histórico de todos os clientes</div>
+      <div class="split-item"><span class="split-dot"></span>análise com IA gerada em 1 clique</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">05 — os blocos</p>
+  <h2 class="section-title">20 perguntas, <em>5 blocos.</em></h2>
+  <p>Cada pergunta tem uma razão de existir. Nenhuma é decorativa — todas alimentam a análise estratégica.</p>
+
+  <div class="blocks-list">
+    <div class="block-row">
+      <span class="block-n">01</span>
+      <div class="block-info"><h4>O Negócio</h4><p>Objetivo nas redes, problema resolvido, ciclo de decisão de compra, metas de 3 a 6 meses</p></div>
+    </div>
+    <div class="block-row">
+      <span class="block-n">02</span>
+      <div class="block-info"><h4>A Marca</h4><p>Identidade em 3 palavras, diferencial real, o que a marca nunca seria, o que se destaca</p></div>
+      <span class="block-badge">diferenciais</span>
+    </div>
+    <div class="block-row">
+      <span class="block-n">03</span>
+      <div class="block-info"><h4>O Público</h4><p>Perfil do cliente ideal, o que clientes elogiam, objeções antes da compra, adequação do público atual</p></div>
+      <span class="block-badge">voz do cliente</span>
+    </div>
+    <div class="block-row">
+      <span class="block-n">04</span>
+      <div class="block-info"><h4>Histórico e Operação</h4><p>O que funcionou antes, pitch natural da marca, fluxo de aprovação, orçamento disponível</p></div>
+    </div>
+    <div class="block-row">
+      <span class="block-n">05</span>
+      <div class="block-info"><h4>Mercado e Referências</h4><p>Concorrentes diretos, marcas admiradas, contato para retorno</p></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">06 — decisões de design</p>
+  <h2 class="section-title">O porquê de cada<br><em>escolha.</em></h2>
+  <div class="decisions">
+    <div class="decision-card">
+      <p class="decision-element">Sem login para o cliente</p>
+      <p class="decision-why">Cada etapa de fricção no formulário é uma oportunidade de abandono. Um link direto que abre e funciona — sem conta, sem senha — respeita o tempo do cliente e aumenta a taxa de resposta completa.</p>
+    </div>
+    <div class="decision-card purple">
+      <p class="decision-element">Análise na linguagem do cliente, não do mercado</p>
+      <p class="decision-why">O prompt para a API foi construído para gerar hooks e posicionamentos usando as palavras exatas que o cliente usou no briefing. A melhor copy é a que o próprio cliente escreveu sem saber.</p>
+    </div>
+    <div class="decision-card">
+      <p class="decision-element">Dashboard oculto, não separado</p>
+      <p class="decision-why">Separar cliente e profissional em dois URLs diferentes cria problema de manutenção. Ocultar via código no mesmo link mantém a experiência do cliente limpa enquanto o dashboard existe no mesmo arquivo.</p>
+    </div>
+    <div class="decision-card purple">
+      <p class="decision-element">Perguntas com contexto, não só campo vazio</p>
+      <p class="decision-why">Cada pergunta tem uma dica sobre o que está sendo pedido — não para facilitar demais, mas para ativar o pensamento certo. "O que você faz que nenhum concorrente faz igual..." direciona mais que "qual o diferencial?"</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">07 — construção</p>
+  <h2 class="section-title">Como foi <em>feita.</em></h2>
+  <p>Desenvolvida a partir de uma pergunta real de fluxo de trabalho: como não perder informação estratégica no briefing? Faz parte da série <em>Ferramentas do Claude</em> — problemas do dia a dia resolvidos com IA.</p>
+  <div class="tech-tags">
+    <span class="tech-tag">HTML · JS Vanilla</span>
+    <span class="tech-tag">Claude API</span>
+    <span class="tech-tag">localStorage</span>
+    <span class="tech-tag">Mobile-first</span>
+    <span class="tech-tag">Acesso por código</span>
+    <span class="tech-tag">Netlify Functions</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">✦ experimente</p>
+  <h2 class="section-title">A ferramenta <em>ao vivo.</em></h2>
+  <p>Você pode preencher o formulário completo aqui e ver como ele funciona na prática. Preencha os 5 blocos e envie — ou acesse o dashboard para ver como as respostas chegam organizadas.</p>
+  <p style="margin-top:0.75rem;"><strong>Para acessar o dashboard:</strong> clique 3 vezes no rodapé da ferramenta e insira o código <code style="font-family:'DM Mono',monospace;font-size:13px;background:var(--cream-dk);padding:2px 8px;border-radius:4px;">yumi</code>.</p>
+  <div class="demo-frame-wrap">
+    <iframe src="briefing-estrategico.html" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+  </div>
+  <p class="demo-note">✦ a análise estratégica só é gerada no dashboard, após o envio do formulário · dados salvos localmente no navegador</p>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">08 — aprendizados</p>
+  <div class="learnings">
+    <p class="section-label">✦ o que esse projeto ensinou</p>
+    <h2 class="section-title">Além do <em>formulário.</em></h2>
+    <ul class="learning-list">
+      <li><strong>Perguntas mal formuladas custam horas de retrabalho.</strong> O investimento em construir o briefing certo é menor do que o custo de refazer conteúdo por falta de contexto.</li>
+      <li><strong>O cliente não sabe o que sabe.</strong> Perguntas que pedem comparação ("o que você NUNCA quer ser") extraem mais do que perguntas diretas sobre atributos positivos.</li>
+      <li><strong>A IA não cria posicionamento — ela revela o que já estava nas respostas.</strong> O prompt certo transforma dados brutos em linguagem estratégica operável.</li>
+      <li><strong>Fricção mata adoção.</strong> Cada campo a mais, cada login, cada etapa desnecessária é uma desistência que acontece antes de você nem saber.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note">ia · social media · produto</span>
+</div>
+
+</body>
+</html>

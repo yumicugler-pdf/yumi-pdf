@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Submundo 808 | Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:860px;margin:0 auto;padding:3rem 2rem 6rem;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--green);}
+.breadcrumb span{opacity:0.4;}
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-jorn{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-ac{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.tag-collab{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(34px,5vw,58px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+.divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.content-card{background:var(--white);border:2px solid var(--charcoal);border-radius:14px;padding:2rem;margin-top:1.5rem;}
+.content-card p{color:var(--charcoal-lt);margin-bottom:1rem;font-size:15px;line-height:1.75;}
+.content-card p:last-child{margin-bottom:0;}
+.content-card p strong{color:var(--charcoal);}
+.highlights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem;}
+.highlight-item{background:var(--cream-dk);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem;display:flex;align-items:flex-start;gap:10px;}
+.highlight-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:7px;}
+.highlight-text{font-size:13px;color:var(--charcoal-lt);line-height:1.6;}
+.highlight-text strong{color:var(--charcoal);}
+.collab-card{background:var(--white);border:2px solid var(--charcoal);border-radius:14px;padding:1.5rem 2rem;margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.collab-role{padding:1rem;border-radius:10px;}
+.collab-role.principal{background:var(--cream-dk);border-left:4px solid var(--charcoal);}
+.collab-role.coprod{background:rgba(90,138,60,0.06);border-left:4px solid var(--green);}
+.collab-role-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+.collab-role.principal .collab-role-label{color:var(--charcoal-lt);}
+.collab-role.coprod .collab-role-label{color:var(--green);}
+.collab-role-name{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;margin-bottom:6px;}
+.collab-role-tasks{font-size:13px;color:var(--charcoal-lt);line-height:1.6;}
+.audio-section{margin-bottom:3.5rem;}
+.audio-wrap{background:var(--charcoal);border:2px solid var(--charcoal);border-radius:14px;overflow:hidden;}
+.audio-header{padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);}
+.audio-header-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,242,232,0.6);}
+.audio-header-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--green);}
+.audio-player-wrap{padding:1.5rem;}
+.audio-player-wrap audio{width:100%;display:block;}
+.audio-unavailable{background:var(--cream-dk);border:1.5px dashed var(--rule);border-radius:8px;padding:1.5rem;text-align:center;display:none;}
+.audio-unavailable-text{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);}
+.learnings{background:var(--purple);border-radius:14px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:var(--purple-lt);}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--green);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+@media(max-width:600px){.highlights{grid-template-columns:1fr;}.collab-card{grid-template-columns:1fr;}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="index.html">portfólio</a><span>/</span>
+  <span style="color:var(--charcoal);">submundo 808</span>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-jorn">Radiojornalismo</span>
+    <span class="meta-tag tag-collab">Coprodução</span>
+    <span class="meta-tag tag-ac">Acadêmico</span>
+  </div>
+  <h1 class="case-title">Submundo 808 —<br><em>funk no interior.</em></h1>
+  <p class="case-subtitle">Reportagem especial sobre o crescimento do funk bruxaria em Sorocaba (SP) e sua capacidade de mobilização cultural. Produção principal: Kauã Bueno. Coprodução: Yumi Cugler.</p>
+
+  <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--cream-dk);border-left:4px solid var(--charcoal);border-radius:0 10px 10px 0;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;">pauta</p>
+    <p style="font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">O que explica 10 mil pessoas reunidas pelo funk em uma cidade do interior?</p>
+  </div>
+</div>
+
+<!-- 01 CONTEXTO -->
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">De onde veio<br><em>a pauta.</em></h2>
+  <p>Reportagem desenvolvida para a disciplina de <strong>Radiojornalismo</strong>, com foco na cobertura cultural e musical no interior de São Paulo.</p>
+  <p>O Submundo 808 reuniu cerca de <strong>10 mil pessoas</strong> em Sorocaba — um evento de grande porte que evidenciou a força do funk bruxaria como movimento cultural fora dos grandes centros. A pauta surgiu dessa contradição aparente: um gênero tratado como marginal que, na prática, mobiliza multidões.</p>
+</div>
+
+<hr class="divider">
+
+<!-- 02 O PROJETO -->
+<div class="section">
+  <p class="section-label">02 — o projeto</p>
+  <h2 class="section-title">A reportagem<br><em>em campo.</em></h2>
+  <p>Produção em campo com captação de entrevistas com <strong>DJs, organizadores e artistas da cena</strong>. A estrutura narrativa segue o formato de reportagem especial — com recorte cultural e social, não apenas descritivo.</p>
+
+  <div class="content-card">
+    <p>O conteúdo explora o impacto do funk bruxaria como movimento de <strong>identidade, pertencimento e conexão social</strong> no interior paulista — indo além da cobertura de evento para entender o que o fenômeno representa para quem faz e para quem consome.</p>
+    <p>A locução foi feita em dupla, com ritmo pensado para o formato sonoro: clareza, tempo de respiro e condução narrativa que guia o ouvinte sem substituir a experiência de escutar as fontes.</p>
+  </div>
+
+  <div class="highlights">
+    <div class="highlight-item"><div class="highlight-dot"></div><div class="highlight-text"><strong>Cobertura de grande porte</strong> — evento com ≈10 mil pessoas em Sorocaba</div></div>
+    <div class="highlight-item"><div class="highlight-dot"></div><div class="highlight-text"><strong>Produção em campo</strong> — captação de entrevistas com artistas e organizadores</div></div>
+    <div class="highlight-item"><div class="highlight-dot"></div><div class="highlight-text"><strong>Reportagem especial</strong> — estrutura narrativa com recorte cultural e social</div></div>
+    <div class="highlight-item"><div class="highlight-dot"></div><div class="highlight-text"><strong>Locução em dupla</strong> — condução conjunta com ritmo e clareza narrativa</div></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 03 CRÉDITOS -->
+<div class="section">
+  <p class="section-label">03 — créditos</p>
+  <h2 class="section-title">Produção<br><em>em parceria.</em></h2>
+  <p>Projeto realizado em coprodução. Kauã Bueno foi o responsável principal — pela idealização, produção e condução geral da pauta. Minha participação foi como coprodutora.</p>
+
+  <div class="collab-card">
+    <div class="collab-role principal">
+      <p class="collab-role-label">Produção principal</p>
+      <p class="collab-role-name">Kauã Bueno</p>
+      <p class="collab-role-tasks">Idealização da pauta · Produção e condução geral · Roteiro · Locução</p>
+    </div>
+    <div class="collab-role coprod">
+      <p class="collab-role-label">Coprodução</p>
+      <p class="collab-role-name">Yumi Cugler</p>
+      <p class="collab-role-tasks">Construção narrativa · Definição de recortes jornalísticos · Roteiro · Locução</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 04 O ÁUDIO -->
+<div class="audio-section">
+  <p class="section-label">04 — o áudio</p>
+  <h2 class="section-title" style="margin-bottom:1.5rem;">A reportagem<br><em>na íntegra.</em></h2>
+  <div class="audio-wrap">
+    <div class="audio-header">
+      <span class="audio-header-title">Submundo 808 — Reportagem Especial</span>
+      <span class="audio-header-tag">Radiojornalismo · 2026</span>
+    </div>
+    <div class="audio-player-wrap">
+      <audio controls id="audio-player">
+        <source src="audio/submundo-808.mpeg" type="audio/mpeg">
+        <source src="audio/submundo-808.mp3" type="audio/mpeg">
+        Seu navegador não suporta reprodução de áudio.
+      </audio>
+      <div class="audio-unavailable" id="audio-unavailable">
+        <p class="audio-unavailable-text">áudio em breve</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 05 APRENDIZADO -->
+<div class="section">
+  <p class="section-label">05 — aprendizado</p>
+  <h2 class="section-title">O que<br><em>ficou.</em></h2>
+  <div class="learnings">
+    <p class="section-label">narrativa sonora</p>
+    <h3 class="section-title" style="font-size:20px;">Reportar em áudio é<br><em>guiar sem mostrar.</em></h3>
+    <ul class="learning-list">
+      <li><strong>O recorte define tudo.</strong> Em radiojornalismo, não há imagem para compensar um ângulo fraco — a escolha do que dizer (e do que cortar) é o trabalho todo.</li>
+      <li><strong>Trabalhar em coprodução exige escuta.</strong> Entrar em um projeto já em andamento e contribuir com qualidade — sem tomar o espaço de quem conduziu — é uma habilidade específica.</li>
+      <li><strong>A locução é entrega, não leitura.</strong> Texto bem escrito ainda pode ser mal locucionado. O ritmo, o tempo de respiro e o tom são tão precisos quanto as palavras.</li>
+      <li><strong>Cobertura cultural tem profundidade.</strong> Funk bruxaria não é só um gênero — é uma forma de pertencer. Trazer esse contexto é o que separa cobertura de registro.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note"><a href="index.html" style="color:var(--charcoal-lt);text-decoration:none;">← voltar ao portfólio</a></span>
+</div>
+
+<script>
+(function(){
+  const audio = document.getElementById('audio-player');
+  const unavailable = document.getElementById('audio-unavailable');
+  if(!audio) return;
+  audio.addEventListener('error', function(){
+    audio.style.display = 'none';
+    unavailable.style.display = 'block';
+  });
+  const source = audio.querySelector('source');
+  if(source){
+    const img = new Image();
+    img.onerror = function(){
+      audio.style.display = 'none';
+      unavailable.style.display = 'block';
+    };
+  }
+})();
+</script>
+</body>
+</html>

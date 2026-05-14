@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yumi — Central de Ferramentas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1814;
+    --paper: #f5f2ec;
+    --cream: #ede9e0;
+    --rule: #c8c2b4;
+    --accent: #b8401a;
+    --accent-light: #f0e8e3;
+    --muted: #7a7570;
+    --green: #2d6a4f;
+    --green-light: #e8f3ed;
+    --blue: #1a3a5c;
+    --blue-light: #e3edf5;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 100;
+  }
+
+  .nav-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+  }
+
+  .tab-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-right: none;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+
+  .tab-btn:first-child { border-radius: 4px 0 0 4px; }
+  .tab-btn:last-child { border-right: 1px solid var(--rule); border-radius: 0 4px 4px 0; }
+
+  .tab-btn:hover { background: var(--cream); color: var(--ink); }
+  .tab-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* PANELS */
+  .panel { display: none; padding: 2rem; max-width: 780px; margin: 0 auto; }
+  .panel.active { display: block; }
+
+  /* HOME */
+  .home-header {
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+
+  .home-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .home-header p {
+    font-size: 14px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .tool-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .tool-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .tool-card:hover {
+    border-color: var(--ink);
+    transform: translateY(-1px);
+  }
+
+  .tool-card-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+
+  .tool-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+
+  .tool-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .tool-card .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-top: 10px;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* FORMS */
+  .panel-header {
+    padding-bottom: 1rem;
+    border-bottom: 1.5px solid var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  .panel-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .panel-header p {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-top: 4px;
+  }
+
+  .section { margin-bottom: 1.5rem; }
+
+  label {
+    display: block;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  select, input[type="text"] {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    appearance: none;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  select:focus, input:focus, textarea:focus { border-color: var(--accent); }
+
+  textarea {
+    width: 100%;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+    resize: vertical;
+    outline: none;
+    line-height: 1.7;
+    transition: border-color 0.15s;
+  }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn:hover { background: var(--accent); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--rule);
+  }
+  .btn-outline:hover { background: var(--cream); color: var(--ink); }
+
+  .btn-row { display: flex; gap: 10px; margin-top: 1.5rem; align-items: center; }
+
+  /* OUTPUT */
+  .output-section { display: none; margin-top: 2.5rem; border-top: 1.5px solid var(--ink); padding-top: 2rem; }
+  .output-section.visible { display: block; }
+
+  .output-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; }
+
+  .output-header h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .otag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  #org-output-box {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 2rem;
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    min-height: 160px;
+  }
+
+  .analysis-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .analysis-card h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .analysis-card p { font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
+  .card-blue { border-left: 3px solid var(--blue); }
+  .card-red { border-left: 3px solid var(--accent); }
+  .card-green { border-left: 3px solid var(--green); }
+
+  /* UPLOAD */
+  .upload-area {
+    border: 1.5px dashed var(--rule);
+    border-radius: 6px;
+    padding: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--cream);
+    position: relative;
+  }
+
+  .upload-area:hover, .upload-area.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .upload-area input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%; height: 100%;
+  }
+
+  .upload-icon { font-size: 28px; margin-bottom: 8px; display: block; color: var(--muted); }
+
+  .upload-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  .upload-text strong { color: var(--ink); font-weight: 500; }
+
+  #preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    margin-top: 1rem;
+  }
+
+  .preview-item {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    aspect-ratio: 9/16;
+    background: var(--cream);
+  }
+
+  .preview-item img { width: 100%; height: 100%; object-fit: cover; }
+
+  .preview-remove {
+    position: absolute;
+    top: 4px; right: 4px;
+    background: var(--ink);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    font-size: 11px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 2rem 0;
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pulse {
+    0%,80%,100% { opacity:.2; transform:scale(.8); }
+    40% { opacity:1; transform:scale(1); }
+  }
+
+  .success-msg {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .success-msg.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-title">Yumi — Ferramentas</span>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showPanel('home', this)">Início</button>
+    <button class="tab-btn" onclick="showPanel('organizar', this)">Organizar</button>
+    <button class="tab-btn" onclick="showPanel('metricas', this)">Métricas</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="panel active" id="panel-home">
+  <div class="home-header">
+    <h1>Central de<br>Ferramentas</h1>
+    <p>comunicação estratégica · yumi cugler</p>
+  </div>
+
+  <div class="tool-cards">
+    <div class="tool-card" onclick="showPanel('organizar', document.querySelectorAll('.tab-btn')[1])">
+      <div class="tool-card-icon">→</div>
+      <h3>Organizador de Entregáveis</h3>
+      <p>Transforma rascunhos e notas brutas em documentos estruturados: briefings, relatórios, planejamentos, propostas.</p>
+      <span class="tag">jornalismo · social media · marketing</span>
+    </div>
+
+    <div class="tool-card" onclick="showPanel('metricas', document.querySelectorAll('.tab-btn')[2])">
+      <div class="tool-card-icon">↑</div>
+      <h3>Análise de Métricas</h3>
+      <p>Sobe prints do Instagram e recebe diagnóstico estratégico com leitura dos dados, análise e ações prioritárias.</p>
+      <span class="tag">social media · estratégia</span>
+    </div>
+  </div>
+</div>
+
+<!-- ORGANIZAR -->
+<div class="panel" id="panel-organizar">
+  <div class="panel-header">
+    <h2>Organizador de Entregáveis</h2>
+    <p>rascunho → documento estruturado</p>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <div>
+        <label>Tipo de entregável</label>
+        <select id="org-tipo">
+          <option value="briefing">Briefing de pauta</option>
+          <option value="relatorio">Relatório de conteúdo</option>
+          <option value="planejamento">Planejamento editorial</option>
+          <option value="analise">Análise estratégica</option>
+          <option value="proposta">Proposta de projeto</option>
+          <option value="roteiro">Roteiro / script</option>
+        </select>
+      </div>
+      <div>
+        <label>Pilar principal</label>
+        <select id="org-pilar">
+          <option value="jornalismo">Jornalismo</option>
+          <option value="social_media">Social Media</option>
+          <option value="design">Design</option>
+          <option value="marketing">Marketing Estratégico</option>
+          <option value="integrado">Integrado</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <label>Título ou tema central</label>
+    <input type="text" id="org-titulo" placeholder="ex: cobertura de cultura sneaker para pesquisa universitária">
+  </div>
+
+  <div class="section">
+    <label>Notas, rascunhos ou ideias brutas</label>
+    <textarea id="org-notas" rows="10" placeholder="Joga tudo aqui sem se preocupar com formato. Fragmentos, bullets, frases soltas — quanto mais, melhor."></textarea>
+  </div>
+
+  <div class="section">
+    <label>Contexto adicional (opcional)</label>
+    <input type="text" id="org-contexto" placeholder="ex: para apresentar à banca, para enviar ao editor">
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="organizar()">→ Organizar</button>
+    <button class="btn btn-outline" onclick="limparOrg()">Limpar</button>
+  </div>
+
+  <div class="output-section" id="org-output">
+    <div class="output-header">
+      <h3 id="org-output-title">Entregável estruturado</h3>
+      <span class="otag" id="org-output-tag">—</span>
+    </div>
+    <div id="org-output-box"></div>
+    <div class="btn-row">
+      <button class="btn btn-outline" style="font-size:11px;padding:8px 16px;" onclick="copiarOrg()">Copiar</button>
+      <span class="success-msg" id="org-copy-msg">copiado ✓</span>
+    </div>
+  </div>
+</div>
+
+<!-- MÉTRICAS -->
+<div class="panel" id="panel-metricas">
+  <div class="panel-header">
+    <h2>Análise de Métricas</h2>
+    <p>prints do instagram → diagnóstico estratégico</p>
+  </div>
+
+  <div class="section">
+    <label>Prints das métricas</label>
+    <div class="upload-area" id="upload-area">
+      <input type="file" id="file-input" accept="image/*" multiple onchange="handleFiles(this.files)">
+      <span class="upload-icon">↑</span>
+      <p class="upload-text"><strong>Clique ou arraste</strong> os prints aqui<br>Pode ser mais de um</p>
+    </div>
+    <div id="preview-grid"></div>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <div>
+        <label>Objetivo atual do perfil</label>
+        <select id="met-objetivo">
+          <option value="crescimento">Crescimento de audiência</option>
+          <option value="engajamento">Engajamento e comunidade</option>
+          <option value="posicionamento">Posicionamento profissional</option>
+          <option value="conversao">Conversão</option>
+        </select>
+      </div>
+      <div>
+        <label>Nicho / tema</label>
+        <input type="text" id="met-nicho" placeholder="ex: jornalismo, sneaker culture">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <label>Contexto adicional (opcional)</label>
+    <textarea id="met-contexto" rows="3" placeholder="ex: conta nova, postei 3x essa semana, público majoritariamente SP..."></textarea>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" id="met-btn" onclick="analisar()" disabled>→ Analisar</button>
+    <button class="btn btn-outline" onclick="limparMet()">Limpar</button>
+  </div>
+
+  <div class="output-section" id="met-output">
+    <div class="output-header">
+      <h3>Diagnóstico estratégico</h3>
+    </div>
+    <div id="met-output-box"></div>
+  </div>
+</div>
+
+<script>
+// NAV
+function showPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ORGANIZAR
+const tipoLabels = {
+  briefing: 'Briefing de Pauta', relatorio: 'Relatório de Conteúdo',
+  planejamento: 'Planejamento Editorial', analise: 'Análise Estratégica',
+  proposta: 'Proposta de Projeto', roteiro: 'Roteiro / Script'
+};
+
+async function organizar() {
+  const tipo = document.getElementById('org-tipo').value;
+  const pilar = document.getElementById('org-pilar').value;
+  const titulo = document.getElementById('org-titulo').value.trim();
+  const notas = document.getElementById('org-notas').value.trim();
+  const contexto = document.getElementById('org-contexto').value.trim();
+
+  if (!notas) { alert('Cole suas notas antes de continuar.'); return; }
+
+  document.getElementById('org-output-title').textContent = tipoLabels[tipo];
+  document.getElementById('org-output-tag').textContent = pilar.replace('_', ' ');
+
+  const out = document.getElementById('org-output');
+  out.classList.add('visible');
+  const box = document.getElementById('org-output-box');
+  box.innerHTML = `<div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>estruturando...</span></div>`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `Você é especialista em comunicação estratégica. Transforme notas brutas em entregável profissional e estruturado. Produza apenas o documento final, sem comentários introdutórios. Use linguagem direta. Estruture com seções bem definidas. Mantenha fidelidade ao conteúdo original — organize, não invente. Se informações faltarem, indique com [a preencher].`,
+        messages: [{ role: 'user', content: `Tipo: ${tipoLabels[tipo]}\nPilar: ${pilar}\n${titulo ? `Título: ${titulo}\n` : ''}${contexto ? `Contexto: ${contexto}\n` : ''}\nNOTAS:\n${notas}\n\nGere o ${tipoLabels[tipo]} completo e estruturado.` }]
+      })
+    });
+    const data = await res.json();
+    box.textContent = data.content?.map(b => b.text||'').join('') || 'Erro ao gerar.';
+  } catch { box.textContent = 'Erro de conexão. Tente novamente.'; }
+}
+
+function copiarOrg() {
+  navigator.clipboard.writeText(document.getElementById('org-output-box').textContent).then(() => {
+    const m = document.getElementById('org-copy-msg');
+    m.classList.add('show');
+    setTimeout(() => m.classList.remove('show'), 2000);
+  });
+}
+
+function limparOrg() {
+  ['org-notas','org-titulo','org-contexto'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('org-output').classList.remove('visible');
+}
+
+// MÉTRICAS
+let uploadedImages = [];
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      uploadedImages.push({ data: e.target.result.split(',')[1], type: file.type });
+      renderPreviews();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderPreviews() {
+  const grid = document.getElementById('preview-grid');
+  grid.innerHTML = '';
+  uploadedImages.forEach((img, i) => {
+    const item = document.createElement('div');
+    item.className = 'preview-item';
+    item.innerHTML = `<img src="data:${img.type};base64,${img.data}"><button class="preview-remove" onclick="removeImg(${i})">×</button>`;
+    grid.appendChild(item);
+  });
+  document.getElementById('met-btn').disabled = uploadedImages.length === 0;
+}
+
+function removeImg(i) { uploadedImages.splice(i, 1); renderPreviews(); }
+
+const ua = document.getElementById('upload-area');
+ua.addEventListener('dragover', e => { e.preventDefault(); ua.classList.add('drag-over'); });
+ua.addEventListener('dragleave', () => ua.classList.remove('drag-over'));
+ua.addEventListener('drop', e => { e.preventDefault(); ua.classList.remove('drag-over'); handleFiles(e.dataTransfer.files); });
+
+const objLabels = { crescimento:'crescimento de audiência', engajamento:'engajamento e comunidade', posicionamento:'posicionamento profissional', conversao:'conversão' };
+
+async function analisar() {
+  if (!uploadedImages.length) return;
+
+  const objetivo = document.getElementById('met-objetivo').value;
+  const nicho = document.getElementById('met-nicho').value.trim();
+  const contexto = document.getElementById('met-contexto').value.trim();
+
+  const out = document.getElementById('met-output');
+  out.classList.add('visible');
+  const box = document.getElementById('met-output-box');
+  box.innerHTML = `<div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span>lendo os dados...</span></div>`;
+
+  const content = uploadedImages.map(img => ({ type:'image', source:{ type:'base64', media_type:img.type, data:img.data } }));
+  content.push({ type:'text', text:`Objetivo: ${objLabels[objetivo]}\n${nicho?`Nicho: ${nicho}\n`:''}${contexto?`Contexto: ${contexto}\n`:''}\nAnalise os prints e retorne JSON com: leitura, diagnostico, acoes.` });
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `Você é estrategista de conteúdo especializada em Instagram. Analise prints de métricas e forneça diagnóstico estratégico real. Retorne APENAS JSON válido: {"leitura":"...","diagnostico":"...","acoes":"..."}. Só comente o que está visível nos prints. Seja específica e direta. Sem elogios genéricos.`,
+        messages: [{ role:'user', content }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content?.map(b=>b.text||'').join('') || '{}';
+    let r;
+    try { r = JSON.parse(raw.replace(/```json|```/g,'').trim()); }
+    catch { r = { leitura: raw, diagnostico:'', acoes:'' }; }
+
+    box.innerHTML = `
+      <div class="analysis-card card-blue"><h4>O que os dados mostram</h4><p>${r.leitura||'—'}</p></div>
+      <div class="analysis-card card-red"><h4>Diagnóstico estratégico</h4><p>${r.diagnostico||'—'}</p></div>
+      <div class="analysis-card card-green"><h4>Próximas ações</h4><p>${r.acoes||'—'}</p></div>`;
+  } catch { box.innerHTML = '<div class="analysis-card"><p>Erro de conexão. Tente novamente.</p></div>'; }
+}
+
+function limparMet() {
+  uploadedImages = [];
+  document.getElementById('preview-grid').innerHTML = '';
+  document.getElementById('met-nicho').value = '';
+  document.getElementById('met-contexto').value = '';
+  document.getElementById('met-btn').disabled = true;
+  document.getElementById('met-output').classList.remove('visible');
+}
+</script>
+</body>
+</html>
