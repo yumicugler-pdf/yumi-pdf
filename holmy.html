@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Holmy — Yumi Cugler</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -17,8 +18,8 @@ html{scroll-behavior:smooth;}
 body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;min-height:100vh;}
 
 nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--cream);z-index:100;}
-.nav-logo{font-family:'Fraunces',serif;font-size:21px;font-weight:900;color:var(--charcoal);text-decoration:none;letter-spacing:-0.02em;}
-.nav-logo span{color:#3d2070;}
+.nav-logo{font-family:'cooper-black',serif;font-size:21px;font-weight:900;color:var(--charcoal);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--green);}
 .nav-back{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
 .nav-back:hover{color:#3d2070;}
 
@@ -28,7 +29,7 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 .breadcrumb a:hover{color:#3d2070;}
 .breadcrumb span{opacity:0.4;}
 .page-header-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#5a8a3c;margin-bottom:0.75rem;}
-.page-header-title{font-family:'Fraunces',serif;font-size:clamp(44px,6vw,72px);font-weight:900;letter-spacing:-0.03em;line-height:0.95;margin-bottom:1rem;}
+.page-header-title{font-family:'cooper-black',serif;font-size:clamp(44px,6vw,72px);font-weight:900;letter-spacing:-0.03em;line-height:0.95;margin-bottom:1rem;}
 .page-header-title em{font-style:italic;color:#3d2070;}
 .page-header-desc{color:var(--charcoal-lt);max-width:560px;font-size:15px;line-height:1.75;}
 .page-header-desc strong{color:var(--charcoal);}
@@ -37,10 +38,10 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 .folders-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:2rem;display:flex;align-items:center;gap:10px;}
 .folders-label::after{content:'';flex:1;height:1px;background:var(--rule);}
 
-.folder-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.folder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
 
 .folder-card{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;transition:transform 0.2s,box-shadow 0.2s;display:block;}
-.folder-card:hover{transform:translateY(-5px);box-shadow:6px 6px 0 var(--charcoal);}
+.folder-card:hover{transform:translateY(-5px);box-shadow:6px 6px 0 var(--green);}
 
 .folder-cover{height:200px;overflow:hidden;position:relative;}
 .folder-cover img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.3s;}
@@ -52,13 +53,13 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 .tag-info{color:#5a8a3c;border-color:#d4ebbb;background:rgba(90,138,60,0.05);}
 .tag-mulher{color:#3d2070;border-color:#c4aff0;background:rgba(61,32,112,0.05);}
 .tag-insp{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
-.folder-name{font-family:'Fraunces',serif;font-size:22px;font-weight:900;letter-spacing:-0.02em;margin-bottom:8px;line-height:1.1;}
+.folder-name{font-family:'cooper-black',serif;font-size:22px;font-weight:900;letter-spacing:-0.02em;margin-bottom:8px;line-height:1.1;}
 .folder-desc{font-size:13px;color:var(--charcoal-lt);line-height:1.65;margin-bottom:1rem;}
-.folder-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#3d2070;display:inline-flex;align-items:center;gap:5px;transition:gap 0.2s;}
+.folder-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);display:inline-flex;align-items:center;gap:5px;transition:gap 0.2s;}
 .folder-card:hover .folder-cta{gap:9px;}
 
 footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:2rem;}
-.footer-name{font-family:'Fraunces',serif;font-size:17px;font-weight:700;font-style:italic;}
+.footer-name{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;}
 .footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
 
 @media(max-width:768px){
@@ -109,8 +110,8 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
 
     <a href="case-holmy-mulheres.html" class="folder-card">
       <div class="folder-cover">
-        <img src="slides/mulheres-feed-1.jpg" alt="Semana das Mulheres Holmy">
-        <span class="folder-cover-count">3 peças</span>
+        <img src="slides/mulheres-inspiram-capa.jpg" alt="Semana das Mulheres Holmy">
+        <span class="folder-cover-count">4 peças</span>
       </div>
       <div class="folder-body">
         <span class="folder-tag tag-mulher">Semana das Mulheres</span>
@@ -129,6 +130,19 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <span class="folder-tag tag-insp">Inspiracionais</span>
         <h2 class="folder-name">Identificação, segmentação e engajamento</h2>
         <p class="folder-desc">Conteúdo que cria espelho — copy construído por perfil de identidade de viagem, não por produto.</p>
+        <span class="folder-cta">ver case →</span>
+      </div>
+    </a>
+
+    <a href="case-holmy-reels.html" class="folder-card">
+      <div class="folder-cover" style="background:var(--charcoal);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'cooper-black',serif;font-size:48px;font-weight:900;font-style:italic;color:var(--cream);opacity:0.25;">▶</span>
+        <span class="folder-cover-count">3 peças</span>
+      </div>
+      <div class="folder-body">
+        <span class="folder-tag" style="color:var(--purple-md);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);">Reels</span>
+        <h2 class="folder-name">Informar, converter e criar desejo</h2>
+        <p class="folder-desc">Três Reels verticais para o Instagram da Holmy — roteiro, narração e direção de conteúdo em vídeo.</p>
         <span class="folder-cta">ver case →</span>
       </div>
     </a>

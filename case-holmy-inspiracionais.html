@@ -4,14 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Case — Holmy Inspiracionais | Yumi Cugler</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
 body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
 .breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
 .breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
-.breadcrumb a:hover{color:var(--purple);}
+.breadcrumb a:hover{color:var(--green);}
 .breadcrumb span{opacity:0.4;}
 .case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
 .case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
@@ -19,23 +20,23 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 .tag-social{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);}
 .tag-jorn{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
 .tag-design{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
-.case-title{font-family:'Fraunces',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
 .case-title em{font-style:italic;color:var(--purple);}
 .case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
 .ficha{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin-bottom:3rem;}
 .ficha-item{background:var(--white);padding:1.25rem;}
 .ficha-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;}
-.ficha-value{font-family:'Fraunces',serif;font-size:17px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.ficha-value{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;color:var(--charcoal);}
 .section{margin-bottom:3.5rem;}
 .section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
-.section-title{font-family:'Fraunces',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
 .section-title em{font-style:italic;color:var(--purple);}
 .section p{color:var(--charcoal-lt);margin-bottom:1rem;}
 .section p strong{color:var(--charcoal);}
 
 .carousel-block{margin-bottom:3rem;}
 .carousel-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1rem;}
-.carousel-title-el{font-family:'Fraunces',serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;}
+.carousel-title-el{font-family:'cooper-black',serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;}
 .carousel-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
 .carousel-source{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:12px;}
 .carousel{display:flex;gap:12px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;cursor:grab;}
@@ -52,10 +53,10 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 .copy-block{background:var(--cream-dk);border:1.5px solid var(--rule);border-left:4px solid var(--charcoal);border-radius:8px;padding:1.25rem 1.5rem;font-family:'DM Mono',monospace;font-size:13px;line-height:1.8;color:var(--charcoal);margin:1.5rem 0;}
 
 .decisions{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
-.decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--purple);}
+.decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--green);}
 .decision-card.green{border-left-color:var(--green);}
 .decision-card.dark{border-left-color:var(--charcoal);}
-.decision-element{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;font-weight:500;}
+.decision-element{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px;font-weight:500;}
 .decision-card.green .decision-element{color:var(--green);}
 .decision-card.dark .decision-element{color:var(--charcoal-lt);}
 .decision-why{font-size:14px;color:var(--charcoal);line-height:1.6;}
@@ -69,10 +70,11 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 .learning-list li strong{color:var(--white);}
 .divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
 .case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
-.footer-sig{font-family:'Fraunces',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
 .footer-sig span{color:var(--purple);}
 .footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
-@media(max-width:600px){.ficha{grid-template-columns:1fr 1fr;}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;}
+@media(max-width:600px){.ficha{grid-template-columns:1fr 1fr;}.metrics-grid{grid-template-columns:repeat(2,1fr);}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
 </style>
 </head>
 <body>
@@ -94,24 +96,24 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 
   <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--cream-dk);border-left:4px solid var(--green);border-radius:0 10px 10px 0;">
     <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:4px;">insight central</p>
-    <p style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">Segmentação por identidade converte mais do que segmentação por produto.</p>
+    <p style="font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">Segmentação por identidade converte mais do que segmentação por produto.</p>
   </div>
 
-  <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;">
+  <div class="metrics-grid" style="margin-top:1.5rem;">
     <div style="background:var(--white);padding:1rem;text-align:center;">
-      <p style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--purple);line-height:1;">2.780</p>
+      <p style="font-family:'cooper-black',serif;font-size:28px;font-weight:900;color:var(--green);line-height:1;">2.780</p>
       <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);margin-top:4px;">visualizações</p>
     </div>
     <div style="background:var(--white);padding:1rem;text-align:center;">
-      <p style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--purple);line-height:1;">11</p>
+      <p style="font-family:'cooper-black',serif;font-size:28px;font-weight:900;color:var(--green);line-height:1;">11</p>
       <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);margin-top:4px;">comentários</p>
     </div>
     <div style="background:var(--white);padding:1rem;text-align:center;">
-      <p style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--purple);line-height:1;">61</p>
+      <p style="font-family:'cooper-black',serif;font-size:28px;font-weight:900;color:var(--green);line-height:1;">61</p>
       <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);margin-top:4px;">interações</p>
     </div>
     <div style="background:var(--white);padding:1rem;text-align:center;">
-      <p style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--purple);line-height:1;">25%</p>
+      <p style="font-family:'cooper-black',serif;font-size:28px;font-weight:900;color:var(--green);line-height:1;">25%</p>
       <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);margin-top:4px;">não seguidores</p>
     </div>
   </div>
@@ -168,7 +170,7 @@ DISTINTO — sofisticado, valoriza exclusividade. Evita propostas comuns e previ
 
   <div style="background:var(--white);border:2px solid var(--charcoal);border-radius:14px;padding:1.5rem;box-shadow:4px 4px 0 var(--charcoal);margin-top:1.5rem;">
     <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:0.75rem;">✦ resultado pós-publicação</p>
-    <p style="font-family:'Fraunces',serif;font-size:20px;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.75rem;">A enquete nos Stories <em style="font-style:italic;color:var(--purple);">revelou o público.</em></p>
+    <p style="font-family:'cooper-black',serif;font-size:20px;font-weight:900;letter-spacing:-0.02em;margin-bottom:0.75rem;">A enquete nos Stories <em style="font-style:italic;color:var(--purple);">revelou o público.</em></p>
     <p style="font-size:14px;color:var(--charcoal-lt);line-height:1.7;">Após a publicação do carrossel, realizamos uma enquete nos Stories perguntando com qual perfil o público se identificava. <strong style="color:var(--charcoal);">A maioria esmagadora respondeu: Acolhedor.</strong> Esse resultado não ficou só no dado — ele passou a nortear os segmentos de conteúdo dos posts seguintes, direcionando pauta, linguagem e escolha de hospedagens destacadas.</p>
   </div>
 </div>
