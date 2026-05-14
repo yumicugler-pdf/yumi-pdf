@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — O Portfólio como Ferramenta | Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--green);}
+.breadcrumb span{opacity:0.4;}
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-ia{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-design{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.tag-social{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+.ficha{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin-bottom:3rem;}
+.ficha-item{background:var(--white);padding:1.25rem;}
+.ficha-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;}
+.ficha-value{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+.arch-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;}
+.arch-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem;}
+.arch-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:6px;display:block;}
+.arch-title{font-family:'cooper-black',serif;font-size:17px;font-weight:900;letter-spacing:-0.01em;margin-bottom:6px;}
+.arch-text{font-size:13px;color:var(--charcoal-lt);line-height:1.55;}
+.arch-card.highlight{border-color:var(--green-pale);background:rgba(90,138,60,0.04);}
+.arch-card.highlight .arch-label{color:var(--green);}
+.timeline-list{display:flex;flex-direction:column;gap:0;margin:1.5rem 0;border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;}
+.tl-item{display:flex;align-items:flex-start;gap:1rem;padding:1.1rem 1.25rem;border-bottom:1px solid var(--rule);background:var(--white);}
+.tl-item:last-child{border-bottom:none;}
+.tl-n{font-family:'cooper-black',serif;font-size:22px;font-weight:900;font-style:italic;color:var(--purple-lt);min-width:28px;flex-shrink:0;padding-top:2px;}
+.tl-content h4{font-family:'cooper-black',serif;font-size:16px;font-weight:900;letter-spacing:-0.01em;margin-bottom:3px;}
+.tl-content p{font-size:13px;color:var(--charcoal-lt);line-height:1.5;}
+.code-block{background:var(--charcoal);border-radius:10px;padding:1.25rem 1.5rem;font-family:'DM Mono',monospace;font-size:12px;line-height:1.8;color:#ccc;margin:1rem 0;overflow-x:auto;}
+.code-block .comment{color:#666;}
+.code-block .keyword{color:#8fbe6a;}
+.code-block .string{color:var(--purple-lt);}
+.decisions{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--green);}
+.decision-card.purple{border-left-color:var(--purple);}
+.decision-element{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px;font-weight:500;}
+.decision-card.purple .decision-element{color:var(--purple);}
+.decision-why{font-size:14px;color:var(--charcoal);line-height:1.6;}
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin:1.5rem 0;}
+.number-cell{background:var(--white);padding:1rem;text-align:center;}
+.number-value{font-family:'cooper-black',serif;font-size:26px;font-weight:900;color:var(--purple);line-height:1;}
+.number-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--charcoal-lt);margin-top:4px;}
+.tech-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
+.tech-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;border-radius:100px;border:1.5px solid var(--rule);background:var(--white);color:var(--charcoal-lt);}
+.learnings{background:var(--purple);border-radius:12px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:#c4aff0;}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+.divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--purple);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;}
+@media(max-width:600px){.ficha{grid-template-columns:1fr 1fr;}.arch-grid{grid-template-columns:1fr;}.numbers-grid{grid-template-columns:repeat(2,1fr);}.metrics-grid{grid-template-columns:repeat(2,1fr);}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="index.html">portfólio</a><span>/</span>
+  <a href="serie-ferramentas.html">ferramentas</a><span>/</span>
+  <span style="color:var(--charcoal);">o portfólio como ferramenta</span>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-ia">Claude Code · IA</span>
+    <span class="meta-tag tag-design">HTML · CSS · JS</span>
+    <span class="meta-tag tag-social">Portfólio</span>
+  </div>
+  <h1 class="case-title">O Portfólio<br><em>como Ferramenta.</em></h1>
+  <p class="case-subtitle">Este site não foi construído com um CMS, um gerador estático ou um framework. Foi construído em sessões de código com o Claude Code — IA como par de programação, iterar como método, HTML puro como escolha deliberada.</p>
+
+  <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--cream-dk);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;">insight central</p>
+    <p style="font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">Um portfólio que mostra processo é mais honesto do que um portfólio que esconde como foi feito. Este documenta os dois.</p>
+  </div>
+</div>
+
+<div class="ficha">
+  <div class="ficha-item"><p class="ficha-label">Tipo</p><p class="ficha-value">Site Estático</p></div>
+  <div class="ficha-item"><p class="ficha-label">Stack</p><p class="ficha-value">HTML · CSS · JS</p></div>
+  <div class="ficha-item"><p class="ficha-label">Build tool</p><p class="ficha-value">Nenhum</p></div>
+  <div class="ficha-item"><p class="ficha-label">Framework</p><p class="ficha-value">Nenhum</p></div>
+  <div class="ficha-item"><p class="ficha-label">Par de código</p><p class="ficha-value">Claude Code</p></div>
+  <div class="ficha-item"><p class="ficha-label">Deploy</p><p class="ficha-value">GitHub → Netlify</p></div>
+</div>
+
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">Por que HTML puro<br><em>em 2026.</em></h2>
+  <p>A decisão de não usar framework foi intencional — não por nostalgia ou limitação técnica, mas por eficiência real. Um portfólio estático que não precisa de build, não tem dependências que quebram e pode ser editado em qualquer editor de texto é mais durável do que um projeto React que entra em conflito de versões em 6 meses.</p>
+  <p>A outra razão: <strong>HTML/CSS/JS são a linguagem nativa do Claude Code</strong>. Sem camada de abstração entre a instrução e o resultado, o loop de feedback é imediato — escrevo o que quero, vejo na tela, itero.</p>
+  <p>O portfólio não é apenas o resultado do processo — é evidência do processo. Cada decisão de estrutura, cada componente, cada case page documenta uma habilidade real aplicada a um projeto real.</p>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">02 — arquitetura</p>
+  <h2 class="section-title">Como o site<br><em>está organizado.</em></h2>
+
+  <div class="arch-grid">
+    <div class="arch-card highlight">
+      <span class="arch-label">Página principal</span>
+      <div class="arch-title">index.html</div>
+      <p class="arch-text">Single page com múltiplas seções: hero, marquee, sobre, trabalhos (com filtro por categoria), pilares e contato. Navegação entre portfólio e ferramentas via JS sem reload.</p>
+    </div>
+    <div class="arch-card">
+      <span class="arch-label">Cases individuais</span>
+      <div class="arch-title">case-*.html</div>
+      <p class="arch-text">Cada case tem sua própria página — identidade visual compartilhada via CSS inline, sem arquivo externo. Carrosséis com drag-to-scroll, botões de navegação e scroll-snap.</p>
+    </div>
+    <div class="arch-card">
+      <span class="arch-label">Ferramentas ativas</span>
+      <div class="arch-title">*.html (ferramentas)</div>
+      <p class="arch-text">analise-metricas.html, organizador-entregaveis.html e foco.html são ferramentas funcionais com chamadas à Claude API via Netlify Functions — proxy que mantém a chave no servidor.</p>
+    </div>
+    <div class="arch-card highlight">
+      <span class="arch-label">Cases de ferramenta</span>
+      <div class="arch-title">case-*.html (ferramentas)</div>
+      <p class="arch-text">Cada ferramenta tem seu case documentando o problema, a solução, decisões de design e aprendizados. A documentação é parte do portfólio, não apêndice.</p>
+    </div>
+  </div>
+
+  <div class="numbers-grid">
+    <div class="number-cell">
+      <p class="number-value" style="color:var(--green);">17</p>
+      <p class="number-label">arquivos HTML</p>
+    </div>
+    <div class="number-cell">
+      <p class="number-value">0</p>
+      <p class="number-label">dependências npm</p>
+    </div>
+    <div class="number-cell">
+      <p class="number-value" style="color:var(--purple);">3</p>
+      <p class="number-label">ferramentas ativas</p>
+    </div>
+    <div class="number-cell">
+      <p class="number-value">∞</p>
+      <p class="number-label">iterações com Claude</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">03 — o processo de construção</p>
+  <h2 class="section-title">Como o Claude Code<br><em>foi usado.</em></h2>
+  <p>O Claude Code não foi usado como gerador de código — foi usado como par de programação. A diferença é que par de programação implica diálogo: você traz o contexto, o par questiona, itera, sugere alternativas.</p>
+
+  <div class="timeline-list">
+    <div class="tl-item">
+      <span class="tl-n">01</span>
+      <div class="tl-content">
+        <h4>Definição da identidade visual</h4>
+        <p>Paleta (purple/green/cream/charcoal), tipografia (Cooper Black + DM Mono + Cabin) e sistema de componentes foram definidos em sessão — não como template, mas como decisões justificadas a cada escolha.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-n">02</span>
+      <div class="tl-content">
+        <h4>Hero e navegação</h4>
+        <p>O hero foi construído em grid 50/50 — conteúdo editorial à esquerda, seção verde com mascote à direita. Cursor customizado, animação de marquee, transição suave entre seções via showPage().</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-n">03</span>
+      <div class="tl-content">
+        <h4>Cases de conteúdo</h4>
+        <p>Cada case foi construído separadamente com o mesmo sistema de CSS inline — sem arquivo externo para manter os arquivos autossuficientes. Carrosséis com scroll-snap, drag-to-scroll e botões de navegação com JS mínimo.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-n">04</span>
+      <div class="tl-content">
+        <h4>Ferramentas com API</h4>
+        <p>As ferramentas funcionais (análise de métricas, organizador, foco) usam a Claude API via Netlify Functions como proxy — a chave fica no servidor, não no HTML público. Solução encontrada iterativamente após a versão inicial expor a chave no código.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-n">05</span>
+      <div class="tl-content">
+        <h4>Correções e refinamentos contínuos</h4>
+        <p>Grid de métricas que transbordava no mobile, slides de carrossel trocados, títulos incorretos, imagens com caminhos quebrados — cada bug foi identificado, documentado e corrigido em sessão. O histórico de commits é o log do processo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">04 — decisões técnicas</p>
+  <h2 class="section-title">O porquê de cada<br><em>escolha.</em></h2>
+  <div class="decisions">
+    <div class="decision-card">
+      <p class="decision-element">CSS inline em vez de arquivo externo</p>
+      <p class="decision-why">Cada arquivo HTML é autossuficiente — abre em qualquer contexto sem depender de outros arquivos. Para um portfólio estático hospedado via drag-and-drop, isso elimina uma classe inteira de problemas de caminho de arquivo.</p>
+    </div>
+    <div class="decision-card purple">
+      <p class="decision-element">JS mínimo, sem bibliotecas</p>
+      <p class="decision-why">Os carrosséis, filtros de portfólio e navegação entre páginas foram implementados com JS vanilla. Sem jQuery, sem lodash, sem dependência que pode deixar de ser mantida. O código é legível, editável e não tem surpresas de versão.</p>
+    </div>
+    <div class="decision-card">
+      <p class="decision-element">Netlify Functions como proxy de API</p>
+      <p class="decision-why">Expor a chave da Claude API no HTML público é um risco de segurança real — qualquer um que inspecione o código pode usar a chave. O proxy via Netlify Functions mantém a chave no servidor e expõe apenas o endpoint, sem mudança de experiência para o usuário.</p>
+    </div>
+    <div class="decision-card purple">
+      <p class="decision-element">Git como sistema de deploy, não só versionamento</p>
+      <p class="decision-why">Cada mudança vira um commit com mensagem descritiva. O histórico do repositório não é só backup — é documentação do processo de construção. Qualquer pessoa pode ver o que mudou, quando e por quê.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">05 — stack completo</p>
+  <h2 class="section-title">O que foi <em>usado.</em></h2>
+  <div class="tech-tags">
+    <span class="tech-tag">HTML5</span>
+    <span class="tech-tag">CSS3</span>
+    <span class="tech-tag">JavaScript vanilla</span>
+    <span class="tech-tag">Claude Code</span>
+    <span class="tech-tag">Claude API</span>
+    <span class="tech-tag">Netlify Functions</span>
+    <span class="tech-tag">GitHub</span>
+    <span class="tech-tag">Cooper Black (Adobe Fonts)</span>
+    <span class="tech-tag">DM Mono (Google Fonts)</span>
+    <span class="tech-tag">Cabin (Google Fonts)</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">06 — aprendizados</p>
+  <div class="learnings">
+    <p class="section-label">✦ o que esse projeto ensinou</p>
+    <h2 class="section-title">Além do<br><em>portfólio.</em></h2>
+    <ul class="learning-list">
+      <li><strong>IA como par de programação é diferente de IA como gerador.</strong> A diferença está em quem traz o contexto, as restrições e as decisões. Quando você sabe o que quer, a IA executa melhor. Quando você não sabe, a IA vai no sentido errado.</li>
+      <li><strong>HTML puro envelhece melhor do que frameworks.</strong> A ausência de dependências é um ativo. Em dois anos, este portfólio vai abrir exatamente do mesmo jeito que hoje.</li>
+      <li><strong>Documentar o processo é parte do trabalho, não extra.</strong> Os cases de ferramenta, os commits descritivos, os comentários de decisão — tudo isso é evidência de raciocínio que o resultado final não mostra.</li>
+      <li><strong>Bugs são dados de design.</strong> O grid que transbordava no mobile, os slides trocados — cada bug revelou uma suposição incorreta sobre como o conteúdo seria acessado. Corrigi-los é parte do processo de design, não falha de execução.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note">ia · desenvolvimento · design de produto</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Organizador de Entregáveis | Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--green);}
+.breadcrumb span{opacity:0.4;}
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-ia{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-design{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+.ficha{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin-bottom:3rem;}
+.ficha-item{background:var(--white);padding:1.25rem;}
+.ficha-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;}
+.ficha-value{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+.flow-steps{display:flex;flex-direction:column;gap:0;border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin:1.5rem 0;}
+.flow-step{display:flex;align-items:flex-start;gap:1rem;padding:1.1rem 1.25rem;border-bottom:1px solid var(--rule);background:var(--white);}
+.flow-step:last-child{border-bottom:none;}
+.flow-n{font-family:'cooper-black',serif;font-size:22px;font-weight:900;font-style:italic;color:var(--purple-lt);min-width:28px;flex-shrink:0;padding-top:2px;}
+.flow-content h4{font-family:'cooper-black',serif;font-size:16px;font-weight:900;letter-spacing:-0.01em;margin-bottom:3px;}
+.flow-content p{font-size:13px;color:var(--charcoal-lt);line-height:1.5;}
+.transform-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:start;margin:1.5rem 0;}
+.transform-arrow{font-family:'cooper-black',serif;font-size:28px;font-style:italic;color:var(--charcoal-lt);align-self:center;text-align:center;}
+.transform-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem;}
+.transform-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:0.75rem;display:block;}
+.transform-content{font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;color:var(--charcoal-lt);}
+.transform-card.after{border-color:var(--green-pale);background:rgba(90,138,60,0.04);}
+.transform-card.after .transform-label{color:var(--green);}
+.transform-card.after .transform-content{color:var(--charcoal);}
+.decisions{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--green);}
+.decision-card.purple{border-left-color:var(--purple);}
+.decision-element{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px;font-weight:500;}
+.decision-card.purple .decision-element{color:var(--purple);}
+.decision-why{font-size:14px;color:var(--charcoal);line-height:1.6;}
+.tech-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
+.tech-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;border-radius:100px;border:1.5px solid var(--rule);background:var(--white);color:var(--charcoal-lt);}
+.learnings{background:var(--purple);border-radius:12px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:#c4aff0;}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+.divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--purple);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+@media(max-width:600px){.ficha{grid-template-columns:1fr 1fr;}.transform-grid{grid-template-columns:1fr;}.transform-arrow{display:none;}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="index.html">portfólio</a><span>/</span>
+  <a href="serie-ferramentas.html">ferramentas</a><span>/</span>
+  <span style="color:var(--charcoal);">organizador de entregáveis</span>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-ia">IA · Claude API</span>
+    <span class="meta-tag tag-design">Fluxo de Trabalho</span>
+  </div>
+  <h1 class="case-title">Organizador de<br><em>Entregáveis.</em></h1>
+  <p class="case-subtitle">Notas brutas, fragmentos de texto, ideias jogadas — a ferramenta transforma qualquer input desestruturado em documento estratégico formatado. Do caos ao entregável em segundos.</p>
+
+  <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--cream-dk);border-left:4px solid var(--green);border-radius:0 10px 10px 0;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:4px;">insight central</p>
+    <p style="font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">A maioria das ideias morre no gap entre ter o conteúdo e estruturar o documento. Essa ferramenta fecha esse gap.</p>
+  </div>
+</div>
+
+<div class="ficha">
+  <div class="ficha-item"><p class="ficha-label">Tipo</p><p class="ficha-value">Ferramenta IA</p></div>
+  <div class="ficha-item"><p class="ficha-label">Input</p><p class="ficha-value">Texto livre</p></div>
+  <div class="ficha-item"><p class="ficha-label">Stack</p><p class="ficha-value">Claude API</p></div>
+  <div class="ficha-item"><p class="ficha-label">Outputs</p><p class="ficha-value">Briefing · Relatório</p></div>
+  <div class="ficha-item"><p class="ficha-label">Plataforma</p><p class="ficha-value">Web · HTML standalone</p></div>
+  <div class="ficha-item"><p class="ficha-label">Série</p><p class="ficha-value">Ferramentas do Claude</p></div>
+</div>
+
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">O gap entre<br><em>ideia e entregável.</em></h2>
+  <p>Tenho muitas ideias. O problema nunca foi falta de conteúdo — foi falta de estrutura. A distância entre "tenho tudo na cabeça" e "tenho um documento que consigo entregar" pode ser de horas quando envolve formatação, hierarquia e tomada de decisão sobre o que vai antes do quê.</p>
+  <p>Com TDAH, essa distância é ainda mais custosa. <strong>A sobrecarga cognitiva de estruturar enquanto pensa sobre o conteúdo faz com que nenhum dos dois aconteça direito.</strong> A ferramenta resolve isso separando as duas etapas: você pensa e joga texto livre, a ferramenta estrutura.</p>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">02 — como funciona</p>
+  <h2 class="section-title">Do fragmento ao<br><em>documento.</em></h2>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <span class="flow-n">01</span>
+      <div class="flow-content">
+        <h4>Input livre</h4>
+        <p>Cole qualquer fragmento de texto — rascunho, tópicos soltos, transcrição de áudio, anotações rápidas. Não precisa estar organizado. Não precisa estar completo. A desordem é o ponto de partida.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-n">02</span>
+      <div class="flow-content">
+        <h4>Seleção do tipo de entregável</h4>
+        <p>Você escolhe o formato de saída: briefing criativo, relatório de resultados, planejamento de conteúdo ou documento estratégico. Cada tipo tem estrutura e linguagem diferentes — o mesmo input vira documentos distintos conforme o destino.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-n">03</span>
+      <div class="flow-content">
+        <h4>Seleção do pilar</h4>
+        <p>Você informa a área do conteúdo (social media, design, jornalismo, marketing). O pilar calibra o vocabulário e as referências que a IA usa no documento gerado — garantindo que o output soa como alguém que conhece a área.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-n">04</span>
+      <div class="flow-content">
+        <h4>Documento formatado</h4>
+        <p>A ferramenta retorna o entregável estruturado: sumário executivo, seções hierarquizadas, próximos passos concretos. Pronto para revisar e enviar — não para reescrever do zero.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">03 — antes e depois</p>
+  <h2 class="section-title">O que entra e o que<br><em>sai.</em></h2>
+
+  <div class="transform-grid">
+    <div class="transform-card">
+      <span class="transform-label">input — texto bruto</span>
+      <div class="transform-content">
+        ideia pra serie de posts de turismo<br>
+        usar dados do ibge pra mostrar que br viaja menos<br>
+        falar sobre o turismo de experiencia vs destino<br>
+        holmy tem esse posicionamento<br>
+        3 posts pelo menos talvez carrossel<br>
+        fontes: sebrae trvl lab<br>
+        precisa ter cta pro link da bio
+      </div>
+    </div>
+    <div class="transform-arrow">→</div>
+    <div class="transform-card after">
+      <span class="transform-label">output — briefing formatado</span>
+      <div class="transform-content">
+        <strong>Série Editorial: Turismo de Experiência</strong><br><br>
+        <strong>Objetivo:</strong> Posicionar a Holmy como referência em turismo de experiência via conteúdo informativo com dados.<br><br>
+        <strong>Formato:</strong> 3 carrosséis · Feed Instagram<br><br>
+        <strong>Fontes verificadas:</strong> TRVL Lab/Sebrae · IBGE · ALL Accor<br><br>
+        <strong>CTA:</strong> Link na bio (direcionar para hospedagens)
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">04 — decisões de design</p>
+  <h2 class="section-title">O porquê de cada<br><em>escolha.</em></h2>
+  <div class="decisions">
+    <div class="decision-card">
+      <p class="decision-element">Input totalmente livre, sem template</p>
+      <p class="decision-why">Pedir que o usuário preencha um template já é uma forma de estruturação — e exige esforço cognitivo antes de começar. A ideia é justamente remover essa barreira. Jogar texto livre é o comportamento natural quando se está no meio de um processo criativo.</p>
+    </div>
+    <div class="decision-card purple">
+      <p class="decision-element">Tipo de entregável como parâmetro explícito</p>
+      <p class="decision-why">O mesmo conjunto de informações vira documentos completamente diferentes dependendo do destinatário. Um briefing para a equipe criativa tem linguagem e estrutura diferentes de um relatório para o cliente. Tornar essa escolha explícita garante que o output sirva ao destino real.</p>
+    </div>
+    <div class="decision-card">
+      <p class="decision-element">Pilar como calibrador de voz</p>
+      <p class="decision-why">Um documento de social media usa termos como "taxa de engajamento" e "alcance orgânico". Um de jornalismo usa "pauta", "angulação", "fontes". Informar o pilar antes da geração garante que a IA use o vocabulário correto — sem parecer genérico.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">05 — construção</p>
+  <h2 class="section-title">Como foi <em>feita.</em></h2>
+  <p>A ferramenta surgiu de um padrão recorrente: ao final de cada sessão de trabalho, havia mais anotações do que entregáveis. O conteúdo existia — faltava o documento. A pergunta foi: o que acontece se eu usar a IA não para criar o conteúdo, mas para estruturar o que já existe?</p>
+  <p>A descoberta foi que <strong>a IA é muito melhor em estruturar do que em criar do zero</strong> — porque estruturar exige reconhecimento de padrões e aplicação de formato, não geração criativa livre. O resultado é mais previsível, mais consistente e mais utilizável.</p>
+  <div class="tech-tags">
+    <span class="tech-tag">Claude API</span>
+    <span class="tech-tag">HTML Standalone</span>
+    <span class="tech-tag">Prompt Engineering</span>
+    <span class="tech-tag">Seleção de Parâmetros</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">06 — aprendizados</p>
+  <div class="learnings">
+    <p class="section-label">✦ o que esse projeto ensinou</p>
+    <h2 class="section-title">Além da<br><em>estrutura.</em></h2>
+    <ul class="learning-list">
+      <li><strong>IA é melhor em estruturar do que em criar.</strong> O output mais confiável não vem de "crie algo do zero", mas de "organize o que já existe em um formato útil".</li>
+      <li><strong>O gap entre ideia e entregável é um problema de fricção, não de capacidade.</strong> Reduzir o esforço de formatação libera capacidade cognitiva para o que importa — o conteúdo em si.</li>
+      <li><strong>Separar thinking de writing é uma prática, não um truque.</strong> Escrever notas sem se preocupar com formatação e depois estruturar produz documentos melhores e mais rápidos do que escrever "já formatado".</li>
+      <li><strong>Parâmetros de contexto valem mais do que prompts longos.</strong> Tipo de entregável + pilar + destinatário calibram o output mais efetivamente do que instruções detalhadas sobre tom e formato.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note">ia · fluxo de trabalho · produtividade</span>
+</div>
+
+</body>
+</html>
