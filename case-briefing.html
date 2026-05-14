@@ -141,6 +141,9 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
 .learning-list li strong{color:var(--white);}
 
 .divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.demo-frame-wrap{border:2px solid var(--charcoal);border-radius:14px;overflow:hidden;box-shadow:4px 4px 0 var(--green);margin:1.5rem 0;}
+.demo-frame-wrap iframe{width:100%;height:700px;border:none;display:block;}
+.demo-note{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);text-align:center;margin-top:0.75rem;}
 .case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
 .footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
 .footer-sig span{color:var(--purple);}
@@ -422,12 +425,26 @@ body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-seri
   <h2 class="section-title">Como foi <em>feita.</em></h2>
   <p>Desenvolvida a partir de uma pergunta real de fluxo de trabalho: como não perder informação estratégica no briefing? Faz parte da série <em>Ferramentas do Claude</em> — problemas do dia a dia resolvidos com IA.</p>
   <div class="tech-tags">
-    <span class="tech-tag">React</span>
+    <span class="tech-tag">HTML · JS Vanilla</span>
     <span class="tech-tag">Claude API</span>
-    <span class="tech-tag">Persistent Storage</span>
+    <span class="tech-tag">localStorage</span>
     <span class="tech-tag">Mobile-first</span>
     <span class="tech-tag">Acesso por código</span>
+    <span class="tech-tag">Netlify Functions</span>
   </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">✦ experimente</p>
+  <h2 class="section-title">A ferramenta <em>ao vivo.</em></h2>
+  <p>Você pode preencher o formulário completo aqui e ver como ele funciona na prática. Preencha os 5 blocos e envie — ou acesse o dashboard para ver como as respostas chegam organizadas.</p>
+  <p style="margin-top:0.75rem;"><strong>Para acessar o dashboard:</strong> clique 3 vezes no rodapé da ferramenta e insira o código <code style="font-family:'DM Mono',monospace;font-size:13px;background:var(--cream-dk);padding:2px 8px;border-radius:4px;">yumi</code>.</p>
+  <div class="demo-frame-wrap">
+    <iframe src="briefing-estrategico.html" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+  </div>
+  <p class="demo-note">✦ a análise estratégica só é gerada no dashboard, após o envio do formulário · dados salvos localmente no navegador</p>
 </div>
 
 <hr class="divider">
