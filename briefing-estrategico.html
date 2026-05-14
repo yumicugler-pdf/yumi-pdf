@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -18,7 +18,7 @@ html{scroll-behavior:smooth;}
 body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;min-height:100vh;font-size:15px;line-height:1.7;}
 
 nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:var(--cream);border-bottom:2px solid var(--charcoal);}
-.nav-logo{font-family:'cooper-black',serif;font-size:20px;font-weight:900;color:var(--charcoal);letter-spacing:-0.02em;cursor:pointer;text-decoration:none;}
+.nav-logo{font-family:'cooper-black-std',serif;font-size:20px;font-weight:900;color:var(--charcoal);letter-spacing:-0.02em;cursor:pointer;text-decoration:none;}
 .nav-logo span{color:var(--green);}
 .nav-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);}
 
@@ -28,7 +28,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .container{max-width:640px;margin:0 auto;padding:3.5rem 2rem 4rem;}
 
 .eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
-.big-title{font-family:'cooper-black',serif;font-size:clamp(2rem,6vw,3rem);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:1rem;}
+.big-title{font-family:'cooper-black-std',serif;font-size:clamp(2rem,6vw,3rem);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:1rem;}
 .big-title em{font-style:italic;color:var(--purple);}
 .desc{color:var(--charcoal-lt);font-size:14px;line-height:1.75;margin-bottom:2rem;}
 
@@ -70,7 +70,7 @@ select.filled{border-color:var(--green-lt);}
 .screen.on{display:block;}
 
 footer{border-top:2px solid var(--charcoal);padding:1.25rem 2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
-.f-sig{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;cursor:default;user-select:none;}
+.f-sig{font-family:'cooper-black-std',serif;font-size:17px;font-weight:700;font-style:italic;cursor:default;user-select:none;}
 .f-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);letter-spacing:0.06em;cursor:default;user-select:none;}
 
 /* DASHBOARD */
@@ -388,7 +388,7 @@ function loadDashboard() {
 
   const list = document.getElementById('dash-list'); list.innerHTML = '';
   if (cnt === 0) {
-    list.innerHTML = `<div style="padding:3rem;text-align:center;border:1.5px dashed var(--rule);border-radius:10px;"><p style="font-family:'cooper-black',serif;font-size:1.2rem;font-style:italic;color:var(--charcoal-lt);">Ainda não há respostas.</p></div>`;
+    list.innerHTML = `<div style="padding:3rem;text-align:center;border:1.5px dashed var(--rule);border-radius:10px;"><p style="font-family:'cooper-black-std',serif;font-size:1.2rem;font-style:italic;color:var(--charcoal-lt);">Ainda não há respostas.</p></div>`;
     return;
   }
   subs.forEach(sub => {
@@ -494,3 +494,4 @@ function renderAn(key, text) {
 </script>
 </body>
 </html>
+
