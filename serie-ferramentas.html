@@ -475,6 +475,28 @@ footer {
   letter-spacing: 0.06em;
 }
 
+/* TABS */
+.tool-tabs-bar{display:flex;gap:0;margin-bottom:2.5rem;border-bottom:2px solid var(--charcoal);}
+.tool-tab-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.4rem;background:none;border:2px solid transparent;border-bottom:none;border-radius:8px 8px 0 0;cursor:pointer;color:var(--charcoal-lt);transition:all 0.15s;position:relative;bottom:-2px;}
+.tool-tab-btn:hover{color:var(--green);}
+.tool-tab-btn.active{background:var(--cream);border-color:var(--charcoal);border-bottom-color:var(--cream);color:var(--charcoal);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* PROCESS CARDS */
+.processos-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.processo-card{background:var(--white);border:2px solid var(--charcoal);border-radius:14px;box-shadow:4px 4px 0 var(--charcoal);padding:1.75rem;display:flex;flex-direction:column;}
+.processo-card-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;border:1.5px solid var(--green-pale);background:rgba(90,138,60,0.06);color:var(--green);display:inline-block;width:fit-content;margin-bottom:0.75rem;}
+.processo-card h3{font-family:'cooper-black',serif;font-size:20px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;}
+.processo-bloco{margin-bottom:1rem;padding-top:0.75rem;border-top:1px solid var(--rule);}
+.processo-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:0.3rem;}
+.processo-bloco p{font-size:13px;line-height:1.65;color:var(--charcoal-lt);}
+.processo-card .card-link{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);text-decoration:none;margin-top:auto;padding-top:1rem;border-top:1px solid var(--rule);display:block;transition:color 0.15s;}
+.processo-card .card-link:hover{color:var(--purple);}
+
+/* DESTAQUES GRID */
+.destaques-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+
 @media (max-width: 700px) {
   .tool-card-body { grid-template-columns: 1fr; }
   .learnings-grid { grid-template-columns: 1fr; }
@@ -485,6 +507,8 @@ footer {
   .learnings { padding: 3rem 1.5rem; }
   .tool-access-section { padding: 3rem 1.5rem; }
   .tool-access-grid { grid-template-columns: 1fr; }
+  .processos-grid { grid-template-columns: 1fr; }
+  .destaques-grid { grid-template-columns: 1fr; }
 }
 
 /* ACESSO RÁPIDO */
@@ -626,7 +650,47 @@ footer {
 <!-- FERRAMENTAS -->
 <section class="tools-section">
   <p class="section-eyebrow">✦ as ferramentas</p>
-  <h2 class="section-title" style="margin-bottom:2.5rem;">O que foi <em>criado.</em></h2>
+  <h2 class="section-title" style="margin-bottom:2rem;">O que foi <em>criado.</em></h2>
+
+  <div class="tool-tabs-bar">
+    <button class="tool-tab-btn" data-tab="destaques">Destaques</button>
+    <button class="tool-tab-btn active" data-tab="ferramentas-criadas">Ferramentas Criadas</button>
+    <button class="tool-tab-btn" data-tab="processos">Processos</button>
+  </div>
+
+  <!-- TAB: DESTAQUES -->
+  <div id="tab-destaques" class="tab-panel">
+    <div class="destaques-grid">
+      <a href="serie-ferramentas.html" class="tool-access-card">
+        <span class="tool-access-label">Skill de Comunicação Estratégica</span>
+        <span style="font-size:13px;color:var(--charcoal-lt);line-height:1.5;">Um painel de quatro especialistas que me conhece de verdade</span>
+        <span class="tool-access-cta">ver série →</span>
+      </a>
+      <a href="case-organizador.html" class="tool-access-card">
+        <span class="tool-access-label">Organizador de Entregáveis</span>
+        <span style="font-size:13px;color:var(--charcoal-lt);line-height:1.5;">Notas brutas → documento estruturado em segundos</span>
+        <span class="tool-access-cta">ver case →</span>
+      </a>
+      <a href="case-analise-metricas.html" class="tool-access-card">
+        <span class="tool-access-label">Análise de Métricas</span>
+        <span style="font-size:13px;color:var(--charcoal-lt);line-height:1.5;">Prints do Instagram → diagnóstico estratégico real</span>
+        <span class="tool-access-cta">ver case →</span>
+      </a>
+      <a href="case-foco.html" class="tool-access-card">
+        <span class="tool-access-label">Modo Foco</span>
+        <span style="font-size:13px;color:var(--charcoal-lt);line-height:1.5;">Uma tarefa, um passo de cada vez — projetado para TDAH</span>
+        <span class="tool-access-cta">ver case →</span>
+      </a>
+      <a href="case-briefing.html" class="tool-access-card">
+        <span class="tool-access-label">Briefing Estratégico</span>
+        <span style="font-size:13px;color:var(--charcoal-lt);line-height:1.5;">Formulário do cliente → diagnóstico antes da primeira reunião</span>
+        <span class="tool-access-cta">ver case →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- TAB: FERRAMENTAS CRIADAS -->
+  <div id="tab-ferramentas-criadas" class="tab-panel active">
 
   <!-- FERRAMENTA 1 -->
   <div class="tool-card">
@@ -790,6 +854,87 @@ footer {
     </div>
   </div>
 
+  </div><!-- /tab-ferramentas-criadas -->
+
+  <!-- TAB: PROCESSOS -->
+  <div id="tab-processos" class="tab-panel">
+    <div class="processos-grid">
+
+      <div class="processo-card">
+        <span class="processo-card-tag">Ferramentas Criadas · Claude</span>
+        <h3>Análise de Métricas</h3>
+        <div class="processo-bloco">
+          <span class="processo-label">Problema identificado</span>
+          <p>Dados de redes sociais exigem interpretação estratégica, não leitura de número. A maioria das ferramentas descreve o que aconteceu — sem dizer o que fazer com isso.</p>
+        </div>
+        <div class="processo-bloco">
+          <span class="processo-label">Como funciona</span>
+          <p>Cola os dados ou descreve os números. A ferramenta identifica padrões, compara com comportamento esperado para o tipo de conteúdo e devolve diagnóstico com próximas ações concretas.</p>
+        </div>
+        <div class="processo-bloco">
+          <span class="processo-label">Decisão de design</span>
+          <p>O prompt foi construído para não apenas descrever métricas, mas diagnosticar o que elas revelam sobre o público e o conteúdo. Saiu da necessidade de ter análise real sem depender de planilha ou especialista externo.</p>
+        </div>
+        <a href="analise-metricas.html" class="card-link">Ver ferramenta →</a>
+      </div>
+
+      <div class="processo-card">
+        <span class="processo-card-tag">Ferramentas Criadas · Claude</span>
+        <h3>Briefing Estratégico</h3>
+        <div class="processo-bloco">
+          <span class="processo-label">Problema identificado</span>
+          <p>Briefings incompletos geram retrabalho. Nas calls, informação estratégica se perde na interpretação e na memória. O cliente sabe o que precisa, mas ninguém ensinou ele a responder direito.</p>
+        </div>
+        <div class="processo-bloco">
+          <span class="processo-label">Como funciona</span>
+          <p>O cliente recebe um link e responde 20 perguntas em 5 blocos no celular. As respostas ficam salvas. A social media acessa o dashboard privado, vê tudo organizado por bloco e gera o diagnóstico estratégico com IA em 1 clique.</p>
+        </div>
+        <div class="processo-bloco">
+          <span class="processo-label">Decisão de design</span>
+          <p>O mesmo link serve dois públicos com experiências completamente diferentes: o cliente vê só o formulário; a social media acessa o dashboard via código oculto no rodapé. Sem login, sem URL separada, sem fricção para quem responde.</p>
+        </div>
+        <a href="case-briefing.html" class="card-link">Ver ferramenta →</a>
+      </div>
+
+      <div class="processo-card">
+        <span class="processo-card-tag">Ferramentas Criadas · Claude</span>
+        <h3>Modo Foco</h3>
+        <div class="processo-bloco">
+          <span class="processo-label">Problema identificado</span>
+          <p>A paralisia de tarefa não é preguiça — é o cérebro travando diante de um objetivo grande demais para processar. "Criar o conteúdo da semana" não é uma tarefa, é um projeto.</p>
+        </div>
+        <div class="processo-bloco">
+          <span class="processo-label">Como funciona</span>
+          <p>Descreve a tarefa ou entregável. A ferramenta quebra em passos mínimos e concretos com timer integrado para cada etapa. O próximo passo sempre cabe em uma frase.</p>
+        </div>
+        <div class="processo-bloco">
+          <span class="processo-label">Decisão de design</span>
+          <p>Feito para fluxo de trabalho com TDAH — estrutura sem sobrecarga visual. Interface limpa, uma instrução por vez, timer que não deixa a tarefa virar abstração.</p>
+        </div>
+        <a href="foco.html" class="card-link">Ver ferramenta →</a>
+      </div>
+
+      <div class="processo-card">
+        <span class="processo-card-tag">Ferramentas Criadas · Claude</span>
+        <h3>Organizador de Entregáveis</h3>
+        <div class="processo-bloco">
+          <span class="processo-label">Problema identificado</span>
+          <p>Contexto se perde entre sessões de trabalho. Retomar um projeto depois de dias parado custa tempo e clareza — o que estava sendo feito, por quê e qual era o próximo passo.</p>
+        </div>
+        <div class="processo-bloco">
+          <span class="processo-label">Como funciona</span>
+          <p>Descreve o estado atual do projeto. A ferramenta devolve um documento com resumo estratégico, o que já foi resolvido, o que está em aberto e os próximos passos em ordem de prioridade.</p>
+        </div>
+        <div class="processo-bloco">
+          <span class="processo-label">Decisão de design</span>
+          <p>Output copiável — feito para ser colado no início da próxima sessão de trabalho como contexto. Não é para guardar, é para usar imediatamente e jogar fora.</p>
+        </div>
+        <a href="organizador-entregaveis.html" class="card-link">Ver ferramenta →</a>
+      </div>
+
+    </div>
+  </div><!-- /tab-processos -->
+
 </section>
 
 <!-- ACESSO RÁPIDO ÀS FERRAMENTAS -->
@@ -853,5 +998,19 @@ footer {
   <span class="footer-copy">design · jornalismo · social media</span>
 </footer>
 
+<script>
+(function(){
+  var btns=document.querySelectorAll('.tool-tab-btn');
+  var panels=document.querySelectorAll('.tab-panel');
+  btns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      btns.forEach(function(b){b.classList.remove('active');});
+      panels.forEach(function(p){p.classList.remove('active');});
+      btn.classList.add('active');
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    });
+  });
+})();
+</script>
 </body>
 </html>

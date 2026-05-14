@@ -33,7 +33,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .page-wrap{padding-top:72px;}
 
 /* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr;position:relative;overflow:hidden;}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 3.5rem;position:relative;z-index:2;}
 .hero-tag{display:inline-block;background:#d4ebbb;color:#5a8a3c;border:1.5px solid #5a8a3c;border-radius:100px;padding:4px 14px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem;width:fit-content;}
 .hero-name{font-family:'cooper-black',serif;font-size:clamp(52px,7vw,90px);font-weight:900;line-height:0.92;letter-spacing:-0.03em;color:var(--charcoal);margin-bottom:1.5rem;}
@@ -50,11 +50,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .btn-primary:hover{background:var(--charcoal);border-color:var(--charcoal);transform:translateY(-2px);}
 .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--charcoal);border:2px solid var(--charcoal);border-radius:100px;padding:11px 26px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all 0.2s;cursor:none;}
 .btn-outline:hover{background:var(--charcoal);color:var(--cream);transform:translateY(-2px);}
-.hero-right{background:var(--green);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,#8fbe6a 0%,#5a8a3c 65%);}
 @keyframes spinSlow{to{transform:rotate(360deg);}}
-.hero-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);z-index:2;position:relative;}
-.shape-star{position:absolute;color:rgba(255,255,255,0.3);animation:spinSlow 15s linear infinite;z-index:2;font-size:16px;}
 
 /* MARQUEE */
 .marquee-wrap{border-top:2px solid var(--charcoal);border-bottom:2px solid var(--charcoal);background:var(--charcoal);padding:10px 0;overflow-x:clip;overflow-y:visible;position:relative;}
@@ -175,13 +171,8 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
 .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
-.hero-mascot{height:320px;width:auto;display:block;}
-@media(min-width:769px){.hero-mascot{position:absolute;right:0;bottom:0;height:380px;}}
-@media(max-width:768px){.hero-mascot{margin:0 auto 1.5rem;height:240px;}}
-
 @media(max-width:768px){
   .hero{grid-template-columns:1fr;}
-  .hero-right{height:260px;}
   .about{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem;}
   .work{padding:3rem 1.5rem;}
   .work-grid,.work-grid-single{grid-template-columns:1fr;max-width:100%;}
@@ -199,7 +190,6 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   .cursor,.cursor-ring{display:none;}
   footer{flex-direction:column;gap:6px;padding:1.5rem;text-align:center;}
   .tool-access-grid{grid-template-columns:1fr;}
-  .marquee-mascot{display:none;}
   .hero-sig{display:block;margin:0.75rem auto 1.5rem;max-width:140px;}
 }
 .tool-access-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin:1rem 0 1.25rem;}
@@ -253,15 +243,6 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <a href="#contato" class="btn-outline">falar comigo</a>
       </div>
     </div>
-    <div class="hero-right">
-      <span class="shape-star" style="top:15%;left:15%;">✦</span>
-      <span class="shape-star" style="bottom:20%;right:12%;animation-duration:12s;animation-direction:reverse;">✦</span>
-      <img
-        src="slides/mascote.png"
-        alt="Mascote Yumi"
-        class="hero-mascot"
-      />
-    </div>
   </section>
 
   <div class="marquee-wrap">
@@ -281,7 +262,6 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
       <span class="marquee-item"><span class="marquee-dot"></span>Identidade Visual</span>
       <span class="marquee-item"><span class="marquee-dot"></span>Radiojornalismo</span>
     </div>
-    <img src="slides/mascote.png" alt="" class="marquee-mascot" style="position:absolute;right:3rem;bottom:0;max-width:200px;height:auto;display:block;pointer-events:none;z-index:5;">
   </div>
 
   <section class="about" id="sobre">
