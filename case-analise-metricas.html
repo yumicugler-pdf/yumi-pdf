@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Análise de Métricas | Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--green);}
+.breadcrumb span{opacity:0.4;}
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-ia{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-social{color:var(--purple);border-color:var(--purple-lt);background:rgba(61,32,112,0.05);}
+.tag-design{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+.ficha{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin-bottom:3rem;}
+.ficha-item{background:var(--white);padding:1.25rem;}
+.ficha-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;}
+.ficha-value{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+.decisions{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--green);}
+.decision-card.purple{border-left-color:var(--purple);}
+.decision-element{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px;font-weight:500;}
+.decision-card.purple .decision-element{color:var(--purple);}
+.decision-why{font-size:14px;color:var(--charcoal);line-height:1.6;}
+.flow-steps{display:flex;flex-direction:column;gap:0;border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin:1.5rem 0;}
+.flow-step{display:flex;align-items:flex-start;gap:1rem;padding:1.1rem 1.25rem;border-bottom:1px solid var(--rule);background:var(--white);}
+.flow-step:last-child{border-bottom:none;}
+.flow-n{font-family:'cooper-black',serif;font-size:22px;font-weight:900;font-style:italic;color:var(--purple-lt);min-width:28px;flex-shrink:0;padding-top:2px;}
+.flow-content h4{font-family:'cooper-black',serif;font-size:16px;font-weight:900;letter-spacing:-0.01em;margin-bottom:3px;}
+.flow-content p{font-size:13px;color:var(--charcoal-lt);line-height:1.5;}
+.output-mock{background:var(--charcoal);border-radius:12px;padding:1.75rem;margin:1.5rem 0;}
+.out-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8fbe6a;margin-bottom:1rem;display:block;}
+.out-section{margin-bottom:1.25rem;}
+.out-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;color:var(--purple-lt);margin-bottom:6px;}
+.out-text{font-size:13px;line-height:1.7;color:#ccc;}
+.out-text strong{color:#fff;}
+.tech-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
+.tech-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;border-radius:100px;border:1.5px solid var(--rule);background:var(--white);color:var(--charcoal-lt);}
+.learnings{background:var(--purple);border-radius:12px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:#c4aff0;}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+.divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--purple);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+@media(max-width:600px){.ficha{grid-template-columns:1fr 1fr;}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="index.html">portfólio</a><span>/</span>
+  <a href="serie-ferramentas.html">ferramentas</a><span>/</span>
+  <span style="color:var(--charcoal);">análise de métricas</span>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-ia">IA · Visão Computacional</span>
+    <span class="meta-tag tag-social">Social Media</span>
+    <span class="meta-tag tag-design">Análise Estratégica</span>
+  </div>
+  <h1 class="case-title">Análise de<br><em>Métricas.</em></h1>
+  <p class="case-subtitle">Prints do Instagram → diagnóstico estratégico real. A ferramenta lê as imagens, identifica os números e devolve três blocos: leitura dos dados, diagnóstico e ações prioritárias.</p>
+
+  <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--cream-dk);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:4px;">insight central</p>
+    <p style="font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">Alcance não é engajamento. Engajamento não é conversão. Nenhuma ferramenta nativa do Instagram explica isso — essa ferramenta explica.</p>
+  </div>
+</div>
+
+<div class="ficha">
+  <div class="ficha-item"><p class="ficha-label">Tipo</p><p class="ficha-value">Ferramenta IA</p></div>
+  <div class="ficha-item"><p class="ficha-label">Input</p><p class="ficha-value">Prints de tela</p></div>
+  <div class="ficha-item"><p class="ficha-label">Stack</p><p class="ficha-value">Claude API · Visão</p></div>
+  <div class="ficha-item"><p class="ficha-label">Output</p><p class="ficha-value">3 blocos</p></div>
+  <div class="ficha-item"><p class="ficha-label">Plataforma</p><p class="ficha-value">Web · HTML standalone</p></div>
+  <div class="ficha-item"><p class="ficha-label">Série</p><p class="ficha-value">Ferramentas do Claude</p></div>
+</div>
+
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">O problema com<br><em>os números.</em></h2>
+  <p>Ver os dados do Instagram sem saber o que eles significam estrategicamente é o equivalente a ler uma análise de sangue sem médico — você sabe que tem números, mas não sabe o que fazer com eles.</p>
+  <p>As ferramentas nativas da plataforma mostram o dado, não o diagnóstico. <strong>Alcance alto com engajamento baixo é um problema diferente de alcance baixo com engajamento alto</strong> — e cada um pede uma ação diferente. Essa distinção raramente aparece no painel do Instagram.</p>
+  <p>O problema adicional: a maioria das pessoas acessa os dados via print, não via exportação de CSV. Construir para o comportamento real, não para o ideal.</p>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">02 — como funciona</p>
+  <h2 class="section-title">Do print ao<br><em>diagnóstico.</em></h2>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <span class="flow-n">01</span>
+      <div class="flow-content">
+        <h4>Upload dos prints</h4>
+        <p>Você faz upload dos screenshots das métricas do Instagram — alcance, impressões, interações, perfis alcançados. Sem precisar exportar nada, sem CSV, sem configuração.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-n">02</span>
+      <div class="flow-content">
+        <h4>Contexto do perfil</h4>
+        <p>Você informa o objetivo principal do perfil (autoridade, vendas, comunidade, engajamento) e o segmento. Isso calibra o diagnóstico — um perfil de e-commerce tem métricas saudáveis diferentes de um perfil pessoal.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-n">03</span>
+      <div class="flow-content">
+        <h4>Leitura das imagens pela IA</h4>
+        <p>A Claude API usa visão computacional para ler os números diretamente dos prints — sem OCR separado, sem pré-processamento manual. Identifica os dados relevantes e descarta ruído visual.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="flow-n">04</span>
+      <div class="flow-content">
+        <h4>Três blocos de output</h4>
+        <p><strong>Leitura dos dados</strong> — o que os números dizem, em português claro. <strong>Diagnóstico estratégico</strong> — o que está funcionando, o que não está e por quê. <strong>Ações prioritárias</strong> — o que fazer primeiro, com razão para isso.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">03 — exemplo de output</p>
+  <h2 class="section-title">O que a ferramenta<br><em>entrega.</em></h2>
+
+  <div class="output-mock">
+    <span class="out-label">✦ análise gerada — perfil de mentoria</span>
+    <div class="out-section">
+      <div class="out-title">✦ leitura dos dados</div>
+      <p class="out-text">Alcance de 4.230 perfis únicos com 312 interações — <strong>taxa de engajamento de 7,4%</strong>, acima da média de mercado para perfis de serviço (3–5%). O dado crítico: 68% do alcance veio de não seguidores, o que indica forte distribuição orgânica via Explorar ou compartilhamento.</p>
+    </div>
+    <div class="out-section">
+      <div class="out-title">✦ diagnóstico estratégico</div>
+      <p class="out-text">A peça está atraindo novos públicos mas a conversão em seguidores não está acontecendo — o conteúdo atrai, mas não retém. <strong>O problema provavelmente está no CTA ou na expectativa criada vs. o que o perfil entrega após o primeiro clique.</strong></p>
+    </div>
+    <div class="out-section">
+      <div class="out-title">✦ ações prioritárias</div>
+      <p class="out-text"><strong>1.</strong> Auditar os últimos 3 posts publicados após esta peça — se o engajamento caiu, o conteúdo seguinte quebrou a promessa implícita. <strong>2.</strong> Testar uma versão da mesma peça com CTA explícito para seguir. <strong>3.</strong> Identificar qual elemento visual gerou o alcance expandido e replicar a estrutura.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">04 — decisões de design</p>
+  <h2 class="section-title">O porquê de cada<br><em>escolha.</em></h2>
+  <div class="decisions">
+    <div class="decision-card">
+      <p class="decision-element">Prints, não exportação</p>
+      <p class="decision-why">A exportação de dados do Instagram exige permissões, apps terceiros ou acesso ao Creator Studio. O print é o formato natural de como a maioria das pessoas documenta os dados. Projetar para o comportamento real elimina fricção antes de começar.</p>
+    </div>
+    <div class="decision-card purple">
+      <p class="decision-element">Contexto do objetivo antes do diagnóstico</p>
+      <p class="decision-why">Um alcance de 2.000 pessoas pode ser excelente para um perfil local de 500 seguidores e medíocre para um perfil de produto nacional. Sem contexto, qualquer análise é genérica. Pedir o objetivo primeiro calibra o diagnóstico para a realidade específica do perfil.</p>
+    </div>
+    <div class="decision-card">
+      <p class="decision-element">Três blocos de output com funções distintas</p>
+      <p class="decision-why">Separar leitura, diagnóstico e ação evita o erro comum de misturar "o que aconteceu" com "o que fazer". São três momentos cognitivos diferentes — juntos numa só resposta, o usuário tende a ler e não conseguir aplicar.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">05 — construção</p>
+  <h2 class="section-title">Como foi <em>feita.</em></h2>
+  <p>A ferramenta surgiu de uma limitação recorrente: receber prints de clientes com métricas e precisar analisá-los manualmente, uma por uma, sem padrão de estrutura. A pergunta foi: o que acontece se eu deixar a IA ler esses prints diretamente?</p>
+  <p>A resposta foi melhor do que o esperado. A visão computacional da Claude API identifica números em screenshots com alta precisão — inclusive quando há variações de layout entre as diferentes telas do Instagram.</p>
+  <div class="tech-tags">
+    <span class="tech-tag">Claude API</span>
+    <span class="tech-tag">Visão Computacional</span>
+    <span class="tech-tag">HTML Standalone</span>
+    <span class="tech-tag">File Upload API</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">06 — aprendizados</p>
+  <div class="learnings">
+    <p class="section-label">✦ o que esse projeto ensinou</p>
+    <h2 class="section-title">Além dos<br><em>números.</em></h2>
+    <ul class="learning-list">
+      <li><strong>Dados sem contexto são só números.</strong> A mesma métrica tem significados completamente diferentes dependendo do objetivo, do tamanho da base e do momento do perfil.</li>
+      <li><strong>Visão computacional muda o que é possível.</strong> Conseguir ler prints diretamente abre uma classe inteira de ferramentas que antes exigiam OCR separado, exportações manuais ou APIs pagas de terceiros.</li>
+      <li><strong>O diagnóstico é mais valioso que a leitura.</strong> Qualquer um consegue ver que o alcance foi 4.000. O que a maioria não sabe é o que isso significa para o perfil específico.</li>
+      <li><strong>Projetar para o comportamento real, não o ideal.</strong> A decisão de aceitar prints em vez de exigir exportação foi a decisão que tornou a ferramenta utilizável de verdade.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note">ia · social media · análise</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case — Modo Foco | Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--green:#5a8a3c;--green-pale:#d4ebbb;--purple:#3d2070;--purple-lt:#c4aff0;--cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;--charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;font-size:15px;line-height:1.7;max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--charcoal-lt);display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;}
+.breadcrumb a{color:var(--charcoal-lt);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--green);}
+.breadcrumb span{opacity:0.4;}
+.case-header{border-bottom:2px solid var(--charcoal);padding-bottom:2rem;margin-bottom:3rem;}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;}
+.meta-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 12px;border-radius:100px;border:1.5px solid;}
+.tag-ia{color:var(--green);border-color:var(--green-pale);background:rgba(90,138,60,0.05);}
+.tag-design{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.case-title{font-family:'cooper-black',serif;font-size:clamp(36px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.05;margin-bottom:0.75rem;}
+.case-title em{font-style:italic;color:var(--purple);}
+.case-subtitle{font-size:16px;color:var(--charcoal-lt);max-width:600px;}
+.ficha{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1.5px solid var(--charcoal);border-radius:12px;overflow:hidden;margin-bottom:3rem;}
+.ficha-item{background:var(--white);padding:1.25rem;}
+.ficha-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);margin-bottom:4px;}
+.ficha-value{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.section{margin-bottom:3.5rem;}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.section-title{font-family:'cooper-black',serif;font-size:26px;font-weight:900;letter-spacing:-0.02em;margin-bottom:1rem;line-height:1.15;}
+.section-title em{font-style:italic;color:var(--purple);}
+.section p{color:var(--charcoal-lt);margin-bottom:1rem;}
+.section p strong{color:var(--charcoal);}
+.foco-mock{background:var(--charcoal);border-radius:16px;padding:2rem;margin:1.5rem 0;border:2px solid var(--charcoal);}
+.mock-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:1.25rem;display:block;}
+.mock-task{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#8fbe6a;margin-bottom:0.35rem;}
+.mock-step{font-family:'cooper-black',serif;font-size:22px;font-weight:900;font-style:italic;color:var(--white);margin-bottom:0.5rem;line-height:1.15;}
+.mock-timer{font-family:'DM Mono',monospace;font-size:32px;font-weight:500;color:var(--purple-lt);letter-spacing:0.04em;margin-bottom:1rem;}
+.mock-progress{background:#333;border-radius:100px;height:4px;margin-bottom:1.25rem;}
+.mock-progress-fill{background:#8fbe6a;height:100%;border-radius:100px;width:33%;}
+.mock-steps-list{display:flex;flex-direction:column;gap:8px;}
+.mock-step-item{display:flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.04em;}
+.mock-step-item.done{color:#555;}
+.mock-step-item.active{color:var(--white);}
+.mock-step-item.next{color:#444;}
+.mock-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.mock-dot.done{background:#555;}
+.mock-dot.active{background:#8fbe6a;}
+.mock-dot.next{background:#333;}
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;}
+.principle-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem;}
+.principle-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px;display:block;}
+.principle-title{font-family:'cooper-black',serif;font-size:17px;font-weight:900;letter-spacing:-0.01em;margin-bottom:6px;}
+.principle-text{font-size:13px;color:var(--charcoal-lt);line-height:1.55;}
+.decisions{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.decision-card{background:var(--white);border:1.5px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;border-left:4px solid var(--green);}
+.decision-card.purple{border-left-color:var(--purple);}
+.decision-element{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px;font-weight:500;}
+.decision-card.purple .decision-element{color:var(--purple);}
+.decision-why{font-size:14px;color:var(--charcoal);line-height:1.6;}
+.tech-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
+.tech-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;border-radius:100px;border:1.5px solid var(--rule);background:var(--white);color:var(--charcoal-lt);}
+.learnings{background:var(--purple);border-radius:12px;padding:2rem;margin-top:1.5rem;}
+.learnings .section-label{color:var(--purple-lt);}
+.learnings .section-title{color:var(--white);}
+.learnings .section-title em{color:#c4aff0;}
+.learning-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:1rem;}
+.learning-list li{font-size:14px;color:var(--purple-lt);padding-left:1.5rem;position:relative;line-height:1.6;}
+.learning-list li::before{content:'✦';position:absolute;left:0;color:#8fbe6a;font-size:10px;top:4px;}
+.learning-list li strong{color:var(--white);}
+.divider{border:none;border-top:1px solid var(--rule);margin:2.5rem 0;}
+.case-footer{border-top:2px solid var(--charcoal);padding-top:2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-sig{font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);}
+.footer-sig span{color:var(--purple);}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+@media(max-width:600px){.ficha{grid-template-columns:1fr 1fr;}.principles{grid-template-columns:1fr;}.case-footer{flex-direction:column;gap:1rem;}body{padding:2rem 1.25rem 4rem;}}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="index.html">portfólio</a><span>/</span>
+  <a href="serie-ferramentas.html">ferramentas</a><span>/</span>
+  <span style="color:var(--charcoal);">modo foco</span>
+</div>
+
+<div class="case-header">
+  <div class="case-meta">
+    <span class="meta-tag tag-ia">IA · Claude API</span>
+    <span class="meta-tag tag-design">TDAH · Produtividade</span>
+  </div>
+  <h1 class="case-title">Modo<br><em>Foco.</em></h1>
+  <p class="case-subtitle">Uma tarefa, um passo de cada vez. A ferramenta quebra qualquer tarefa em no máximo 6 passos minúsculos com timer visual — projetada especificamente para como o cérebro com TDAH funciona.</p>
+
+  <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;background:var(--cream-dk);border-left:4px solid var(--green);border-radius:0 10px 10px 0;">
+    <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:4px;">insight central</p>
+    <p style="font-family:'cooper-black',serif;font-size:18px;font-weight:700;font-style:italic;color:var(--charcoal);line-height:1.3;">Com TDAH, a paralisia não vem de preguiça — vem de não conseguir enxergar o primeiro passo. A ferramenta mostra só o passo seguinte.</p>
+  </div>
+</div>
+
+<div class="ficha">
+  <div class="ficha-item"><p class="ficha-label">Tipo</p><p class="ficha-value">Ferramenta IA</p></div>
+  <div class="ficha-item"><p class="ficha-label">Design</p><p class="ficha-value">TDAH-friendly</p></div>
+  <div class="ficha-item"><p class="ficha-label">Stack</p><p class="ficha-value">Claude API</p></div>
+  <div class="ficha-item"><p class="ficha-label">Máx. passos</p><p class="ficha-value">6 por tarefa</p></div>
+  <div class="ficha-item"><p class="ficha-label">Interface</p><p class="ficha-value">Timer visual</p></div>
+  <div class="ficha-item"><p class="ficha-label">Série</p><p class="ficha-value">Ferramentas do Claude</p></div>
+</div>
+
+<div class="section">
+  <p class="section-label">01 — contexto</p>
+  <h2 class="section-title">Paralisia não é<br><em>preguiça.</em></h2>
+  <p>TDAH não é déficit de atenção — é déficit de regulação da atenção. A atenção existe em abundância para coisas que capturam o cérebro. O problema é iniciar tarefas abertas, sem estrutura, sem urgência clara, sem um primeiro passo óbvio e minúsculo.</p>
+  <p>As ferramentas de produtividade convencionais foram projetadas para cérebros neurotípicos. Listas longas, deadlines abstratos, sistemas de prioridade com muitas variáveis. <strong>Para o TDAH, quanto mais complexo o sistema, maior a probabilidade de abandono antes de começar.</strong></p>
+  <p>A pergunta que gerou essa ferramenta foi: qual é o mínimo possível de estrutura para que o primeiro passo aconteça?</p>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">02 — a ferramenta em uso</p>
+  <h2 class="section-title">Como parece na<br><em>prática.</em></h2>
+  <p>Você digita qualquer tarefa — não precisa estar bem formulada, não precisa ser específica. A IA quebra em passos e você vê um de cada vez, com timer contando.</p>
+
+  <div class="foco-mock">
+    <span class="mock-label">✦ modo foco · em execução</span>
+    <div class="mock-task">✦ tarefa ativa — análise holmy</div>
+    <div class="mock-step">Abrir o painel do Instagram<br>e tirar print das métricas</div>
+    <div class="mock-timer">14:32</div>
+    <div class="mock-progress"><div class="mock-progress-fill"></div></div>
+    <div class="mock-steps-list">
+      <div class="mock-step-item done"><div class="mock-dot done"></div>Abrir a pasta do projeto Holmy</div>
+      <div class="mock-step-item active"><div class="mock-dot active"></div>Tirar print das métricas do Instagram</div>
+      <div class="mock-step-item next"><div class="mock-dot next"></div>Fazer upload na ferramenta de análise</div>
+      <div class="mock-step-item next"><div class="mock-dot next"></div>Ler o diagnóstico gerado</div>
+      <div class="mock-step-item next"><div class="mock-dot next"></div>Copiar os 3 insights principais</div>
+      <div class="mock-step-item next"><div class="mock-dot next"></div>Escrever o relatório para o cliente</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">03 — princípios de design</p>
+  <h2 class="section-title">Projetado para como<br><em>o TDAH funciona.</em></h2>
+
+  <div class="principles">
+    <div class="principle-card">
+      <span class="principle-label">Princípio 01</span>
+      <div class="principle-title">Um passo por vez</div>
+      <p class="principle-text">Ver todos os passos de uma vez recria a sobrecarga que causa a paralisia. A ferramenta mostra só o passo atual — os demais existem mas ficam em segundo plano visual.</p>
+    </div>
+    <div class="principle-card">
+      <span class="principle-label">Princípio 02</span>
+      <div class="principle-title">Primeiro passo ridículo</div>
+      <p class="principle-text">O primeiro passo gerado é sempre absurdamente fácil — "abrir a pasta", "abrir o documento". A inércia é o maior obstáculo. Quebrar a inércia com um passo que não dá para falhar.</p>
+    </div>
+    <div class="principle-card">
+      <span class="principle-label">Princípio 03</span>
+      <div class="principle-title">Timer como urgência artificial</div>
+      <p class="principle-text">O cérebro com TDAH responde bem a urgência real. O timer não pune — ele cria a sensação de limite que ativa o foco. Sem timer, o passo pode durar indefinidamente.</p>
+    </div>
+    <div class="principle-card">
+      <span class="principle-label">Princípio 04</span>
+      <div class="principle-title">Estética escura, intencional</div>
+      <p class="principle-text">Interface escura reduz distração visual. O contraste alto entre o texto do passo ativo e o fundo cria um ponto focal claro — o olho vai para onde precisa ir sem esforço.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">04 — decisões de design</p>
+  <h2 class="section-title">O porquê de cada<br><em>escolha.</em></h2>
+  <div class="decisions">
+    <div class="decision-card">
+      <p class="decision-element">Máximo de 6 passos — não mais</p>
+      <p class="decision-why">Mais de 6 passos recria a sensação de tarefa longa e retoma a sobrecarga. 6 é o limite onde a tarefa ainda parece gerenciável visualmente, mesmo que leve horas no total. A restrição é o design.</p>
+    </div>
+    <div class="decision-card purple">
+      <p class="decision-element">Input livre, sem formulário</p>
+      <p class="decision-why">"Escrever pasta do projeto Holmy e verificar as métricas do Instagram para o relatório de mai" gera passos tão bons quanto um input bem estruturado. Pedir formatação antes de começar é fricção que pode causar desistência antes mesmo de iniciar.</p>
+    </div>
+    <div class="decision-card">
+      <p class="decision-element">Progresso visível, não numérico</p>
+      <p class="decision-why">Mostrar "passo 2 de 6" ativa a parte do cérebro que calcula quanto falta. A barra de progresso visual é percebida como movimento sem ativar a mesma sobrecarga cognitiva do número explícito.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">05 — construção</p>
+  <h2 class="section-title">Como foi <em>feita.</em></h2>
+  <p>A conversa que gerou essa ferramenta começou com um compartilhamento honesto sobre como o TDAH afeta a execução. Em vez de sugestões genéricas de produtividade, o processo de co-design foi perguntar: onde trava exatamente? O que paralisa mais? Como você processa instruções?</p>
+  <p>Cada resposta virou um princípio de design. <strong>O diagnóstico virou especificação.</strong> A ferramenta não foi construída para um usuário genérico com dificuldade de foco — foi construída para um padrão específico e documentado de como o TDAH se manifesta no trabalho criativo.</p>
+  <div class="tech-tags">
+    <span class="tech-tag">Claude API</span>
+    <span class="tech-tag">Timer Visual</span>
+    <span class="tech-tag">HTML Standalone</span>
+    <span class="tech-tag">TDAH-friendly</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-label">06 — aprendizados</p>
+  <div class="learnings">
+    <p class="section-label">✦ o que esse projeto ensinou</p>
+    <h2 class="section-title">Além do<br><em>foco.</em></h2>
+    <ul class="learning-list">
+      <li><strong>Limitações bem diagnosticadas viram especificações de design.</strong> TDAH não é obstáculo para o projeto — é dado de entrada. Saber como o cérebro funciona permitiu criar algo que realmente funciona para ele.</li>
+      <li><strong>A restrição é o produto.</strong> Limitar a 6 passos, mostrar um por vez, começar pelo ridiculamente fácil — cada limitação foi uma decisão de design intencional, não uma simplificação preguiçosa.</li>
+      <li><strong>Urgência artificial funciona.</strong> O timer não está medindo desempenho — está criando a estrutura temporal que o cérebro com TDAH precisa para iniciar e manter o movimento.</li>
+      <li><strong>Projetar para si mesma é diferente de projetar para uma persona.</strong> Cada decisão foi testada em condições reais — dias de hiperfoco e dias de paralisia total. Isso muda o que sobrevive ao protótipo.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="case-footer">
+  <span class="footer-sig">Yumi Cugler<span>.</span></span>
+  <span class="footer-note">ia · tdah · produtividade</span>
+</div>
+
+</body>
+</html>
