@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing Estratégico — Yumi Cugler</title>
+<link rel="stylesheet" href="https://use.typekit.net/wpu0ioj.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#5a8a3c;--green-lt:#8fbe6a;--green-pale:#d4ebbb;
+  --purple:#3d2070;--purple-lt:#c4aff0;
+  --cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;
+  --charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;min-height:100vh;font-size:15px;line-height:1.7;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:var(--cream);border-bottom:2px solid var(--charcoal);}
+.nav-logo{font-family:'cooper-black',serif;font-size:20px;font-weight:900;color:var(--charcoal);letter-spacing:-0.02em;cursor:pointer;text-decoration:none;}
+.nav-logo span{color:var(--green);}
+.nav-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);}
+
+.prog-wrap{position:sticky;top:62px;z-index:99;height:3px;background:var(--rule);}
+.prog-bar{height:100%;background:var(--green);width:0%;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);}
+
+.container{max-width:640px;margin:0 auto;padding:3.5rem 2rem 4rem;}
+
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:0.5rem;}
+.big-title{font-family:'cooper-black',serif;font-size:clamp(2rem,6vw,3rem);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:1rem;}
+.big-title em{font-style:italic;color:var(--purple);}
+.desc{color:var(--charcoal-lt);font-size:14px;line-height:1.75;margin-bottom:2rem;}
+
+.pills{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.07em;text-transform:uppercase;padding:4px 12px;border-radius:100px;border:1.5px solid var(--rule);color:var(--charcoal-lt);background:var(--white);}
+
+.btn-p{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--charcoal);color:var(--white);border:2px solid var(--charcoal);border-radius:100px;padding:11px 26px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-p:hover:not(:disabled){background:var(--green);border-color:var(--green);}
+.btn-p:disabled{background:var(--rule);border-color:var(--rule);color:var(--charcoal-lt);cursor:not-allowed;}
+.btn-s{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--charcoal-lt);border:1.5px solid var(--rule);border-radius:100px;padding:10px 22px;font-family:'Cabin',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;}
+.btn-s:hover{border-color:var(--charcoal-lt);}
+.btn-a{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:var(--white);border:none;border-radius:100px;padding:10px 22px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-a:hover:not(:disabled){background:var(--charcoal);}
+.btn-a:disabled{opacity:0.55;cursor:not-allowed;}
+.btn-row{display:flex;gap:0.75rem;align-items:center;margin-top:2rem;flex-wrap:wrap;}
+
+.q-block{margin-bottom:1.75rem;}
+.q-label{display:block;font-size:14px;font-weight:600;margin-bottom:4px;line-height:1.45;color:var(--charcoal);}
+.q-hint{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.04em;color:var(--charcoal-lt);margin-bottom:0.6rem;line-height:1.5;}
+
+textarea,input[type=text],select{width:100%;padding:0.875rem 1rem;border:1.5px solid var(--rule);border-radius:8px;background:var(--white);font-family:'Cabin',sans-serif;font-size:14px;color:var(--charcoal);outline:none;transition:border-color 0.15s;line-height:1.6;}
+textarea{resize:vertical;min-height:96px;}
+textarea:focus,input[type=text]:focus,select:focus{border-color:var(--green);}
+textarea.filled,input.filled{border-color:var(--green-lt);}
+select{appearance:none;cursor:pointer;padding-right:2.5rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%234a4a50' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;}
+select.filled{border-color:var(--green-lt);}
+
+.radio-group{display:flex;flex-direction:column;gap:0.5rem;}
+.radio-opt{display:flex;align-items:center;gap:0.75rem;padding:0.8rem 1rem;border:1.5px solid var(--rule);border-radius:8px;cursor:pointer;font-size:14px;background:var(--white);transition:border-color 0.15s,background 0.15s;user-select:none;}
+.radio-opt.sel{border-color:var(--green-lt);background:rgba(90,138,60,0.05);}
+.radio-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--rule);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.radio-opt.sel .radio-dot{border-color:var(--green);background:var(--green);}
+.radio-inner{width:6px;height:6px;border-radius:50%;background:var(--white);display:none;}
+.radio-opt.sel .radio-inner{display:block;}
+
+.incomplete-msg{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);letter-spacing:0.04em;}
+
+.screen{display:none;}
+.screen.on{display:block;}
+
+footer{border-top:2px solid var(--charcoal);padding:1.25rem 2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.f-sig{font-family:'cooper-black',serif;font-size:17px;font-weight:700;font-style:italic;cursor:default;user-select:none;}
+.f-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);letter-spacing:0.06em;cursor:default;user-select:none;}
+
+/* DASHBOARD */
+.sub-card{border:1.5px solid var(--rule);border-radius:10px;background:var(--white);overflow:hidden;margin-bottom:0.75rem;}
+.sub-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;cursor:pointer;transition:background 0.15s;}
+.sub-head:hover{background:var(--cream-dk);}
+.sub-name{font-size:15px;font-weight:600;margin-bottom:2px;}
+.sub-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);}
+.sub-toggle{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);white-space:nowrap;margin-left:1rem;}
+.sub-body{display:none;padding:0 1.25rem 1.25rem;border-top:1px solid var(--rule);}
+.sub-body.open{display:block;}
+.sub-block-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin:1rem 0 0.4rem;}
+.sub-q{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);margin-bottom:2px;}
+.sub-a{font-size:13px;color:var(--charcoal);line-height:1.65;margin-bottom:0.65rem;}
+
+.an-box{background:rgba(90,138,60,0.06);border-top:1.5px solid var(--green-pale);padding:1.5rem 1.25rem;margin-top:1rem;}
+.an-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;}
+.an-sec-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;color:var(--charcoal);margin-top:1.25rem;margin-bottom:4px;}
+.an-text{font-size:13px;line-height:1.85;color:var(--charcoal);margin-bottom:0.3rem;}
+
+.code-inp{display:block;width:100%;max-width:280px;margin:0 auto;padding:0.875rem 1rem;border:1.5px solid var(--rule);border-radius:8px;background:var(--white);font-family:'DM Mono',monospace;font-size:14px;letter-spacing:0.1em;text-align:center;outline:none;transition:border-color 0.15s;}
+.code-inp:focus{border-color:var(--green);}
+.err-msg{color:#c0392b;font-family:'DM Mono',monospace;font-size:11px;margin-top:0.5rem;}
+
+.ld{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--purple);margin:0 3px;animation:blink 1.2s infinite;}
+.ld:nth-child(2){animation-delay:0.2s;}
+.ld:nth-child(3){animation-delay:0.4s;}
+@keyframes blink{0%,80%,100%{opacity:0.2;}40%{opacity:1;}}
+
+@media(max-width:600px){
+  nav{padding:0.875rem 1.25rem;}
+  .prog-wrap{top:55px;}
+  .container{padding:2rem 1.25rem 3rem;}
+  .btn-row{flex-direction:column;align-items:stretch;}
+  .btn-p,.btn-s,.btn-a{width:100%;justify-content:center;}
+  footer{padding:1.25rem;flex-direction:column;gap:6px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="goIntro();return false;">Yumi<span>.</span></a>
+  <span class="nav-tag" id="nav-tag">✦ briefing estratégico</span>
+</nav>
+
+<div class="prog-wrap" id="prog-wrap" style="display:none;">
+  <div class="prog-bar" id="prog-bar"></div>
+</div>
+
+<!-- ── INTRO ────────────────────────────────────────────────────────────────── -->
+<div class="screen on" id="screen-intro">
+  <div class="container">
+    <p class="eyebrow">✦ antes de começar</p>
+    <h1 class="big-title">Briefing <em>Estratégico.</em></h1>
+    <p class="desc">Antes de criar qualquer conteúdo, preciso entender seu negócio, sua marca e seu público com profundidade real.</p>
+    <div class="pills">
+      <span class="pill">5 blocos temáticos</span>
+      <span class="pill">~15 minutos</span>
+      <span class="pill">respostas confidenciais</span>
+    </div>
+    <button class="btn-p" onclick="startForm()">começar →</button>
+  </div>
+  <footer>
+    <span class="f-sig">Yumi Cugler.</span>
+    <span class="f-copy" onclick="handleFooterClick()">2026</span>
+  </footer>
+</div>
+
+<!-- ── FORM ─────────────────────────────────────────────────────────────────── -->
+<div class="screen" id="screen-form">
+  <div class="container">
+    <p class="eyebrow" id="form-eyebrow"></p>
+    <h2 class="big-title" id="form-title"></h2>
+    <p class="desc" id="form-desc"></p>
+    <div id="form-qs"></div>
+    <div class="btn-row">
+      <button class="btn-p" id="btn-next" onclick="handleNext()">próximo →</button>
+      <button class="btn-s" onclick="handleBack()">← voltar</button>
+      <span class="incomplete-msg" id="msg-incomplete" style="display:none;">preencha todos os campos</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── DONE ─────────────────────────────────────────────────────────────────── -->
+<div class="screen" id="screen-done">
+  <div class="container" style="text-align:center;padding-top:5rem;">
+    <p style="font-size:1.8rem;color:var(--green);margin-bottom:1.25rem;">✦</p>
+    <h1 class="big-title" style="font-size:clamp(2rem,6vw,2.8rem);">Pronto, <em>recebido.</em></h1>
+    <p class="desc" style="max-width:380px;margin:0 auto 2rem;">Obrigada por responder com atenção. Vou analisar cada resposta com cuidado antes do nosso próximo contato.</p>
+    <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);">yumicugler@outlook.com</p>
+  </div>
+  <footer style="margin-top:5rem;">
+    <span class="f-sig">Yumi Cugler.</span>
+    <span class="f-copy" onclick="handleFooterClick()">2026</span>
+  </footer>
+</div>
+
+<!-- ── ACCESS ───────────────────────────────────────────────────────────────── -->
+<div class="screen" id="screen-access">
+  <div class="container" style="text-align:center;padding-top:4rem;">
+    <p style="font-size:1.5rem;color:var(--green);margin-bottom:1rem;">✦</p>
+    <h2 class="big-title" style="font-size:clamp(1.8rem,5vw,2.4rem);">Acesso <em>restrito.</em></h2>
+    <p class="desc" style="margin-bottom:2rem;">Insira o código para acessar o dashboard.</p>
+    <input class="code-inp" type="password" id="code-input" placeholder="código de acesso"
+           onkeydown="if(event.key==='Enter')submitCode()">
+    <div style="margin-top:0.75rem;display:flex;justify-content:center;">
+      <button class="btn-p" style="min-width:280px;" onclick="submitCode()">entrar →</button>
+    </div>
+    <p class="err-msg" id="code-err" style="display:none;">código incorreto.</p>
+    <p style="margin-top:2.5rem;font-family:'DM Mono',monospace;font-size:11px;color:var(--rule);cursor:pointer;"
+       onclick="goIntro()">← voltar ao formulário</p>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ─────────────────────────────────────────────────────────────── -->
+<div class="screen" id="screen-dashboard">
+  <div class="container">
+    <p class="eyebrow">✦ briefings recebidos</p>
+    <h1 class="big-title" style="font-size:clamp(1.8rem,5vw,2.6rem);margin-bottom:0.4rem;">Respostas dos <em>clientes.</em></h1>
+    <p class="desc" id="dash-count" style="margin-bottom:1.5rem;"></p>
+    <div id="dash-list"></div>
+    <div style="margin-top:1rem;">
+      <button class="btn-s" onclick="loadDashboard()">↻ atualizar</button>
+    </div>
+  </div>
+  <footer>
+    <span class="f-sig">Yumi Cugler.</span>
+    <span class="f-copy">dashboard privado · 2026</span>
+  </footer>
+</div>
+
+<script>
+const BLOCKS = [
+  { num:"01", title:"O Negócio", desc:"Antes de criar qualquer conteúdo, preciso entender o que move sua empresa.",
+    questions:[
+      { id:"goal",       label:"Qual é o principal objetivo da sua presença nas redes agora?",         hint:"Crescimento de audiência, geração de leads, vendas diretas, autoridade...", type:"textarea" },
+      { id:"problem",    label:"Qual problema seu produto ou serviço resolve para o cliente?",          hint:"O que muda na vida dele depois que ele contrata você?", type:"textarea" },
+      { id:"cycle",      label:"Em média, quanto tempo um cliente leva para decidir comprar?",          type:"select", options:["Minutos ou horas","Alguns dias","Semanas","Meses"] },
+      { id:"goals3m",    label:"Quais são as metas de negócio para os próximos 3 a 6 meses?",          hint:"Lançamento, expansão, novo produto, crescimento de receita...", type:"textarea" },
+    ]
+  },
+  { num:"02", title:"A Marca", desc:"Quero entender o que sua marca é — não o que vende, mas o que representa.",
+    questions:[
+      { id:"words",         label:"Descreva sua marca em até 3 palavras.",                                           hint:"Ex: confiável, sofisticada, próxima", type:"text" },
+      { id:"differentials", label:"Qual é o maior diferencial da sua marca — o que você faz que nenhum concorrente faz da mesma forma?", hint:"Pode ser o produto, o atendimento, a experiência, a história, o método...", type:"textarea" },
+      { id:"highlights",    label:"O que mais se destaca na sua marca aos olhos de quem chega até você?",           hint:"O que chama atenção, gera comentários, faz alguém indicar?", type:"textarea" },
+      { id:"realvalue",     label:"Além do produto, o que sua marca realmente entrega ao cliente?",                 hint:"Tranquilidade, status, pertencimento, segurança, tempo...", type:"textarea" },
+      { id:"miss",          label:"Se sua marca sumisse amanhã, o que os clientes sentiriam falta?",               hint:"O que é insubstituível no que você oferece?", type:"textarea" },
+      { id:"never",         label:"O que você NUNCA quer que sua marca seja associada?",                            hint:"Valores, estéticas ou posicionamentos que não representam você", type:"textarea" },
+    ]
+  },
+  { num:"03", title:"O Público", desc:"Não existe conteúdo estratégico sem um público mapeado com profundidade.",
+    questions:[
+      { id:"ideal",      label:"Descreva seu cliente ideal — quem ele é, o que faz, o que sente.",          hint:"Vá além da demografia. O que essa pessoa valoriza? O que a preocupa?", type:"textarea" },
+      { id:"praise",     label:"O que seus clientes mais elogiam em você ou na sua marca?",                 hint:"Frases que aparecem em avaliações, DMs, indicações — a voz real de quem já comprou", type:"textarea" },
+      { id:"selfblock",  label:"O que seu cliente ideal conta pra si mesmo para não resolver esse problema?",hint:"O bloqueio real — além de preço e tempo. A história que ele repete pra si mesmo.", type:"textarea" },
+      { id:"trigger",    label:"Qual foi a última coisa que um cliente disse antes de fechar com você?",    hint:"O gatilho real da decisão — uma frase, uma situação, um momento que fez a diferença", type:"textarea" },
+      { id:"objections", label:"Quais são as principais dúvidas ou objeções antes de comprar?",             hint:"O que faz o cliente hesitar? O que ele precisa entender antes de decidir?", type:"textarea" },
+      { id:"currentpub", label:"O público que você atrai hoje é o que você quer alcançar?",                 type:"radio", options:["Sim, é exatamente quem quero","Parecido, mas preciso ajustar","Não, quero mudar o perfil completamente"] },
+    ]
+  },
+  { num:"04", title:"Histórico e Operação", desc:"Entender o que já foi feito evita repetir erros e aproveitar o que funciona.",
+    questions:[
+      { id:"past",     label:"Já teve social media antes? O que funcionou e o que não funcionou?", hint:"Se for a primeira vez, pode dizer isso.", type:"textarea" },
+      { id:"elevator", label:"Como você descreveria o que faz para alguém que nunca ouviu falar de você?", hint:"Escreva como falaria em uma conversa real — sem jargões, sem formal", type:"textarea" },
+      { id:"approval", label:"Quem aprova o conteúdo internamente antes de publicar?",             hint:"Só você, sócio, equipe de marketing...", type:"text" },
+      { id:"budget",   label:"Qual é o orçamento disponível para produção e impulsionamento?",     type:"select", options:["Ainda não definido","Até R$ 500/mês","R$ 500 a R$ 2.000/mês","R$ 2.000 a R$ 5.000/mês","Acima de R$ 5.000/mês"] },
+    ]
+  },
+  { num:"05", title:"Mercado e Referências", desc:"Preciso entender o campo antes de definir onde e como sua marca se destaca.",
+    questions:[
+      { id:"competitors", label:"Quem são seus principais concorrentes?",                                  hint:"Nomes, marcas ou perfis que disputam o mesmo público", type:"textarea" },
+      { id:"admires",     label:"Existe alguma marca que você admira — no seu segmento ou fora?",          hint:"Pode ser pela estética, comunicação, posicionamento ou valores", type:"textarea" },
+      { id:"contact",     label:"Como prefere ser chamado(a) e qual o melhor contato para retorno?",      hint:"Nome + e-mail ou WhatsApp", type:"text" },
+    ]
+  },
+];
+
+const ACCESS_CODE = "yumi";
+
+let step = 0;
+let answers = {};
+let subsMap = new Map();
+let analyses = {};
+let clicks = 0;
+let clickTmr = null;
+
+// ── NAVEGAÇÃO ─────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById('screen-' + id).classList.add('on');
+  const pw = document.getElementById('prog-wrap');
+  pw.style.display = (id === 'form') ? 'block' : 'none';
+  document.getElementById('nav-tag').textContent =
+    id === 'form' ? `${step + 1} / ${BLOCKS.length}` : '✦ briefing estratégico';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goIntro() { showScreen('intro'); }
+
+// ── FORMULÁRIO ────────────────────────────────────────────────────────────────
+function startForm() { step = 0; answers = {}; renderBlock(); showScreen('form'); }
+
+function renderBlock() {
+  const b = BLOCKS[step];
+  document.getElementById('form-eyebrow').textContent = `${b.num} — ${b.title}`;
+  const ws = b.title.split(' '); const last = ws.pop();
+  document.getElementById('form-title').innerHTML = `${ws.join(' ')} <em>${last}.</em>`;
+  document.getElementById('form-desc').textContent = b.desc;
+  document.getElementById('btn-next').textContent = step === BLOCKS.length - 1 ? 'enviar briefing →' : 'próximo →';
+
+  const pct = ((step + 1) / BLOCKS.length) * 100;
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('nav-tag').textContent = `${step + 1} / ${BLOCKS.length}`;
+
+  const c = document.getElementById('form-qs'); c.innerHTML = '';
+  b.questions.forEach(q => {
+    const d = document.createElement('div'); d.className = 'q-block';
+    const lbl = document.createElement('label'); lbl.className = 'q-label'; lbl.textContent = q.label; d.appendChild(lbl);
+    if (q.hint) { const h = document.createElement('span'); h.className = 'q-hint'; h.textContent = q.hint; d.appendChild(h); }
+
+    if (q.type === 'textarea') {
+      const ta = document.createElement('textarea');
+      ta.className = answers[q.id]?.trim() ? 'filled' : '';
+      ta.value = answers[q.id] || ''; ta.placeholder = 'Sua resposta...';
+      ta.addEventListener('input', () => { answers[q.id] = ta.value; ta.className = ta.value.trim() ? 'filled' : ''; updateBtn(); });
+      d.appendChild(ta);
+    } else if (q.type === 'text') {
+      const inp = document.createElement('input'); inp.type = 'text';
+      inp.className = answers[q.id]?.trim() ? 'filled' : '';
+      inp.value = answers[q.id] || ''; inp.placeholder = 'Sua resposta...';
+      inp.addEventListener('input', () => { answers[q.id] = inp.value; inp.className = inp.value.trim() ? 'filled' : ''; updateBtn(); });
+      d.appendChild(inp);
+    } else if (q.type === 'select') {
+      const sel = document.createElement('select'); sel.className = answers[q.id] ? 'filled' : '';
+      const ph = document.createElement('option'); ph.value = ''; ph.textContent = 'Selecione...'; ph.disabled = true; ph.selected = !answers[q.id]; sel.appendChild(ph);
+      q.options.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = o; if (answers[q.id] === o) op.selected = true; sel.appendChild(op); });
+      sel.addEventListener('change', () => { answers[q.id] = sel.value; sel.className = 'filled'; updateBtn(); });
+      d.appendChild(sel);
+    } else if (q.type === 'radio') {
+      const g = document.createElement('div'); g.className = 'radio-group';
+      q.options.forEach(o => {
+        const r = document.createElement('div'); r.className = 'radio-opt' + (answers[q.id] === o ? ' sel' : '');
+        const dot = document.createElement('span'); dot.className = 'radio-dot';
+        const inn = document.createElement('span'); inn.className = 'radio-inner'; dot.appendChild(inn); r.appendChild(dot);
+        r.appendChild(document.createTextNode(o));
+        r.addEventListener('click', () => { answers[q.id] = o; g.querySelectorAll('.radio-opt').forEach(x => x.classList.remove('sel')); r.classList.add('sel'); updateBtn(); });
+        g.appendChild(r);
+      });
+      d.appendChild(g);
+    }
+    c.appendChild(d);
+  });
+  updateBtn();
+}
+
+function isComplete() {
+  return BLOCKS[step].questions.every(q => { const v = answers[q.id]; return v && (typeof v === 'string' ? v.trim().length > 0 : true); });
+}
+function updateBtn() {
+  const ok = isComplete();
+  document.getElementById('btn-next').disabled = !ok;
+  document.getElementById('msg-incomplete').style.display = ok ? 'none' : 'inline';
+}
+
+function handleNext() {
+  if (!isComplete()) return;
+  if (step < BLOCKS.length - 1) { step++; renderBlock(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  else { submitForm(); }
+}
+function handleBack() {
+  if (step > 0) { step--; renderBlock(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  else { goIntro(); }
+}
+function submitForm() {
+  try { localStorage.setItem(`yb:${Date.now()}`, JSON.stringify({ answers, ts: new Date().toISOString() })); } catch (_) {}
+  showScreen('done');
+}
+
+// ── FOOTER TRIPLO CLIQUE ──────────────────────────────────────────────────────
+function handleFooterClick() {
+  clicks++;
+  clearTimeout(clickTmr);
+  if (clicks >= 3) { clicks = 0; showScreen('access'); setTimeout(() => document.getElementById('code-input')?.focus(), 100); }
+  else { clickTmr = setTimeout(() => { clicks = 0; }, 2000); }
+}
+
+// ── ACESSO ───────────────────────────────────────────────────────────────────
+function submitCode() {
+  const v = document.getElementById('code-input').value.toLowerCase().trim();
+  const e = document.getElementById('code-err');
+  if (v === ACCESS_CODE) {
+    e.style.display = 'none';
+    document.getElementById('code-input').value = '';
+    loadDashboard();
+    showScreen('dashboard');
+  } else { e.style.display = 'block'; }
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+function loadDashboard() {
+  subsMap.clear();
+  const subs = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (!k.startsWith('yb:')) continue;
+    try { const d = JSON.parse(localStorage.getItem(k)); if (d) { const s = { key: k, ...d }; subs.push(s); subsMap.set(k, s); } } catch (_) {}
+  }
+  subs.sort((a, b) => new Date(b.ts) - new Date(a.ts));
+  const cnt = subs.length;
+  document.getElementById('dash-count').textContent = cnt === 0
+    ? 'Nenhum briefing recebido ainda.'
+    : `${cnt} briefing${cnt > 1 ? 's' : ''} recebido${cnt > 1 ? 's' : ''}.`;
+
+  const list = document.getElementById('dash-list'); list.innerHTML = '';
+  if (cnt === 0) {
+    list.innerHTML = `<div style="padding:3rem;text-align:center;border:1.5px dashed var(--rule);border-radius:10px;"><p style="font-family:'cooper-black',serif;font-size:1.2rem;font-style:italic;color:var(--charcoal-lt);">Ainda não há respostas.</p></div>`;
+    return;
+  }
+  subs.forEach(sub => {
+    const name = sub.answers?.contact || 'Cliente';
+    const d = new Date(sub.ts);
+    const dt = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' }) + ' · ' + d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+    const card = document.createElement('div'); card.className = 'sub-card';
+    card.innerHTML = `
+      <div class="sub-head" onclick="toggleSub('${sub.key}')">
+        <div><div class="sub-name">${name}</div><div class="sub-date">${dt}</div></div>
+        <span class="sub-toggle" id="tog-${sub.key}">↓ ver</span>
+      </div>
+      <div class="sub-body" id="body-${sub.key}">
+        ${buildSubBody(sub)}
+        <hr style="border:none;border-top:1px solid var(--rule);margin:1rem 0;">
+        <button class="btn-a" id="btn-an-${sub.key}" onclick="analyzeKey('${sub.key}')">gerar análise estratégica →</button>
+        <div id="an-${sub.key}"></div>
+      </div>`;
+    list.appendChild(card);
+    if (analyses[sub.key]) renderAn(sub.key, analyses[sub.key]);
+  });
+}
+
+function buildSubBody(sub) {
+  let h = '';
+  BLOCKS.forEach(b => {
+    const has = b.questions.some(q => sub.answers?.[q.id]); if (!has) return;
+    h += `<p class="sub-block-lbl">${b.num} — ${b.title}</p>`;
+    b.questions.forEach(q => { const a = sub.answers?.[q.id]; if (!a) return; h += `<p class="sub-q">${q.label}</p><p class="sub-a">${a}</p>`; });
+  });
+  return h;
+}
+
+function toggleSub(key) {
+  const body = document.getElementById('body-' + key);
+  const tog = document.getElementById('tog-' + key);
+  const open = body.classList.contains('open');
+  body.classList.toggle('open');
+  tog.textContent = open ? '↓ ver' : '↑ fechar';
+}
+
+async function analyzeKey(key) {
+  const sub = subsMap.get(key); if (!sub) return;
+  const btn = document.getElementById('btn-an-' + key);
+  btn.disabled = true;
+  btn.innerHTML = '<span class="ld"></span><span class="ld"></span><span class="ld"></span> analisando...';
+
+  const allQs = BLOCKS.flatMap(b => b.questions);
+  const fmt = allQs.map(q => { const a = sub.answers?.[q.id]; return a ? `**${q.label}**\n${a}` : null; }).filter(Boolean).join('\n\n');
+  const prompt = `Você é uma estrategista sênior de social media com 10 anos de experiência em marcas de nicho, profissionais independentes e negócios de serviço. É direta, não tem medo de contrariar o cliente, e suas análises são conhecidas por apontar o que ninguém quer ouvir mas precisa saber.
+
+REGRA INEGOCIÁVEL: nenhuma frase pode ser verdadeira para qualquer marca do mesmo segmento. Antes de escrever qualquer observação, pergunte internamente: "isso serve para qualquer negócio desse tipo?" Se sim, descarte e reescreva com especificidade real, usando dados do briefing.
+
+BRIEFING DO CLIENTE:
+${fmt}
+
+Estruture com exatamente estes títulos em negrito, cada um em linha própria:
+
+**O QUE ESTÁ ACONTECENDO DE VERDADE**
+Diagnóstico sem filtro. O que esse briefing revela que o cliente provavelmente não está vendo? Cite respostas específicas.
+
+**O TERRITÓRIO**
+Uma frase que define onde essa marca mora no mercado e por que esse espaço está aberto.
+
+**QUEM É ESSE PÚBLICO NA PRÁTICA**
+Psicologia de decisão, não demografia. O que essa pessoa teme perder? O que ela conta pra si mesma para não agir?
+
+**O QUE VAI CONVERTER**
+Formatos específicos e por quê funcionam nesse caso. Escreva 2 hooks reais na linguagem exata do cliente.
+
+**O QUE NÃO FAZER**
+Mínimo 3 alertas. Formato: "Não [ação] porque [consequência específica para essa marca]."
+
+**AS 3 PRIMEIRAS PEÇAS**
+O que criar agora, em que ordem. Cada peça: formato, tema e por que essa peça primeiro.`;
+
+  try {
+    const res = await fetch('/.netlify/functions/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1200, messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text || 'Erro ao processar.';
+    analyses[key] = text; renderAn(key, text);
+  } catch (e) {
+    document.getElementById('an-' + key).innerHTML = `<p style="color:#c0392b;font-size:13px;margin-top:1rem;">Erro ao conectar. Tente novamente.</p>`;
+  }
+  btn.disabled = false; btn.textContent = 'reanalisar →';
+}
+
+function renderAn(key, text) {
+  const el = document.getElementById('an-' + key); if (!el) return;
+  let h = '<div class="an-box"><p class="an-eyebrow">✦ análise estratégica</p>';
+  text.split('\n').forEach(line => {
+    const t = line.trim();
+    if (/^\*\*(.+)\*\*$/.test(t)) { h += `<p class="an-sec-title">${t.replace(/^\*\*|\*\*$/g, '')}</p>`; }
+    else if (!t) { h += '<br>'; }
+    else { h += `<p class="an-text">${t.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`; }
+  });
+  h += '</div>'; el.innerHTML = h;
+}
+</script>
+</body>
+</html>
