@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yumi Cugler</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#5a8a3c;--green-lt:#8fbe6a;--green-pale:#d4ebbb;
+  --purple:#3d2070;--purple-md:#6b47b8;--purple-lt:#c4aff0;
+  --cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;
+  --charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;overflow-x:hidden;cursor:none;}
+
+.cursor{width:12px;height:12px;background:#3d2070;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background 0.2s;}
+.cursor-ring{width:34px;height:34px;border:1.5px solid #5a8a3c;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:transform 0.35s ease;transform:translate(-50%,-50%);}
+
+.page{display:none;}
+.page.active{display:block;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;background:var(--cream);border-bottom:2px solid var(--charcoal);}
+.nav-logo{font-family:'Fraunces',serif;font-size:21px;font-weight:900;color:var(--charcoal);text-decoration:none;letter-spacing:-0.02em;cursor:none;}
+.nav-logo span{color:#3d2070;}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links a{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);text-decoration:none;padding:6px 16px;border-radius:100px;transition:all 0.2s;cursor:none;border:1.5px solid transparent;}
+.nav-links a:hover,.nav-links a.nav-active{color:#3d2070;background:rgba(61,32,112,0.07);border-color:#c4aff0;}
+
+.page-wrap{padding-top:72px;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 3.5rem;position:relative;z-index:2;}
+.hero-tag{display:inline-block;background:#d4ebbb;color:#5a8a3c;border:1.5px solid #5a8a3c;border-radius:100px;padding:4px 14px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem;width:fit-content;}
+.hero-name{font-family:'Fraunces',serif;font-size:clamp(52px,7vw,90px);font-weight:900;line-height:0.92;letter-spacing:-0.03em;color:var(--charcoal);margin-bottom:1.5rem;}
+.hero-name em{font-style:italic;color:#3d2070;display:block;}
+.hero-desc{font-size:15px;line-height:1.75;color:var(--charcoal-lt);max-width:380px;margin-bottom:2rem;}
+.hero-desc strong{color:var(--charcoal);}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2.5rem;}
+.pill{padding:5px 14px;border-radius:100px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;border:1.5px solid;display:inline-block;}
+.pill-purple{background:#c4aff0;color:#3d2070;border-color:#6b47b8;}
+.pill-green{background:#d4ebbb;color:#5a8a3c;border-color:#5a8a3c;}
+.pill-cream{background:var(--cream-dk);color:var(--charcoal);border-color:var(--charcoal-lt);}
+.hero-cta{display:flex;gap:12px;align-items:center;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:#3d2070;color:#fafaf7;border:2px solid #3d2070;border-radius:100px;padding:11px 26px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all 0.2s;cursor:none;}
+.btn-primary:hover{background:var(--charcoal);border-color:var(--charcoal);transform:translateY(-2px);}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--charcoal);border:2px solid var(--charcoal);border-radius:100px;padding:11px 26px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all 0.2s;cursor:none;}
+.btn-outline:hover{background:var(--charcoal);color:var(--cream);transform:translateY(-2px);}
+.hero-right{background:#3d2070;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,#6b47b8 0%,#3d2070 65%);}
+.hero-geo{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2rem;}
+.geo-circle{width:200px;height:200px;border-radius:50%;border:2px solid rgba(196,175,240,0.4);display:flex;align-items:center;justify-content:center;position:relative;animation:spinSlow 20s linear infinite;}
+.geo-circle::before{content:'';position:absolute;inset:16px;border-radius:50%;border:1px dashed rgba(196,175,240,0.25);}
+.geo-circle-inner{width:80px;height:80px;border-radius:50%;background:rgba(196,175,240,0.12);border:1.5px solid rgba(196,175,240,0.5);display:flex;align-items:center;justify-content:center;font-size:28px;}
+@keyframes spinSlow{to{transform:rotate(360deg);}}
+.hero-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(196,175,240,0.6);z-index:2;position:relative;}
+.shape-star{position:absolute;color:rgba(196,175,240,0.35);animation:spinSlow 15s linear infinite;z-index:2;font-size:16px;}
+
+/* MARQUEE */
+.marquee-wrap{border-top:2px solid var(--charcoal);border-bottom:2px solid var(--charcoal);background:var(--charcoal);padding:10px 0;overflow:hidden;}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.marquee-item{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream);padding:0 2rem;display:inline-flex;align-items:center;gap:10px;}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:#8fbe6a;display:inline-block;}
+
+/* SOBRE */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:4rem;padding:6rem 3.5rem;border-bottom:2px solid var(--charcoal);}
+.about-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#5a8a3c;margin-bottom:1rem;}
+.about-title{font-family:'Fraunces',serif;font-size:clamp(34px,4vw,52px);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:1.5rem;}
+.about-title em{font-style:italic;color:#3d2070;}
+.about-text{color:var(--charcoal-lt);margin-bottom:1rem;line-height:1.75;}
+.about-text strong{color:var(--charcoal);}
+.about-card{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;padding:2.5rem;box-shadow:5px 5px 0 var(--charcoal);}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.stat-number{font-family:'Fraunces',serif;font-size:44px;font-weight:900;color:#3d2070;line-height:1;display:block;margin-bottom:4px;}
+.stat-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);}
+
+/* TRABALHOS */
+.work{padding:5rem 3.5rem;border-bottom:2px solid var(--charcoal);}
+.work-header{margin-bottom:3.5rem;}
+.work-title{font-family:'Fraunces',serif;font-size:clamp(40px,5vw,64px);font-weight:900;letter-spacing:-0.03em;line-height:1.0;}
+.work-title span{font-style:italic;color:#3d2070;}
+
+/* ÁREA */
+.work-area{margin-bottom:4rem;}
+.work-area-header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:12px;border-bottom:1.5px solid var(--rule);}
+.work-area-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.area-design .work-area-dot{background:#3d2070;}
+.area-jornalismo .work-area-dot{background:#5a8a3c;}
+.area-social .work-area-dot{background:#6b47b8;}
+.area-ia .work-area-dot{background:#8fbe6a;}
+.work-area-name{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--charcoal-lt);}
+
+/* SUBCATEGORIAS */
+.subcats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;}
+.subcat-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;border:1.5px solid var(--rule);background:transparent;color:var(--charcoal-lt);cursor:none;transition:all 0.15s;}
+.subcat-btn.active{background:var(--charcoal);color:var(--cream);border-color:var(--charcoal);}
+.subcat-btn:hover{border-color:var(--charcoal);color:var(--charcoal);}
+
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.work-grid-single{display:grid;grid-template-columns:1fr;max-width:340px;}
+.work-card{border:2px solid var(--charcoal);border-radius:14px;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:none;background:var(--white);}
+.work-card:hover{transform:translateY(-5px);box-shadow:6px 6px 0 var(--charcoal);}
+.work-card-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:48px;}
+.design-bg{background:linear-gradient(135deg,#c4aff0,#e8d5ff);}
+.jornalismo-bg{background:linear-gradient(135deg,#d4ebbb,#b8e0a0);}
+.social-bg{background:linear-gradient(135deg,#e8d5ff,#c4aff0);}
+.ia-bg{background:linear-gradient(135deg,#2a2a2e,#4a4a50);}
+.work-card-body{padding:1.25rem 1.5rem;}
+.work-card-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;border:1.5px solid;display:inline-block;margin-bottom:10px;}
+.tag-design{color:#3d2070;border-color:#c4aff0;background:rgba(61,32,112,0.05);}
+.tag-jornalismo{color:#5a8a3c;border-color:#d4ebbb;background:rgba(90,138,60,0.05);}
+.tag-social{color:#6b47b8;border-color:#c4aff0;background:rgba(107,71,184,0.05);}
+.tag-ia{color:#5a8a3c;border-color:#d4ebbb;background:rgba(143,190,106,0.08);}
+.work-card-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin-bottom:6px;letter-spacing:-0.01em;}
+.work-card-desc{font-size:13px;color:var(--charcoal-lt);line-height:1.6;}
+.work-card-link{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:#3d2070;text-decoration:none;transition:gap 0.2s;cursor:none;}
+.work-card-link:hover{gap:10px;}
+
+/* PILARES */
+.pillars{padding:5rem 3.5rem;border-bottom:2px solid var(--charcoal);background:var(--charcoal);}
+.pillars-header{margin-bottom:3rem;}
+.pillars-title{font-family:'Fraunces',serif;font-size:clamp(38px,5vw,60px);font-weight:900;letter-spacing:-0.03em;line-height:1.0;color:var(--cream);}
+.pillars-title em{font-style:italic;color:#8fbe6a;}
+.pillars-sub{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.08em;color:var(--charcoal-lt);margin-top:8px;}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.pillar-card{border-radius:14px;padding:2rem;border:1.5px solid rgba(255,255,255,0.1);}
+.p-design{background:rgba(61,32,112,0.4);}
+.p-jornalismo{background:rgba(90,138,60,0.25);}
+.p-social{background:rgba(245,242,232,0.06);}
+.pillar-icon{font-size:22px;display:block;margin-bottom:1rem;color:var(--cream);}
+.pillar-name{font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--cream);margin-bottom:10px;}
+.pillar-text{font-size:13px;color:rgba(245,242,232,0.65);line-height:1.7;margin-bottom:1.25rem;}
+.pillar-skills{display:flex;flex-wrap:wrap;gap:6px;}
+.skill-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px;color:rgba(245,242,232,0.6);border:1px solid rgba(245,242,232,0.2);}
+
+/* CONTATO */
+.contact{padding:7rem 3.5rem;text-align:center;border-bottom:2px solid var(--charcoal);}
+.contact-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#5a8a3c;margin-bottom:1rem;}
+.contact-title{font-family:'Fraunces',serif;font-size:clamp(52px,8vw,96px);font-weight:900;letter-spacing:-0.03em;line-height:0.9;margin-bottom:1.5rem;}
+.contact-title em{font-style:italic;color:#3d2070;}
+.contact-text{color:var(--charcoal-lt);margin-bottom:2.5rem;font-size:16px;}
+.contact-btn{display:inline-flex;align-items:center;gap:10px;background:#3d2070;color:#fafaf7;border:2px solid #3d2070;border-radius:100px;padding:14px 36px;font-weight:700;font-size:15px;text-decoration:none;transition:all 0.2s;cursor:none;margin-bottom:2rem;}
+.contact-btn:hover{background:var(--charcoal);border-color:var(--charcoal);transform:translateY(-3px);}
+.contact-links{display:flex;justify-content:center;gap:2rem;}
+.contact-link{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--charcoal-lt);text-decoration:none;transition:color 0.2s;cursor:none;border-bottom:1px solid transparent;}
+.contact-link:hover{color:#3d2070;border-color:#c4aff0;}
+
+/* PROCESSO CARDS */
+.process-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:0;}
+.process-card{border:2px solid var(--charcoal);border-radius:14px;overflow:hidden;background:var(--white);transition:transform 0.25s,box-shadow 0.25s;cursor:none;}
+.process-card:hover{transform:translateY(-4px);box-shadow:5px 5px 0 var(--charcoal);}
+.process-card-top{padding:1.5rem 1.5rem 1.25rem;border-bottom:1.5px solid var(--rule);}
+.process-card-head{display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:1rem;}
+.process-card-num{font-family:'Fraunces',serif;font-size:32px;font-weight:900;font-style:italic;line-height:1;color:var(--purple-lt);flex-shrink:0;width:36px;}
+.process-card-meta{flex:1;}
+.process-card-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px;}
+.process-card-sub{font-size:12px;color:var(--charcoal-lt);}
+.process-steps{display:flex;flex-direction:column;gap:0;}
+.process-step{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-top:1px solid var(--rule);}
+.process-step:first-child{border-top:none;}
+.step-marker{width:20px;height:20px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:8px;font-weight:500;flex-shrink:0;margin-top:1px;}
+.step-marker.m-purple{border-color:#6b47b8;color:#6b47b8;background:rgba(107,71,184,0.06);}
+.step-marker.m-green{border-color:#5a8a3c;color:#5a8a3c;background:rgba(90,138,60,0.06);}
+.step-text{font-size:12px;color:var(--charcoal-lt);line-height:1.5;}
+.step-text strong{color:var(--charcoal);}
+.process-card-footer{padding:0.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.process-hidden{display:none;}
+
+/* FERRAMENTAS */
+.tools-page{background:var(--cream);min-height:100vh;}
+.tools-header{padding:4rem 3.5rem 2rem;border-bottom:2px solid var(--charcoal);}
+.tools-header-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#5a8a3c;margin-bottom:0.75rem;}
+.tools-header-title{font-family:'Fraunces',serif;font-size:clamp(38px,5vw,64px);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:0.75rem;}
+.tools-header-title em{font-style:italic;color:#3d2070;}
+.tools-header-sub{color:var(--charcoal-lt);font-size:15px;max-width:480px;}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;padding:3rem 3.5rem;}
+.tool-card{border:2px solid var(--charcoal);border-radius:14px;overflow:hidden;background:var(--white);transition:transform 0.2s,box-shadow 0.2s;display:flex;flex-direction:column;}
+.tool-card:hover{transform:translateY(-4px);box-shadow:5px 5px 0 var(--charcoal);}
+.tool-card-top{padding:2rem 2rem 1.5rem;border-bottom:1.5px solid var(--rule);display:flex;flex-direction:column;flex:1;}
+.tool-card-icon{font-size:36px;margin-bottom:1rem;display:block;}
+.tool-card-name{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;}
+.tool-card-desc{font-size:13px;color:var(--charcoal-lt);line-height:1.65;}
+.tool-card-footer{padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+.tool-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;border:1.5px solid;}
+.tool-purple{color:#3d2070;border-color:#c4aff0;background:rgba(61,32,112,0.05);}
+.tool-green{color:#5a8a3c;border-color:#d4ebbb;background:rgba(90,138,60,0.05);}
+.tool-dark{color:var(--charcoal-lt);border-color:var(--rule);background:var(--cream-dk);}
+.tool-open-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#3d2070;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:gap 0.2s;cursor:none;}
+.tool-open-btn:hover{gap:9px;}
+
+footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;background:var(--cream);}
+.footer-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;font-style:italic;}
+.footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);letter-spacing:0.06em;}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;}
+  .hero-right{height:260px;}
+  .about{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem;}
+  .work{padding:3rem 1.5rem;}
+  .work-grid,.work-grid-single{grid-template-columns:1fr;max-width:100%;}
+  .pillars{padding:3rem 1.5rem;}
+  .pillars-grid{grid-template-columns:1fr;}
+  .contact{padding:4rem 1.5rem;}
+  .tools-grid{grid-template-columns:1fr;padding:2rem 1.5rem;}
+  .tools-header{padding:3rem 1.5rem 1.5rem;}
+  .process-grid{grid-template-columns:1fr;}
+  .process-card[style*="grid-column"]{grid-column:auto;max-width:100%;}
+  nav{padding:1rem 1.5rem;}
+  .nav-links a{padding:5px 10px;font-size:10px;}
+  .hero-left{padding:2.5rem 1.5rem;}
+  footer{flex-direction:column;gap:6px;padding:1.5rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('portfolio');return false;">Yumi<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#" id="nav-portfolio" class="nav-active" onclick="showPage('portfolio');return false;">portfólio</a></li>
+    <li><a href="#" id="nav-ferramentas" onclick="showPage('ferramentas');return false;">ferramentas</a></li>
+  </ul>
+  <a href="mailto:yumicugler@outlook.com" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--charcoal-lt);text-decoration:none;cursor:none;transition:color 0.2s;" onmouseenter="this.style.color='#3d2070'" onmouseleave="this.style.color='var(--charcoal-lt)'">yumicugler@outlook.com</a>
+</nav>
+
+<!-- ═══ PORTFÓLIO ═══ -->
+<div id="page-portfolio" class="page active page-wrap">
+
+  <section class="hero">
+    <div class="hero-left">
+      <span class="hero-tag">✦ analista de comunicação</span>
+      <h1 class="hero-name">Yumi<br><em>Cugler.</em></h1>
+      <p class="hero-desc"><strong>Jornalista e designer de comunicação.</strong> Faço conteúdo com fundamento — para Instagram, para pautas, para o que precisar.</p>
+      <div class="hero-pills">
+        <span class="pill pill-purple">Design</span>
+        <span class="pill pill-green">Jornalismo</span>
+        <span class="pill pill-cream">Social Media</span>
+        <span class="pill pill-purple">Estratégia</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#trabalhos" class="btn-primary">ver trabalhos →</a>
+        <a href="#contato" class="btn-outline">falar comigo</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <span class="shape-star" style="top:15%;left:15%;">✦</span>
+      <span class="shape-star" style="bottom:20%;right:12%;animation-duration:12s;animation-direction:reverse;">✦</span>
+      <div class="hero-geo">
+        <div class="geo-circle">
+          <div class="geo-circle-inner">🌿</div>
+        </div>
+        <span class="hero-label">comunicação com propósito</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item"><span class="marquee-dot"></span>Jornalismo</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Design de Comunicação</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Social Media</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Marketing Estratégico</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Narrativa</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Identidade Visual</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Conteúdo com Propósito</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Jornalismo</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Design de Comunicação</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Social Media</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Marketing Estratégico</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Narrativa</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Identidade Visual</span>
+      <span class="marquee-item"><span class="marquee-dot"></span>Conteúdo com Propósito</span>
+    </div>
+  </div>
+
+  <section class="about" id="sobre">
+    <div class="reveal">
+      <p class="about-label">✦ sobre mim</p>
+      <h2 class="about-title">Criativa por<br><em>natureza.</em><br>Estratégica por<br>escolha.</h2>
+      <p class="about-text">Faço jornalismo, design e conteúdo — não como áreas separadas, mas como a mesma coisa vista de ângulos diferentes. Para mim, <strong>uma boa peça e uma boa apuração partem do mesmo lugar.</strong></p>
+    </div>
+    <div class="reveal">
+      <div class="about-card">
+        <div class="stats-grid">
+          <div><span class="stat-number">30+</span><span class="stat-label">peças criadas</span></div>
+          <div><span class="stat-number">∞</span><span class="stat-label">curiosidade</span></div>
+          <div><span class="stat-number">porquê</span><span class="stat-label">sempre presente</span></div>
+          <div><span class="stat-number">SP</span><span class="stat-label">Sorocaba</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="trabalhos">
+    <div class="work-header reveal">
+      <h2 class="work-title">Meus<br><span>trabalhos.</span></h2>
+    </div>
+
+    <!-- DESIGN -->
+    <div class="work-area area-design reveal">
+      <div class="work-area-header">
+        <div class="work-area-dot"></div>
+        <span class="work-area-name">Design</span>
+      </div>
+      <div class="subcats">
+        <span class="subcat-btn active">Todos</span>
+        <span class="subcat-btn">Direção de Arte</span>
+        <span class="subcat-btn">Identidade Visual</span>
+        <span class="subcat-btn">Peças Gráficas</span>
+      </div>
+      <div class="work-grid-single">
+        <div class="work-card">
+          <div class="work-card-img" style="padding:0;overflow:hidden;background:#1a1a1a;height:160px;">
+            <img src="sneaker-stories.png" alt="Sneakerhead Tem História" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+          </div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-design">Direção de Arte · Social Media</span>
+            <h3 class="work-card-title">Sneakerhead Tem História</h3>
+            <p class="work-card-desc">Direção de arte e copy para Stories de divulgação de pesquisa universitária sobre cultura sneaker.</p>
+            <a href="case-sneaker.html" class="work-card-link">ver case →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JORNALISMO -->
+    <div class="work-area area-jornalismo reveal">
+      <div class="work-area-header">
+        <div class="work-area-dot"></div>
+        <span class="work-area-name">Jornalismo</span>
+      </div>
+      <div class="subcats">
+        <span class="subcat-btn active">Todos</span>
+        <span class="subcat-btn">Audiovisual</span>
+        <span class="subcat-btn">Radiojornalismo</span>
+        <span class="subcat-btn">Matérias Escritas</span>
+      </div>
+      <div class="work-grid" style="grid-template-columns:repeat(3,1fr);">
+
+        <div class="work-card">
+          <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🚌</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-jornalismo">Reportagem · Abril 2025</span>
+            <h3 class="work-card-title">Projeto Parada Amiga</h3>
+            <p class="work-card-desc">O projeto havia sido lançado. Eu queria entender o que estava por trás — o processo, a tecnologia, as decisões. Saí com dados do STF, da delegada da DDM e do engenheiro responsável pelo sistema.</p>
+            <a href="https://focas.uniso.br/index.php/2025/04/09/projeto-parada-amiga-visa-mais-seguranca-para-as-mulheres/" target="_blank" class="work-card-link">ler matéria →</a>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🧠</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-jornalismo">Reportagem Analítica · Dezembro 2025</span>
+            <h3 class="work-card-title">O Cansaço da Pressa</h3>
+            <p class="work-card-desc">Fiz essa matéria no semestre em que voltei à faculdade depois de um ano trancada. O tema não foi acidente — eu estava vivendo o que queria entender. Byung-Chul Han, duas fontes especializadas e a pergunta que ninguém estava respondendo: não como as pessoas adoecem, mas por quê.</p>
+            <a href="https://focas.uniso.br/index.php/2025/12/01/o-cansaco-da-pressa-na-sociedade-que-nunca-desacelera/" target="_blank" class="work-card-link">ler matéria →</a>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🦯</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-jornalismo">Reportagem · Março 2025</span>
+            <h3 class="work-card-title">Deficientes Visuais</h3>
+            <p class="work-card-desc">Minha primeira matéria. As entrevistadas me colocaram para andar com a bengala pelo piso tátil — e eu entendi o que o jornalismo pode fazer quando para de explicar e começa a escutar.</p>
+            <a href="https://focas.uniso.br/index.php/2025/03/19/deficientes-visuais-saiba-a-forma-correta-de-identificar-e-orientar/" target="_blank" class="work-card-link">ler matéria →</a>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🤝</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-jornalismo">Reportagem Institucional · Maio 2025</span>
+            <h3 class="work-card-title">Associação Amizadaria Solidária</h3>
+            <p class="work-card-desc">Cobertura da Associação Amizadaria Solidária — que desde 2016 oferece serviços terapêuticos, capacitação e apoio a pessoas em situação de vulnerabilidade em Sorocaba.</p>
+            <a href="https://focas.uniso.br/index.php/2025/05/16/associacao-amizadaria-solidaria-fazer-o-bem-sem-olhar-a-quem/" target="_blank" class="work-card-link">ler matéria →</a>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-card-img jornalismo-bg" style="display:flex;align-items:center;justify-content:center;font-size:36px;">🚗</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-jornalismo">Cobertura Fotojornalística · Maio 2025</span>
+            <h3 class="work-card-title">Exposição de Carros Antigos</h3>
+            <p class="work-card-desc">Cobertura do evento com fotos de autoria própria. Relíquias sobre rodas e a história que cada dono carrega junto com o carro.</p>
+            <a href="https://focas.uniso.br/index.php/2025/05/14/amor-que-ultrapassa-geracoes-uniso-recebe-a-8a-exposicao-de-carros-antigos/" target="_blank" class="work-card-link">ler matéria →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SOCIAL MEDIA -->
+    <div class="work-area area-social reveal">
+      <div class="work-area-header">
+        <div class="work-area-dot"></div>
+        <span class="work-area-name">Social Media</span>
+      </div>
+      <div class="work-grid-single">
+        <div class="work-card">
+          <div class="work-card-img" style="background:#e8efe8;display:flex;align-items:center;justify-content:center;height:160px;overflow:hidden;padding:0;">
+            <img src="holmy-icone.jpg" alt="Holmy" style="width:110px;height:110px;object-fit:contain;display:block;">
+          </div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-social">Social Media · Conteúdo de Marca</span>
+            <h3 class="work-card-title">Holmy</h3>
+            <p class="work-card-desc">Conteúdo para Instagram com olhar de jornalista e mão de designer. Do briefing ao slide final.</p>
+            <a href="holmy.html" class="work-card-link">ver case →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- IA & FERRAMENTAS -->
+    <div class="work-area area-ia reveal">
+      <div class="work-area-header">
+        <div class="work-area-dot"></div>
+        <span class="work-area-name">IA & Ferramentas</span>
+      </div>
+      <div class="subcats" id="ia-subcats">
+        <span class="subcat-btn active" onclick="iaView('todos',this)">Todos</span>
+        <span class="subcat-btn" onclick="iaView('processo',this)">Processos</span>
+        <span class="subcat-btn" onclick="iaView('ferramentas',this)">Ferramentas Criadas</span>
+      </div>
+
+      <!-- CARDS NORMAIS -->
+      <div id="ia-cards" class="work-grid" style="grid-template-columns:repeat(2,1fr);">
+        <div class="work-card">
+          <div class="work-card-img ia-bg">🛠️</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-ia">Ferramentas · Claude</span>
+            <h3 class="work-card-title">Conversas que viram ferramenta</h3>
+            <p class="work-card-desc">Como transformei conversas com IA em ferramentas reais de fluxo de trabalho — do problema à solução.</p>
+            <a href="serie-ferramentas.html" class="work-card-link">explorar →</a>
+          </div>
+        </div>
+        <div class="work-card">
+          <div class="work-card-img ia-bg">📋</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-ia">Social Media · Claude API</span>
+            <h3 class="work-card-title">Briefing Estratégico</h3>
+            <p class="work-card-desc">Formulário mobile para o cliente + dashboard privado com análise de posicionamento gerada por IA em 1 clique.</p>
+            <a href="briefing-tool.html" class="work-card-link">ver case →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARDS DE PROCESSO -->
+      <div id="ia-processo" class="process-grid process-hidden">
+
+        <!-- 01 -->
+        <div class="process-card">
+          <div class="process-card-top">
+            <div class="process-card-head">
+              <span class="process-card-num">01</span>
+              <div class="process-card-meta">
+                <h3 class="process-card-name">Skill de Comunicação Estratégica</h3>
+                <p class="process-card-sub">9 arquivos · Jornalismo, Design, Social Media, Marketing</p>
+              </div>
+            </div>
+            <div class="process-steps">
+              <div class="process-step">
+                <span class="step-marker m-purple">01</span>
+                <p class="step-text"><strong>Problema:</strong> Toda conversa nova com a IA começava do zero — precisava reexplicar quem sou, o que faço, meu nível.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-purple">02</span>
+                <p class="step-text"><strong>Ideia:</strong> Criar um arquivo de instruções que ensinasse a IA a me conhecer de verdade, com contexto permanente.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-green">03</span>
+                <p class="step-text"><strong>Construção:</strong> Semanas iterando — cresceu de um arquivo para nove documentos com referências verificadas por área, glossário técnico e banco de erros.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-green">04</span>
+                <p class="step-text"><strong>Resultado:</strong> Skill instalada no Claude.ai que carrega meu contexto automaticamente. Um painel de especialistas que me conhece de verdade.</p>
+              </div>
+            </div>
+          </div>
+          <div class="process-card-footer">
+            <span class="work-card-tag tag-ia" style="margin:0;">Claude · 9 arquivos</span>
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="process-card">
+          <div class="process-card-top">
+            <div class="process-card-head">
+              <span class="process-card-num" style="color:var(--green-pale);">02</span>
+              <div class="process-card-meta">
+                <h3 class="process-card-name">Organizador de Entregáveis</h3>
+                <p class="process-card-sub">Notas brutas → documento estruturado em segundos</p>
+              </div>
+            </div>
+            <div class="process-steps">
+              <div class="process-step">
+                <span class="step-marker m-green">01</span>
+                <p class="step-text"><strong>Problema:</strong> O gap entre ideia bruta e entregável apresentável é onde a maioria das ideias morre — não por falta de conteúdo, mas de estrutura.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-green">02</span>
+                <p class="step-text"><strong>Ideia:</strong> Uma ferramenta que recebe qualquer fragmento de texto e gera o documento formatado conforme o tipo de entregável escolhido.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-purple">03</span>
+                <p class="step-text"><strong>Construção:</strong> Integração com API Claude, escolha de tipo (briefing, relatório, planejamento) e pilar de comunicação.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-purple">04</span>
+                <p class="step-text"><strong>Resultado:</strong> Cola texto, escolhe o tipo — documento pronto com resumo estratégico e próximos passos reais.</p>
+              </div>
+            </div>
+          </div>
+          <div class="process-card-footer">
+            <span class="work-card-tag tag-ia" style="margin:0;">API Claude · HTML standalone</span>
+            <a href="organizador-entregaveis.html" class="work-card-link" style="margin:0;">abrir →</a>
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="process-card">
+          <div class="process-card-top">
+            <div class="process-card-head">
+              <span class="process-card-num">03</span>
+              <div class="process-card-meta">
+                <h3 class="process-card-name">Análise de Métricas</h3>
+                <p class="process-card-sub">Prints do Instagram → diagnóstico estratégico real</p>
+              </div>
+            </div>
+            <div class="process-steps">
+              <div class="process-step">
+                <span class="step-marker m-purple">01</span>
+                <p class="step-text"><strong>Problema:</strong> Ver números do Instagram sem entender o que significam estrategicamente. Alcance ≠ engajamento ≠ conversão.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-purple">02</span>
+                <p class="step-text"><strong>Decisão de design:</strong> Aceitar prints porque é assim que as pessoas acessam os dados — projetar para o comportamento real, não o ideal.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-green">03</span>
+                <p class="step-text"><strong>Construção:</strong> Upload de imagens + visão computacional via API Claude para leitura dos dados e geração de diagnóstico em três blocos.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-green">04</span>
+                <p class="step-text"><strong>Resultado:</strong> Leitura dos dados · diagnóstico estratégico · ações prioritárias — tudo a partir de um print.</p>
+              </div>
+            </div>
+          </div>
+          <div class="process-card-footer">
+            <span class="work-card-tag tag-ia" style="margin:0;">Social Media · Visão computacional</span>
+            <a href="analise-metricas.html" class="work-card-link" style="margin:0;">abrir →</a>
+          </div>
+        </div>
+
+        <!-- 04 -->
+        <div class="process-card">
+          <div class="process-card-top">
+            <div class="process-card-head">
+              <span class="process-card-num" style="color:var(--green-pale);">04</span>
+              <div class="process-card-meta">
+                <h3 class="process-card-name">Foco</h3>
+                <p class="process-card-sub">Uma tarefa, um passo de cada vez — projetado para TDAH</p>
+              </div>
+            </div>
+            <div class="process-steps">
+              <div class="process-step">
+                <span class="step-marker m-green">01</span>
+                <p class="step-text"><strong>Problema:</strong> Com TDAH, tarefas abertas causam paralisia total. O cérebro não consegue iniciar sem saber exatamente o primeiro passo.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-green">02</span>
+                <p class="step-text"><strong>Ideia:</strong> O diagnóstico de TDAH virou especificação de design — limitações bem mapeadas são dados de entrada, não obstáculos.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-purple">03</span>
+                <p class="step-text"><strong>Construção:</strong> Timer visível, máximo 6 passos, um passo por vez, primeiro passo sempre ridiculamente fácil, estética escura que ativa o sistema de recompensa.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-purple">04</span>
+                <p class="step-text"><strong>Resultado:</strong> Digite qualquer tarefa — a ferramenta quebra em passos minúsculos e guia a execução sem sobrecarga cognitiva.</p>
+              </div>
+            </div>
+          </div>
+          <div class="process-card-footer">
+            <span class="work-card-tag tag-ia" style="margin:0;">TDAH-friendly · Timer visual</span>
+            <a href="foco.html" class="work-card-link" style="margin:0;">abrir →</a>
+          </div>
+        </div>
+
+        <!-- 05 -->
+        <div class="process-card" style="grid-column:1/-1;max-width:calc(50% - 0.75rem);">
+          <div class="process-card-top">
+            <div class="process-card-head">
+              <span class="process-card-num">05</span>
+              <div class="process-card-meta">
+                <h3 class="process-card-name">Briefing Estratégico</h3>
+                <p class="process-card-sub">Formulário mobile + diagnóstico de posicionamento em 1 clique</p>
+              </div>
+            </div>
+            <div class="process-steps">
+              <div class="process-step">
+                <span class="step-marker m-purple">01</span>
+                <p class="step-text"><strong>Problema:</strong> Briefings de cliente perdem informação estratégica — perguntas genéricas, preenchimento no improviso, respostas espalhadas.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-purple">02</span>
+                <p class="step-text"><strong>Ideia:</strong> O prompt não está na caixa de texto — está na arquitetura do formulário. Cada pergunta foi pensada para extrair um dado específico.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-green">03</span>
+                <p class="step-text"><strong>Construção:</strong> 20 perguntas mobile-first sem login + dashboard privado + geração de análise de posicionamento via API Claude em 1 clique.</p>
+              </div>
+              <div class="process-step">
+                <span class="step-marker m-green">04</span>
+                <p class="step-text"><strong>Resultado:</strong> Cliente responde no celular, analista recebe tudo organizado por bloco — posicionamento, voz, território, objeções e diferenciais reais.</p>
+              </div>
+            </div>
+          </div>
+          <div class="process-card-footer">
+            <span class="work-card-tag tag-ia" style="margin:0;">Social Media · Claude API · Mobile-first</span>
+            <a href="briefing-tool.html" class="work-card-link" style="margin:0;">ver case →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <section class="pillars" id="pilares">
+    <div class="pillars-header reveal">
+      <h2 class="pillars-title">O que eu <em>faço.</em></h2>
+      <p class="pillars-sub">três frentes, uma identidade</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card p-design reveal">
+        <span class="pillar-icon">✦</span>
+        <h3 class="pillar-name">Design</h3>
+        <p class="pillar-text">Forma e conteúdo partem do mesmo lugar. O visual não ilustra a mensagem — ele é parte dela.</p>
+        <div class="pillar-skills"><span class="skill-tag">Identidade Visual</span><span class="skill-tag">Tipografia</span><span class="skill-tag">Direção de Arte</span></div>
+      </div>
+      <div class="pillar-card p-jornalismo reveal">
+        <span class="pillar-icon">◎</span>
+        <h3 class="pillar-name">Jornalismo</h3>
+        <p class="pillar-text">Pesquiso o que já foi dito para encontrar o que ainda não foi. O ângulo é tudo.</p>
+        <div class="pillar-skills"><span class="skill-tag">Reportagem</span><span class="skill-tag">Pauta</span><span class="skill-tag">Narrativa</span><span class="skill-tag">Jornalismo Literário</span></div>
+      </div>
+      <div class="pillar-card p-social reveal">
+        <span class="pillar-icon">◈</span>
+        <h3 class="pillar-name">Social Media</h3>
+        <p class="pillar-text">Antes da criação, vem a pesquisa. Entendo o que está acontecendo no mundo antes de criar sobre ele — e o público percebe a diferença.</p>
+        <div class="pillar-skills"><span class="skill-tag">Copy Estratégico</span><span class="skill-tag">Calendário Editorial</span><span class="skill-tag">Instagram</span><span class="skill-tag">Métricas</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contato">
+    <p class="contact-label reveal">✦ vamos trabalhar juntas?</p>
+    <h2 class="contact-title reveal">Bora<br><em>criar.</em></h2>
+    <p class="contact-text reveal">Aberta a projetos onde o porquê importa.</p>
+    <a href="mailto:yumicugler@outlook.com" class="contact-btn reveal">entrar em contato →</a>
+    <div class="contact-links reveal">
+      <a href="https://www.instagram.com/yumicugler.pdf?igsh=MXdweTNzc21yM3owNA%3D%3D&utm_source=qr" target="_blank" class="contact-link">Instagram</a>
+      <a href="https://www.linkedin.com/in/yumi-cugler-7309ab1b2" target="_blank" class="contact-link">LinkedIn</a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-name">Yumi Cugler.</span>
+    <span class="footer-copy">© 2026 — feito com intenção</span>
+  </footer>
+
+</div>
+
+<!-- ═══ FERRAMENTAS ═══ -->
+<div id="page-ferramentas" class="page page-wrap tools-page">
+
+  <div class="tools-header">
+    <p class="tools-header-label">✦ uso pessoal</p>
+    <h1 class="tools-header-title">Minhas<br><em>ferramentas.</em></h1>
+    <p class="tools-header-sub">Espaço privado com ferramentas criadas para o meu fluxo de trabalho.</p>
+  </div>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-card-top">
+        <span class="tool-card-icon">🎯</span>
+        <h3 class="tool-card-name">Foco</h3>
+        <p class="tool-card-desc">Quebra qualquer tarefa em passos pequenos e concretos, com timer integrado. Feito para quem precisa de estrutura real para executar.</p>
+      </div>
+      <div class="tool-card-footer">
+        <span class="tool-tag tool-dark">produtividade</span>
+        <a href="foco.html" class="tool-open-btn">abrir →</a>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-card-top">
+        <span class="tool-card-icon">📊</span>
+        <h3 class="tool-card-name">Análise de Métricas</h3>
+        <p class="tool-card-desc">Cole seus dados ou descreva os números — e receba uma análise estratégica real, com insights e sugestões de quem entende de social media.</p>
+      </div>
+      <div class="tool-card-footer">
+        <span class="tool-tag tool-green">social media</span>
+        <a href="analise-metricas.html" class="tool-open-btn">abrir →</a>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-card-top">
+        <span class="tool-card-icon">📋</span>
+        <h3 class="tool-card-name">Organizador de Entregáveis</h3>
+        <p class="tool-card-desc">Descreva seu projeto e receba um documento com resumo estratégico e próximos passos reais para sair do lugar.</p>
+      </div>
+      <div class="tool-card-footer">
+        <span class="tool-tag tool-purple">projetos</span>
+        <a href="organizador-entregaveis.html" class="tool-open-btn">abrir →</a>
+      </div>
+    </div>
+
+
+  </div>
+
+  <footer>
+    <span class="footer-name">Yumi Cugler.</span>
+    <span class="footer-copy">ferramentas pessoais · 2026</span>
+  </footer>
+
+</div>
+
+<script>
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
+function animateRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(animateRing);}
+animateRing();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.background='#5a8a3c';});el.addEventListener('mouseleave',()=>{cursor.style.background='#3d2070';});});
+
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('nav-active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('nav-active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  initReveals();
+}
+
+function iaView(view, btn){
+  document.querySelectorAll('#ia-subcats .subcat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.getElementById('ia-cards');
+  const processo = document.getElementById('ia-processo');
+  if(view === 'processo'){
+    cards.style.display = 'none';
+    processo.classList.remove('process-hidden');
+  } else {
+    cards.style.display = '';
+    processo.classList.add('process-hidden');
+  }
+}
+
+function initReveals(){
+  const reveals=document.querySelectorAll('.reveal:not(.visible)');
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+  reveals.forEach(el=>obs.observe(el));
+}
+initReveals();
+</script>
+</body>
+</html>

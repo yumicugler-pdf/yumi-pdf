@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing Estratégico — Yumi Cugler</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:      #5a8a3c;
+  --green-lt:   #8fbe6a;
+  --green-pale: #d4ebbb;
+  --purple:     #3d2070;
+  --purple-md:  #6b47b8;
+  --purple-lt:  #c4aff0;
+  --cream:      #f5f2e8;
+  --cream-dk:   #ede8d6;
+  --charcoal:   #2a2a2e;
+  --charcoal-lt:#4a4a50;
+  --white:      #fafaf7;
+  --rule:       #d8d3c4;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: 'Cabin', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  border-bottom: 2px solid var(--charcoal);
+  padding: 1.2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--charcoal);
+  text-decoration: none;
+}
+
+.nav-logo span { color: var(--purple); }
+
+.nav-back {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+
+.nav-back:hover { color: var(--purple); }
+
+/* HERO */
+.case-hero {
+  background: var(--charcoal);
+  padding: 5rem 3.5rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0.1;
+}
+
+.case-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 10%;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: var(--purple);
+  opacity: 0.1;
+}
+
+.case-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-lt);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.case-label::before {
+  content: '';
+  width: 24px; height: 2px;
+  background: var(--green-lt);
+  display: inline-block;
+}
+
+.case-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.case-title em {
+  font-style: italic;
+  color: var(--green-lt);
+}
+
+.case-desc {
+  font-size: 16px;
+  color: #aaa;
+  max-width: 580px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.case-desc strong { color: var(--white); }
+
+.case-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.meta-value {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--purple-lt);
+  line-height: 1;
+}
+
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666;
+}
+
+/* SEÇÕES */
+.section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.section-title em { font-style: italic; color: var(--purple); }
+
+.prose { color: var(--charcoal-lt); max-width: 660px; }
+.prose p { margin-bottom: 1rem; }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--charcoal); }
+
+/* ══ MOCKUPS MOBILE ══ */
+.device-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  align-items: start;
+  margin-top: 2.5rem;
+}
+
+.device-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.device {
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  background: var(--white);
+  border: 2px solid var(--charcoal);
+  border-radius: 32px;
+  overflow: hidden;
+  padding: 10px;
+  box-shadow: 5px 5px 0 var(--charcoal);
+}
+
+.device-notch {
+  width: 70px; height: 18px;
+  background: var(--cream-dk);
+  border-radius: 10px;
+  margin: 0 auto 10px;
+}
+
+.device-screen {
+  background: var(--cream);
+  border-radius: 22px;
+  overflow: hidden;
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* screen nav */
+.s-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px 8px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--cream);
+}
+
+.s-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--charcoal);
+}
+
+.s-logo span { color: var(--purple); }
+
+.s-step {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+/* progress bar */
+.s-progress {
+  height: 2px;
+  background: var(--rule);
+}
+
+.s-progress-fill {
+  height: 100%;
+  background: var(--green-pale);
+  border-right: 2px solid var(--green);
+  width: 40%;
+}
+
+/* form body */
+.s-body {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.s-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.s-title {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--charcoal);
+}
+
+.s-title em { font-style: italic; color: var(--purple); }
+
+.s-desc {
+  font-family: 'Cabin', sans-serif;
+  font-size: 10px;
+  color: var(--charcoal-lt);
+  line-height: 1.5;
+}
+
+.s-field { margin-bottom: 8px; }
+
+.s-label {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 3px;
+  color: var(--charcoal);
+  text-transform: uppercase;
+}
+
+.s-hint {
+  display: block;
+  font-family: 'Cabin', sans-serif;
+  font-size: 9px;
+  color: var(--charcoal-lt);
+  margin-bottom: 4px;
+}
+
+.s-input {
+  width: 100%;
+  padding: 7px 9px;
+  border: 1.5px solid var(--rule);
+  border-radius: 6px;
+  background: var(--white);
+  font-family: 'Cabin', sans-serif;
+  font-size: 10px;
+  color: var(--charcoal-lt);
+  line-height: 1.5;
+}
+
+.s-input.filled {
+  border-color: var(--green);
+  background: rgba(90,138,60,0.05);
+  color: var(--charcoal);
+}
+
+.s-textarea { min-height: 48px; }
+
+.s-btn-row { display: flex; gap: 6px; margin-top: 4px; }
+
+.s-btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 100px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.s-btn-primary { background: var(--charcoal); color: var(--cream); }
+.s-btn-secondary { background: transparent; border: 1.5px solid var(--rule); color: var(--charcoal-lt); }
+
+/* done screen */
+.screen-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 28px 18px;
+  text-align: center;
+  gap: 10px;
+}
+
+.done-orn {
+  font-size: 22px;
+  color: var(--green);
+}
+
+.done-title {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--charcoal);
+}
+
+.done-title em { font-style: italic; color: var(--purple); }
+
+.done-text {
+  font-family: 'Cabin', sans-serif;
+  font-size: 10px;
+  color: var(--charcoal-lt);
+  line-height: 1.6;
+  max-width: 180px;
+}
+
+.done-email {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--charcoal-lt);
+  letter-spacing: 0.05em;
+}
+
+/* ══ SPLIT (acesso) ══ */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 2px solid var(--charcoal);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 2rem;
+  box-shadow: 5px 5px 0 var(--charcoal);
+}
+
+.split-panel {
+  background: var(--white);
+  padding: 2rem;
+  border-right: 1px solid var(--rule);
+}
+
+.split-panel:last-child { border-right: none; }
+
+.split-panel.green-panel { background: rgba(90,138,60,0.05); }
+
+.split-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.split-panel.green-panel .split-label { color: var(--green); }
+
+.split-title {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: var(--charcoal);
+}
+
+.split-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--charcoal-lt);
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.split-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--rule);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+.split-panel.green-panel .split-dot { background: var(--green); }
+
+/* ══ DASHBOARD MOCK ══ */
+.dash-mock {
+  border: 2px solid var(--charcoal);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--white);
+  margin-top: 2rem;
+  box-shadow: 5px 5px 0 var(--charcoal);
+}
+
+.dash-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid var(--charcoal);
+  background: var(--cream);
+}
+
+.dash-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--charcoal);
+}
+
+.dash-logo span { color: var(--purple); }
+
+.dash-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.dash-body { padding: 1.5rem; }
+
+.dash-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.4rem;
+}
+
+.dash-h {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--charcoal);
+  margin-bottom: 0.3rem;
+}
+
+.dash-h em { font-style: italic; color: var(--purple); }
+
+.dash-sub {
+  font-size: 12px;
+  color: var(--charcoal-lt);
+  margin-bottom: 1.25rem;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+/* client cards */
+.client-card {
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  background: var(--cream);
+}
+
+.cc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cc-name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: var(--charcoal);
+  font-family: 'Cabin', sans-serif;
+}
+
+.cc-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--charcoal-lt);
+  letter-spacing: 0.04em;
+}
+
+.cc-arrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--purple);
+  letter-spacing: 0.04em;
+}
+
+.cc-body {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.cc-section { margin-bottom: 1rem; }
+
+.cc-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.5rem;
+}
+
+.cc-q {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--charcoal-lt);
+  margin-bottom: 2px;
+}
+
+.cc-a {
+  font-size: 13px;
+  color: var(--charcoal);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+/* análise */
+.analysis-mock {
+  background: rgba(90,138,60,0.06);
+  border: 1.5px solid var(--green-pale);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.an-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.an-section { margin-bottom: 1.25rem; }
+
+.an-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--green);
+  margin-bottom: 0.4rem;
+}
+
+.an-text {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--charcoal-lt);
+}
+
+.an-text strong { color: var(--charcoal); font-weight: 700; }
+
+.chat-quote {
+  border-left: 4px solid var(--purple);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  background: var(--cream-dk);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--charcoal);
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.chat-quote.green { border-left-color: var(--green); }
+
+.an-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.7rem 1.4rem;
+  background: var(--charcoal);
+  color: var(--cream);
+  border: none;
+  border-radius: 100px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  transition: background 0.15s;
+}
+
+.an-btn:hover { background: var(--purple); }
+
+/* ══ BLOCOS ══ */
+.blocks-grid {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--charcoal);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 2rem;
+  box-shadow: 5px 5px 0 var(--charcoal);
+}
+
+.block-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+}
+
+.block-row:last-child { border-bottom: none; }
+
+.block-n {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--purple-lt);
+  flex-shrink: 0;
+  width: 32px;
+  padding-top: 1px;
+}
+
+.block-info h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  color: var(--charcoal);
+}
+
+.block-info p {
+  font-size: 13px;
+  color: var(--charcoal-lt);
+  line-height: 1.5;
+}
+
+.block-badge {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(90,138,60,0.08);
+  border: 1.5px solid var(--green-pale);
+  padding: 3px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* ══ TECH TAGS ══ */
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.tech {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--charcoal-lt);
+  border: 1.5px solid var(--rule);
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: var(--white);
+}
+
+/* ══ APRENDIZADOS ══ */
+.learnings {
+  background: var(--purple);
+  padding: 4rem 2.5rem;
+}
+
+.learnings-inner { max-width: 860px; margin: 0 auto; }
+
+.learnings .section-eyebrow { color: var(--purple-lt); }
+.learnings .section-title { color: var(--white); }
+.learnings .section-title em { color: var(--green-lt); }
+
+.learnings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.learning-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.learning-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-lt);
+  margin-bottom: 0.5rem;
+}
+
+.learning-card-text {
+  font-size: 13px;
+  color: var(--purple-lt);
+  line-height: 1.65;
+}
+
+.learning-card-text strong { color: var(--white); }
+
+/* FOOTER */
+footer {
+  background: var(--charcoal);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 2px solid #333;
+}
+
+.footer-name {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--cream);
+}
+
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 0.06em;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+  .case-hero { padding: 3rem 1.5rem; }
+  .section { padding: 3rem 1.5rem; }
+  nav { padding: 1rem 1.5rem; }
+  .split { grid-template-columns: 1fr; }
+  .split-panel { border-right: none; border-bottom: 1px solid var(--rule); }
+  .learnings { padding: 3rem 1.5rem; }
+  .learnings-grid { grid-template-columns: 1fr; }
+  .device-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Yumi<span>.</span></a>
+  <a href="serie-ferramentas.html" class="nav-back">← série ferramentas</a>
+</nav>
+
+<!-- HERO -->
+<section class="case-hero">
+  <p class="case-label">IA · Social Media · Ferramenta</p>
+  <h1 class="case-title">Briefing<br><em>Estratégico.</em></h1>
+  <p class="case-desc">
+    <strong>Uma ferramenta que transforma o briefing de cliente em diagnóstico estratégico.</strong> O cliente responde no celular. Você recebe as respostas organizadas e, com um clique, gera uma análise de posicionamento, público, diferenciais e próximos passos.
+  </p>
+  <div class="case-meta">
+    <div class="meta-item">
+      <span class="meta-value">20</span>
+      <span class="meta-label">perguntas</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-value">5</span>
+      <span class="meta-label">blocos temáticos</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-value">1</span>
+      <span class="meta-label">clique para análise</span>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE O CLIENTE VÊ -->
+<section class="section">
+  <p class="section-eyebrow">✦ o que o cliente vê</p>
+  <h2 class="section-title">O formulário <em>no celular.</em></h2>
+  <div class="prose">
+    <p>O cliente recebe um link. Nenhum login, nenhum cadastro. Abre no próprio celular e responde 20 perguntas organizadas em 5 blocos — cada uma com contexto do que está sendo pedido. A interface acompanha o progresso e bloqueia o avanço enquanto há campo vazio.</p>
+  </div>
+
+  <div class="device-row">
+
+    <!-- TELA: PREENCHENDO -->
+    <div>
+      <p class="device-label">preenchendo o bloco 02</p>
+      <div class="device">
+        <div class="device-notch"></div>
+        <div class="device-screen">
+          <div class="s-nav">
+            <span class="s-logo">Yumi<span>.</span></span>
+            <span class="s-step">2 / 5</span>
+          </div>
+          <div class="s-progress"><div class="s-progress-fill"></div></div>
+          <div class="s-body">
+            <div>
+              <span class="s-tag">02 — A Marca</span>
+              <div class="s-title">A <em>Marca.</em></div>
+              <p class="s-desc">O que sua marca é — não o que vende, mas o que representa.</p>
+            </div>
+            <div class="s-field">
+              <span class="s-label">Descreva sua marca em até 3 palavras.</span>
+              <div class="s-input filled">Inteira, presente, honesta</div>
+            </div>
+            <div class="s-field">
+              <span class="s-label">Qual é o maior diferencial da sua marca?</span>
+              <span class="s-hint">O que você faz que nenhum concorrente faz igual...</span>
+              <div class="s-input s-textarea filled" style="padding-top:7px">Não vendo método. Vendo permissão pra parar e se priorizar sem culpa.</div>
+            </div>
+            <div class="s-field">
+              <span class="s-label">O que você NUNCA quer ser associada?</span>
+              <div class="s-input s-textarea" style="color:var(--rule)">Sua resposta...</div>
+            </div>
+            <div class="s-btn-row">
+              <button class="s-btn s-btn-secondary">← voltar</button>
+              <button class="s-btn s-btn-primary">próximo →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA: CONCLUÍDO -->
+    <div>
+      <p class="device-label">após enviar</p>
+      <div class="device">
+        <div class="device-notch"></div>
+        <div class="device-screen">
+          <div class="s-nav">
+            <span class="s-logo">Yumi<span>.</span></span>
+            <span class="s-step">✦ recebido</span>
+          </div>
+          <div class="screen-done">
+            <div class="done-orn">✦</div>
+            <div class="done-title">Pronto, <em>recebido.</em></div>
+            <p class="done-text">Obrigada por responder com atenção. Vou analisar cada resposta com cuidado antes do nosso próximo contato.</p>
+            <span class="done-email">yumicugler@outlook.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section">
+  <p class="section-eyebrow">✦ o que a social media vê</p>
+  <h2 class="section-title">Dashboard <em>privado.</em></h2>
+  <div class="prose">
+    <p>O dashboard fica acessível só para você — via código de acesso oculto. Todas as respostas chegam organizadas por bloco e por cliente. Com um clique, você gera o diagnóstico estratégico com IA.</p>
+  </div>
+
+  <div class="dash-mock">
+    <div class="dash-nav">
+      <span class="dash-logo">Yumi<span>.</span></span>
+      <span class="dash-tag">✦ dashboard</span>
+    </div>
+    <div class="dash-body">
+      <p class="dash-eyebrow">✦ briefings recebidos</p>
+      <div class="dash-h">Respostas dos <em>clientes.</em></div>
+      <p class="dash-sub">2 briefings recebidos.</p>
+
+      <!-- CARD EXPANDIDO -->
+      <div class="client-card">
+        <div class="cc-top">
+          <div>
+            <div class="cc-name">Luana · luana@studiosemente.com.br</div>
+            <div class="cc-date">10 mai · 14h32</div>
+          </div>
+          <span class="cc-arrow">↑ fechar</span>
+        </div>
+        <div class="cc-body">
+          <div class="cc-section">
+            <div class="cc-section-label">01 — O Negócio</div>
+            <div class="cc-q">Qual é o principal objetivo da sua presença nas redes agora?</div>
+            <div class="cc-a">Criar autoridade no Instagram e gerar leads para minha mentoria de R$2.500. Hoje chegam pelo boca a boca, mas quero um canal digital que trabalhe por mim.</div>
+            <div class="cc-q">Em média, quanto tempo um cliente leva para decidir comprar?</div>
+            <div class="cc-a">Semanas</div>
+          </div>
+          <div class="cc-section">
+            <div class="cc-section-label">02 — A Marca</div>
+            <div class="cc-q">Descreva sua marca em até 3 palavras.</div>
+            <div class="cc-a">Inteira, presente, honesta</div>
+            <div class="cc-q">Qual é o maior diferencial da sua marca?</div>
+            <div class="cc-a">Não vendo método. Vendo permissão para parar, dizer não e se colocar em primeiro lugar sem se sentir egoísta.</div>
+            <div class="cc-q">O que você NUNCA quer que sua marca seja associada?</div>
+            <div class="cc-a">Aquela estética de coach de Instagram: frase motivacional sobre fundo bege, citação de Brené Brown, "você merece". Odeio.</div>
+          </div>
+          <div class="cc-section">
+            <div class="cc-section-label">03 — O Público</div>
+            <div class="cc-q">O que seus clientes mais elogiam em você?</div>
+            <div class="cc-a">Dizem que sou a coach que não parece coach. Que falo sem romantizar, sem prometer milagre.</div>
+          </div>
+
+          <button class="an-btn">gerar análise estratégica →</button>
+
+          <!-- ANÁLISE -->
+          <div class="analysis-mock" style="margin-top:1.25rem">
+            <span class="an-tag">✦ análise estratégica — IA</span>
+
+            <div class="an-section">
+              <div class="an-title">✦ o que está acontecendo de verdade</div>
+              <p class="an-text">A Luana sabe o que não quer — e isso é raro. O problema real não é falta de posicionamento: é que a régua de autenticidade ainda não virou linguagem criativa operável. Ela tem clareza do "não", mas não tem o formato que a representa. <strong>Sem isso, vai produzir pouco e postar com insegurança.</strong></p>
+            </div>
+
+            <div class="an-section">
+              <div class="an-title">✦ o território</div>
+              <p class="an-text">Mercado saturado de otimismo performático. O espaço livre é <strong>honestidade sem esperança embrulhada</strong>. O posicionamento exato: <strong>a coach para quem já está cansada de coaches.</strong> Não como provocação — como diferenciação real e verificável.</p>
+            </div>
+
+            <div class="an-section">
+              <div class="an-title">✦ o que vai converter — hooks reais</div>
+              <p class="an-text" style="margin-bottom:8px">Na linguagem exata que a Luana usou no briefing:</p>
+              <div class="chat-quote green">"A maioria das coaches vai te dizer o que fazer. Eu vou te dar permissão pra parar."</div>
+              <div class="chat-quote green">"Você já tomou todas as decisões certas. E ainda está esgotada. Vamos falar sobre isso?"</div>
+            </div>
+
+            <div class="an-section">
+              <div class="an-title">✦ o que não fazer</div>
+              <p class="an-text">Não crie carrossel de dicas antes de ter voz estabelecida — vai parecer mais uma num mercado já saturado disso.<br>Não use "você merece" ou "se permita" — contradiz diretamente o que a diferencia.<br>Não poste com frequência antes de ter clareza de voz — quantidade sem identidade dilui a marca.</p>
+            </div>
+
+            <div class="an-section">
+              <div class="an-title">✦ as 3 primeiras peças</div>
+              <p class="an-text"><strong>1. Apresentação — o que ela não é.</strong> Diferenciação explícita performa melhor que apresentação genérica pra esse público cético.<br><strong>2. Post de nomeação</strong> — dar nome a algo que o público sente mas não consegue articular. Texto corrido, sem lista.<br><strong>3. Resposta à objeção principal</strong> — "coaching funciona mesmo?" com opinião real. Esse converte no lançamento de agosto.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD FECHADO -->
+      <div class="client-card" style="opacity:.5">
+        <div class="cc-top">
+          <div>
+            <div class="cc-name">Rafael · Marcenaria Própria</div>
+            <div class="cc-date">08 mai · 09h15</div>
+          </div>
+          <span class="cc-arrow" style="color:var(--charcoal-lt)">↓ ver</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACESSO -->
+<section class="section">
+  <p class="section-eyebrow">✦ acesso</p>
+  <h2 class="section-title">Pública para o cliente. <em>Privada para você.</em></h2>
+  <div class="prose">
+    <p>O mesmo link. Experiências completamente diferentes.</p>
+  </div>
+
+  <div class="split">
+    <div class="split-panel">
+      <span class="split-label">para o cliente</span>
+      <div class="split-title">Formulário aberto.</div>
+      <div class="split-item"><span class="split-dot"></span>recebe o link direto, sem login</div>
+      <div class="split-item"><span class="split-dot"></span>interface limpa, mobile-first</div>
+      <div class="split-item"><span class="split-dot"></span>não vê o dashboard</div>
+      <div class="split-item"><span class="split-dot"></span>não sabe que a análise existe</div>
+      <div class="split-item"><span class="split-dot"></span>vê apenas a tela de confirmação ao enviar</div>
+    </div>
+    <div class="split-panel green-panel">
+      <span class="split-label">para você</span>
+      <div class="split-title">Dashboard protegido.</div>
+      <div class="split-item"><span class="split-dot"></span>acesso via código oculto no rodapé</div>
+      <div class="split-item"><span class="split-dot"></span>todas as respostas salvas com data</div>
+      <div class="split-item"><span class="split-dot"></span>histórico de todos os clientes</div>
+      <div class="split-item"><span class="split-dot"></span>análise com IA gerada em 1 clique</div>
+      <div class="split-item"><span class="split-dot"></span>acesso exclusivo seu</div>
+    </div>
+  </div>
+</section>
+
+<!-- OS BLOCOS -->
+<section class="section">
+  <p class="section-eyebrow">✦ os blocos</p>
+  <h2 class="section-title">20 perguntas, <em>5 blocos.</em></h2>
+  <div class="prose">
+    <p>Cada pergunta tem uma razão de existir. Nenhuma é decorativa — todas alimentam a análise estratégica.</p>
+  </div>
+
+  <div class="blocks-grid">
+    <div class="block-row">
+      <span class="block-n">01</span>
+      <div class="block-info"><h4>O Negócio</h4><p>Objetivo nas redes, problema resolvido, ciclo de decisão de compra, metas de 3 a 6 meses</p></div>
+    </div>
+    <div class="block-row">
+      <span class="block-n">02</span>
+      <div class="block-info"><h4>A Marca</h4><p>Identidade em 3 palavras, diferencial real, o que se destaca, o que a marca nunca seria</p></div>
+      <span class="block-badge">diferenciais</span>
+    </div>
+    <div class="block-row">
+      <span class="block-n">03</span>
+      <div class="block-info"><h4>O Público</h4><p>Perfil do cliente ideal, o que clientes elogiam, objeções antes da compra, adequação do público atual</p></div>
+      <span class="block-badge">voz do cliente</span>
+    </div>
+    <div class="block-row">
+      <span class="block-n">04</span>
+      <div class="block-info"><h4>Histórico e Operação</h4><p>O que funcionou antes, pitch natural da marca, fluxo de aprovação, orçamento disponível</p></div>
+    </div>
+    <div class="block-row">
+      <span class="block-n">05</span>
+      <div class="block-info"><h4>Mercado e Referências</h4><p>Concorrentes diretos, marcas admiradas, contato para retorno</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- APRENDIZADOS -->
+<section class="learnings">
+  <div class="learnings-inner">
+    <p class="section-eyebrow">✦ o que esse projeto ensinou</p>
+    <h2 class="section-title">Além das <em>ferramentas.</em></h2>
+
+    <div class="learnings-grid">
+      <div class="learning-card">
+        <p class="learning-card-label">Sobre o briefing</p>
+        <p class="learning-card-text"><strong>A maioria dos briefings perde informação estratégica porque não sabe o que perguntar.</strong> Estruturar as perguntas certas é metade do trabalho de posicionamento.</p>
+      </div>
+      <div class="learning-card">
+        <p class="learning-card-label">Sobre experiência</p>
+        <p class="learning-card-text"><strong>A interface do cliente precisa ser invisível.</strong> Quanto menos fricção, mais honesta a resposta — e mais útil o dado que chega para você.</p>
+      </div>
+      <div class="learning-card">
+        <p class="learning-card-label">Sobre IA</p>
+        <p class="learning-card-text"><strong>A análise é tão boa quanto as perguntas que a alimentam.</strong> O prompt não está na caixa de texto do chat — está na arquitetura do formulário.</p>
+      </div>
+      <div class="learning-card">
+        <p class="learning-card-label">Sobre fluxo</p>
+        <p class="learning-card-text"><strong>Eliminar fricção entre dados e diagnóstico muda a qualidade do atendimento.</strong> Quando você chega na reunião com análise pronta, a conversa começa num nível diferente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSTRUÇÃO -->
+<section class="section" style="border-bottom:none">
+  <p class="section-eyebrow">✦ construção</p>
+  <h2 class="section-title">Como foi <em>feita.</em></h2>
+  <div class="prose">
+    <p>Desenvolvida a partir de uma pergunta real: <strong>como não perder informação estratégica no briefing?</strong> Faz parte da série <em>Conversas que viram ferramenta</em> — problemas do fluxo de trabalho resolvidos com IA.</p>
+  </div>
+  <div class="tags">
+    <span class="tech">React</span>
+    <span class="tech">Claude API · Anthropic</span>
+    <span class="tech">Persistent Storage</span>
+    <span class="tech">Mobile-first</span>
+    <span class="tech">Fraunces + DM Mono</span>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">Yumi Cugler.</span>
+  <span class="footer-copy">design · jornalismo · social media</span>
+</footer>
+
+</body>
+</html>
