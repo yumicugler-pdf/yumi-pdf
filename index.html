@@ -207,6 +207,15 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
 .tool-access-card:hover{border-color:var(--green);box-shadow:3px 3px 0 var(--green);transform:translate(-1px,-1px);}
 .tool-access-label{font-family:'cooper-black',serif;font-size:13px;line-height:1.2;}
 .tool-access-cta{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);}
+/* MODAL */
+.tool-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;transition:opacity 0.2s;opacity:0;}
+.tool-modal-box{background:var(--cream);border-radius:14px;border:2px solid var(--charcoal);width:90%;max-width:920px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:8px 8px 0 var(--charcoal);}
+.tool-modal-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:2px solid var(--charcoal);flex-shrink:0;}
+.tool-modal-title{font-family:'cooper-black',serif;font-size:18px;font-weight:700;letter-spacing:-0.01em;}
+.tool-modal-close{background:none;border:none;font-size:26px;line-height:1;padding:0;cursor:pointer;color:var(--charcoal);font-family:'cooper-black',serif;transition:color 0.15s;}
+.tool-modal-close:hover{color:#3d2070;}
+.tool-modal-body{flex:1;overflow:hidden;}
+.tool-modal-body iframe{width:100%;height:70vh;border:none;display:block;}
 </style>
 </head>
 <body>
@@ -218,7 +227,6 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <a href="#" class="nav-logo" onclick="showPage('portfolio');return false;">Yumi<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#" id="nav-portfolio" class="nav-active" onclick="showPage('portfolio');return false;">portfólio</a></li>
-    <li><a href="#" id="nav-ferramentas" onclick="showPage('ferramentas');return false;">ferramentas</a></li>
   </ul>
   <a href="mailto:yumicugler@outlook.com" class="nav-email" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--charcoal-lt);text-decoration:none;cursor:none;transition:color 0.2s;" onmouseenter="this.style.color='#3d2070'" onmouseleave="this.style.color='var(--charcoal-lt)'">yumicugler@outlook.com</a>
 </nav>
@@ -306,7 +314,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <span class="work-area-name">Design</span>
       </div>
       <div class="subcats">
-        <span class="subcat-btn active">Todos</span>
+        <span class="subcat-btn active">Destaques</span>
         <span class="subcat-btn">Direção de Arte</span>
         <span class="subcat-btn">Identidade Visual</span>
         <span class="subcat-btn">Peças Gráficas</span>
@@ -333,7 +341,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <span class="work-area-name">Jornalismo</span>
       </div>
       <div class="subcats">
-        <span class="subcat-btn active" data-filter="todos">Todos</span>
+        <span class="subcat-btn active" data-filter="todos">Destaques</span>
         <span class="subcat-btn" data-filter="audiovisual">Audiovisual</span>
         <span class="subcat-btn" data-filter="radio">Radiojornalismo</span>
         <span class="subcat-btn" data-filter="escrita">Matérias Escritas</span>
@@ -431,39 +439,54 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <div class="work-area-dot"></div>
         <span class="work-area-name">IA & Ferramentas</span>
       </div>
-      <div class="subcats">
-        <span class="subcat-btn active">Todos</span>
-        <span class="subcat-btn">Processo</span>
-        <span class="subcat-btn">Ferramentas Criadas</span>
+      <div class="subcats" id="ia-subcats">
+        <span class="subcat-btn active" data-filter="destaques">Destaques</span>
+        <span class="subcat-btn" data-filter="ferramentas-criadas">Ferramentas Criadas</span>
       </div>
-      <div class="work-grid-single">
-        <div class="work-card">
-          <div class="work-card-img ia-bg">🛠️</div>
+      <div class="work-grid" id="ia-grid">
+
+        <div class="work-card" data-category="destaques ferramentas-criadas">
+          <div class="work-card-img ia-bg" style="display:flex;align-items:center;justify-content:center;font-size:48px;">📊</div>
           <div class="work-card-body">
-            <span class="work-card-tag tag-ia">Ferramentas · Claude</span>
-            <h3 class="work-card-title">Conversas que viram ferramenta</h3>
-            <p class="work-card-desc">Como transformei conversas com IA em ferramentas reais de fluxo de trabalho — do problema à solução.</p>
-            <div class="tool-access-grid">
-              <a href="case-analise-metricas.html" class="tool-access-card">
-                <span class="tool-access-label">Análise de Métricas</span>
-                <span class="tool-access-cta">ver case →</span>
-              </a>
-              <a href="case-organizador.html" class="tool-access-card">
-                <span class="tool-access-label">Organizador de Entregáveis</span>
-                <span class="tool-access-cta">ver case →</span>
-              </a>
-              <a href="case-foco.html" class="tool-access-card">
-                <span class="tool-access-label">Modo Foco</span>
-                <span class="tool-access-cta">ver case →</span>
-              </a>
-              <a href="case-briefing.html" class="tool-access-card">
-                <span class="tool-access-label">Briefing Estratégico</span>
-                <span class="tool-access-cta">ver case →</span>
-              </a>
-            </div>
-            <a href="serie-ferramentas.html" class="work-card-link">explorar →</a>
+            <span class="work-card-tag tag-ia">Ferramentas Criadas · Claude</span>
+            <h3 class="work-card-title">Análise de Métricas</h3>
+            <p class="work-card-desc">Transformei uma conversa recorrente sobre dados em uma ferramenta estruturada. Cola os números, ela devolve análise com contexto — sem achismo, sem planilha.</p>
+            <a href="#" class="work-card-link" onclick="openToolModal('analise-metricas.html','Análise de Métricas');return false;">ver demo →</a>
           </div>
         </div>
+
+        <div class="work-card" data-category="destaques ferramentas-criadas">
+          <div class="work-card-img ia-bg" style="display:flex;align-items:center;justify-content:center;font-size:48px;">📋</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-ia">Ferramentas Criadas · Claude</span>
+            <h3 class="work-card-title">Briefing Estratégico</h3>
+            <p class="work-card-desc">Saiu de um problema real de briefing incompleto. Estrutura as informações de um projeto antes de criar — organiza o que existe, aponta o que falta.</p>
+            <!-- TODO: substituir por briefing-estrategico.html quando o arquivo existir -->
+            <a href="#" class="work-card-link" onclick="openToolModal('organizador-entregaveis.html','Briefing Estratégico');return false;">ver demo →</a>
+          </div>
+        </div>
+
+        <div class="work-card" data-category="ferramentas-criadas">
+          <div class="work-card-img ia-bg" style="display:flex;align-items:center;justify-content:center;font-size:48px;">🎯</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-ia">Ferramentas Criadas · Claude</span>
+            <h3 class="work-card-title">Modo Foco</h3>
+            <p class="work-card-desc">Criada para quebrar paralisia de tarefa. Divide qualquer entregável em passos mínimos com timer integrado — pensada para fluxo de trabalho com TDAH.</p>
+            <a href="#" class="work-card-link" onclick="openToolModal('foco.html','Modo Foco');return false;">ver demo →</a>
+          </div>
+        </div>
+
+        <div class="work-card" data-category="ferramentas-criadas">
+          <div class="work-card-img ia-bg" style="display:flex;align-items:center;justify-content:center;font-size:48px;">🗂️</div>
+          <div class="work-card-body">
+            <span class="work-card-tag tag-ia">Ferramentas Criadas · Claude</span>
+            <h3 class="work-card-title">Organizador de Entregáveis</h3>
+            <p class="work-card-desc">Resume o estado de um projeto e aponta próximos passos com clareza. Saiu da necessidade de não perder contexto entre sessões de trabalho.</p>
+            <a href="#" class="work-card-link" onclick="openToolModal('organizador-entregaveis.html','Organizador de Entregáveis');return false;">ver demo →</a>
+          </div>
+        </div>
+
+        <div class="ia-empty" style="display:none;grid-column:1/-1;padding:3rem;text-align:center;color:var(--charcoal-lt);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;border:1.5px dashed var(--rule);border-radius:14px;">em breve</div>
       </div>
     </div>
 
@@ -570,6 +593,19 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
 
 </div>
 
+<!-- MODAL DE DEMONSTRAÇÃO -->
+<div id="tool-modal" class="tool-modal" onclick="handleModalClick(event)">
+  <div class="tool-modal-box">
+    <div class="tool-modal-header">
+      <span id="tool-modal-title" class="tool-modal-title"></span>
+      <button class="tool-modal-close" onclick="closeToolModal()" aria-label="Fechar">×</button>
+    </div>
+    <div class="tool-modal-body">
+      <iframe id="tool-modal-iframe" src="" sandbox="allow-scripts allow-same-origin" frameborder="0"></iframe>
+    </div>
+  </div>
+</div>
+
 <script>
 const cursor=document.getElementById('cursor');
 const ring=document.getElementById('cursor-ring');
@@ -621,6 +657,52 @@ initReveals();
   });
   applyFilter('todos');
 })();
+
+(function initIaFilter(){
+  const area=document.querySelector('.area-ia');
+  if(!area)return;
+  const btns=area.querySelectorAll('.subcat-btn');
+  const cards=area.querySelectorAll('.work-card[data-category]');
+  const empty=area.querySelector('.ia-empty');
+  function applyFilter(filter){
+    let visible=0;
+    cards.forEach(card=>{
+      const cats=card.dataset.category||'';
+      const show=filter==='ferramentas-criadas'?true:cats.includes(filter);
+      card.style.display=show?'':'none';
+      if(show)visible++;
+    });
+    if(empty)empty.style.display=visible===0?'block':'none';
+  }
+  btns.forEach(btn=>{
+    btn.style.cursor='pointer';
+    btn.addEventListener('click',()=>{
+      btns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.dataset.filter||'destaques');
+    });
+  });
+  applyFilter('destaques');
+})();
+
+function openToolModal(src,title){
+  const modal=document.getElementById('tool-modal');
+  const iframe=document.getElementById('tool-modal-iframe');
+  document.getElementById('tool-modal-title').textContent=title;
+  iframe.src=src;
+  modal.style.display='flex';
+  requestAnimationFrame(()=>{modal.style.opacity='1';});
+  document.body.style.overflow='hidden';
+}
+function closeToolModal(){
+  const modal=document.getElementById('tool-modal');
+  const iframe=document.getElementById('tool-modal-iframe');
+  modal.style.opacity='0';
+  setTimeout(()=>{modal.style.display='none';iframe.src='';},200);
+  document.body.style.overflow='';
+}
+function handleModalClick(e){if(e.target===e.currentTarget)closeToolModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeToolModal();});
 </script>
 </body>
 </html>
