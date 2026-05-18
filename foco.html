@@ -296,7 +296,7 @@ function updateTimerDisplay(){
 function resetTimer(){ clearInterval(timerInterval); timerRunning=false; timerLeft=timerTotal; document.getElementById('btn-start').textContent='iniciar'; document.getElementById('timer-label').textContent='aguardando'; updateTimerDisplay(); }
 
 // ─── GEMINI ───────────────────────────────────
-const GEMINI_KEY = "COLE_SUA_CHAVE_GEMINI_AQUI";
+const GEMINI_KEY = "gen-lang-client-0953257347";
 
 async function chamarGemini(promptText) {
   const res = await fetch(
