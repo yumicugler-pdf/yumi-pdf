@@ -119,6 +119,7 @@ select option{background:var(--surface);}
 footer{border-top:1.5px solid var(--border);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;}
 .footer-name{font-family:'Fraunces',serif;font-size:16px;font-weight:700;font-style:italic;color:var(--text);}
 .footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+.aviso-ia{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-align:center;padding:0.75rem 2.5rem 1rem;}
 
 @media(max-width:768px){
   .main{grid-template-columns:1fr;}
@@ -143,12 +144,13 @@ footer{border-top:1.5px solid var(--border);padding:1.25rem 2.5rem;display:flex;
 
   <!-- ESQUERDA: INPUT -->
   <div class="panel-input">
-    <h1 class="panel-title">Modo<br><em>Foco.</em></h1>
-    <p class="panel-sub">✦ projetado para TDAH</p>
+    <h1 class="panel-title"><em>Foco.</em></h1>
+    <p class="panel-sub">✦ produtividade · foco</p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:1.5rem;">Quebra qualquer tarefa em passos pequenos o suficiente para começar. Timer integrado. Feito para quem trava antes de começar — ou some no meio.</p>
 
     <div class="field">
       <label>Qual é a tarefa?</label>
-      <textarea id="input-tarefa" placeholder="Descreva a tarefa com o máximo de contexto que conseguir. Quanto mais específica, melhor os passos." rows="4"></textarea>
+      <textarea id="input-tarefa" placeholder="Escreva a tarefa. A ferramenta divide em etapas. Você escolhe por onde começa e usa o timer bloco a bloco." rows="4"></textarea>
     </div>
 
     <div class="field">
@@ -244,8 +246,9 @@ footer{border-top:1.5px solid var(--border);padding:1.25rem 2.5rem;display:flex;
 
 <footer>
   <span class="footer-name">Yumi Cugler.</span>
-  <span class="footer-copy">modo foco · projetado para TDAH</span>
+  <span class="footer-copy">foco · produtividade</span>
 </footer>
+<p class="aviso-ia">Esta ferramenta funciona com a IA da Gemini — escolha prática: é gratuita para quem usa e cumpre bem o que cada ferramenta precisa fazer.</p>
 
 <script>
 // ─── TIMER ────────────────────────────────────
@@ -292,6 +295,22 @@ function updateTimerDisplay(){
 
 function resetTimer(){ clearInterval(timerInterval); timerRunning=false; timerLeft=timerTotal; document.getElementById('btn-start').textContent='iniciar'; document.getElementById('timer-label').textContent='aguardando'; updateTimerDisplay(); }
 
+// ─── GEMINI ───────────────────────────────────
+const GEMINI_KEY = "COLE_SUA_CHAVE_GEMINI_AQUI";
+
+async function chamarGemini(promptText) {
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({contents: [{parts: [{text: promptText}]}]})
+    }
+  );
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Erro ao gerar resposta.';
+}
+
 // ─── PASSOS ───────────────────────────────────
 let steps = [];
 let currentStep = 0;
@@ -309,36 +328,23 @@ async function gerarPassos(){
   document.getElementById('loading-state').style.display='block';
   document.getElementById('status-badge').textContent='● gerando passos...';
 
-  const prompt = `Você é especialista em produtividade para pessoas com TDAH. Preciso que você quebre a seguinte tarefa em no máximo 6 passos de ação concretos, pequenos e realizáveis.
+  const prompt = `Quebre a tarefa abaixo em etapas pequenas e concretas — cada etapa deve ser executável em até 25 minutos. Máximo de 6 etapas. Seja direto. Sem introdução.
 
-TAREFA: ${tarefa}
-${objetivo?'OBJETIVO FINAL: '+objetivo:''}
-TEMPO DISPONÍVEL: ${tempo} minutos
-ESTADO ATUAL: ${estado}
+Tarefa: ${tarefa}
+${objetivo?'Objetivo final: '+objetivo:''}
+Tempo disponível: ${tempo} minutos
+Estado atual: ${estado}
 
-Regras importantes:
-- Máximo 6 passos, idealmente 4-5
-- O primeiro passo deve ser RIDICULAMENTE fácil — algo que leve menos de 2 minutos e quebre a inércia
-- Cada passo deve ser uma ação específica, não uma categoria ("abrir o documento e colocar o cursor no parágrafo 2", não "revisar o texto")
+Regras:
+- O primeiro passo deve ser RIDICULAMENTE fácil — algo que quebre a inércia
+- Cada passo deve ser uma ação específica ("abrir o documento e colocar o cursor no parágrafo 2", não "revisar o texto")
 - Se o estado for "travada" ou "sobrecarregada", os passos devem ser ainda menores
-- Se for "hiperfoco", podem ser um pouco mais densos
-- Linguagem direta, sem rodeios
 
 Responda APENAS com um JSON válido neste formato exato, sem mais nada:
 {"passos":["passo 1","passo 2","passo 3"]}`;
 
   try{
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:600,
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    const data = await res.json();
-    const text = data.content.map(i=>i.text||'').join('');
+    const text = await chamarGemini(prompt);
     const clean = text.replace(/```json|```/g,'').trim();
     const parsed = JSON.parse(clean);
     steps = parsed.passos||[];

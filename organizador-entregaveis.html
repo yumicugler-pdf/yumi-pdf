@@ -52,6 +52,7 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:3rem;}
 .footer-name{font-family:'Fraunces',serif;font-size:17px;font-weight:700;font-style:italic;}
 .footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
+.aviso-ia{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);text-align:center;margin-top:0.5rem;}
 @media(max-width:768px){.input-row{grid-template-columns:1fr;}.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}footer{padding:1.5rem;flex-direction:column;gap:6px;}}
 </style>
 </head>
@@ -61,9 +62,9 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <a href="index.html" class="nav-back">← voltar</a>
 </nav>
 <div class="page-header">
-  <p class="page-header-label">✦ ferramenta</p>
+  <p class="page-header-label">✦ organização · fluxo</p>
   <h1 class="page-header-title">Organizador de<br><em>Entregáveis.</em></h1>
-  <p class="page-header-sub">Preencha o contexto do seu projeto e receba um documento estruturado com resumo, diagnóstico e próximos passos — como um especialista que entende de comunicação, marketing, jornalismo e design.</p>
+  <p class="page-header-sub">Descreva o que você tem pela frente — projetos, tarefas, prazos — e saia com um resumo organizado e os próximos passos em ordem de prioridade.</p>
 </div>
 <div class="main">
   <div class="section">
@@ -112,6 +113,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
           </select>
         </div>
       </div>
+      <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);margin-bottom:0.75rem;">Jogue o que está na sua cabeça. Quanto mais contexto, melhor o resultado.</p>
       <button class="btn-primary" id="btn-organizar" onclick="organizar()">→ organizar e documentar</button>
     </div>
   </div>
@@ -133,7 +135,23 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <span class="footer-name">Yumi Cugler.</span>
   <span class="footer-copy">organizador de entregáveis · by yumicugler.pdf</span>
 </footer>
+<p class="aviso-ia" style="padding:0.75rem 3.5rem 1.25rem;">Esta ferramenta funciona com a IA da Gemini — escolha prática: é gratuita para quem usa e cumpre bem o que cada ferramenta precisa fazer.</p>
 <script>
+const GEMINI_KEY = "COLE_SUA_CHAVE_GEMINI_AQUI";
+
+async function chamarGemini(promptText) {
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({contents: [{parts: [{text: promptText}]}]})
+    }
+  );
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Erro ao gerar resposta.';
+}
+
 async function organizar(){
   const nome     = document.getElementById('input-nome').value.trim();
   const descricao= document.getElementById('input-descricao').value.trim();
@@ -153,43 +171,35 @@ async function organizar(){
     'design':'Design','marketing':'Marketing Estratégico','outro':'Comunicação'
   };
 
-  const systemPrompt = `Você é especialista sênior em comunicação estratégica — com profundidade real em social media, jornalismo, design e marketing. Você organiza projetos como alguém que executa essas áreas há anos: vai direto ao ponto, entende o que está por trás do que a pessoa descreve e entrega estrutura real.
+  let prompt = `Você é especialista em organização de projetos de comunicação e design. Com base na lista abaixo, organize os entregáveis por prioridade, identifique dependências e sugira os próximos passos concretos. Seja direto. Sem introdução motivacional.
 
-Ao organizar o entregável, estruture sua resposta em quatro blocos obrigatórios:
+Estruture em quatro blocos obrigatórios:
 
 **01 — RESUMO DO PROJETO**
-Em 3-4 linhas: o que é, para quem, qual o objetivo e o que define sucesso nesse entregável.
+Em 3-4 linhas: o que é, para quem, qual o objetivo e o que define sucesso.
 
 **02 — DIAGNÓSTICO**
-O que está claro, o que está faltando, onde está o maior risco ou travamento. Seja honesta e específica.
+O que está claro, o que está faltando, onde está o maior risco ou travamento.
 
 **03 — ESTRUTURA SUGERIDA**
-Como o entregável deve ser organizado — seções, etapas, formato. Adapte para a área informada.
+Como organizar — seções, etapas, formato. Adapte para a área informada.
 
 **04 — PRÓXIMOS PASSOS**
-5 a 7 ações em ordem de prioridade, com o que fazer primeiro. Cada passo deve ser concreto e executável.
+5 a 7 ações em ordem de prioridade. Cada passo concreto e executável.
 
-Use linguagem direta e profissional. Escreva em português. Use **negrito** para destacar pontos críticos.`;
+Use **negrito** para pontos críticos. Escreva em português.
 
-  let userText=`Projeto: ${nome}\nÁrea: ${areaLabel[area]||area}\nDescrição: ${descricao}`;
-  if(objetivo)userText+=`\nObjetivo: ${objetivo}`;
-  if(desafio)userText+=`\nMaior desafio: ${desafio}`;
-  if(prazo)userText+=`\nPrazo: ${prazo}`;
-  userText+=`\nNível atual: ${nivel}`;
+Entregáveis:
+Projeto: ${nome}
+Área: ${areaLabel[area]||area}
+Descrição: ${descricao}`;
+  if(objetivo)prompt+=`\nObjetivo: ${objetivo}`;
+  if(desafio)prompt+=`\nMaior desafio: ${desafio}`;
+  if(prazo)prompt+=`\nPrazo: ${prazo}`;
+  prompt+=`\nNível atual: ${nivel}`;
 
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1500,
-        system:systemPrompt,
-        messages:[{role:'user',content:userText}]
-      })
-    });
-    const data=await res.json();
-    const text=data.content.map(i=>i.text||'').join('');
+    const text = await chamarGemini(prompt);
     document.getElementById('result-title').textContent=nome;
     document.getElementById('result-sub').textContent=areaLabel[area]+(prazo?' · Prazo: '+prazo:'');
     renderResult(text);

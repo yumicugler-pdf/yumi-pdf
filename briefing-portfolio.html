@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing Portfólio — Yumi Cugler</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=DM+Mono:wght@400;500&family=Cabin:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#5a8a3c;--green-lt:#8fbe6a;--green-pale:#d4ebbb;
+  --purple:#3d2070;--purple-lt:#c4aff0;
+  --cream:#f5f2e8;--cream-dk:#ede8d6;--charcoal:#2a2a2e;
+  --charcoal-lt:#4a4a50;--white:#fafaf7;--rule:#d8d3c4;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--charcoal);font-family:'Cabin',sans-serif;min-height:100vh;font-size:15px;line-height:1.7;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:var(--cream);border-bottom:2px solid var(--charcoal);}
+.nav-logo{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:var(--charcoal);letter-spacing:-0.02em;cursor:pointer;text-decoration:none;}
+.nav-logo span{color:var(--purple);}
+.nav-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal-lt);}
+
+.prog-wrap{position:sticky;top:62px;z-index:99;height:3px;background:var(--rule);}
+.prog-bar{height:100%;background:var(--purple);width:0%;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);}
+
+.container{max-width:640px;margin:0 auto;padding:3.5rem 2rem 4rem;}
+
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple);margin-bottom:0.5rem;}
+.big-title{font-family:'Fraunces',serif;font-size:clamp(2rem,6vw,3rem);font-weight:900;letter-spacing:-0.03em;line-height:1.0;margin-bottom:1rem;}
+.big-title em{font-style:italic;color:var(--purple);}
+.desc{color:var(--charcoal-lt);font-size:14px;line-height:1.75;margin-bottom:2rem;}
+
+.pills{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.07em;text-transform:uppercase;padding:4px 12px;border-radius:100px;border:1.5px solid var(--rule);color:var(--charcoal-lt);background:var(--white);}
+
+.btn-p{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--charcoal);color:var(--white);border:2px solid var(--charcoal);border-radius:100px;padding:11px 26px;font-family:'Cabin',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.btn-p:hover:not(:disabled){background:var(--purple);border-color:var(--purple);}
+.btn-p:disabled{background:var(--rule);border-color:var(--rule);color:var(--charcoal-lt);cursor:not-allowed;}
+.btn-s{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--charcoal-lt);border:1.5px solid var(--rule);border-radius:100px;padding:10px 22px;font-family:'Cabin',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;}
+.btn-s:hover{border-color:var(--charcoal-lt);}
+.btn-row{display:flex;gap:0.75rem;align-items:center;margin-top:2rem;flex-wrap:wrap;}
+
+.q-block{margin-bottom:1.75rem;}
+.q-label{display:block;font-size:14px;font-weight:600;margin-bottom:4px;line-height:1.45;color:var(--charcoal);}
+.q-hint{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.04em;color:var(--charcoal-lt);margin-bottom:0.6rem;line-height:1.5;}
+
+textarea,input[type=text],select{width:100%;padding:0.875rem 1rem;border:1.5px solid var(--rule);border-radius:8px;background:var(--white);font-family:'Cabin',sans-serif;font-size:14px;color:var(--charcoal);outline:none;transition:border-color 0.15s;line-height:1.6;}
+textarea{resize:vertical;min-height:96px;}
+textarea:focus,input[type=text]:focus,select:focus{border-color:var(--purple);}
+textarea.filled,input.filled{border-color:var(--green-lt);}
+select{appearance:none;cursor:pointer;padding-right:2.5rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%234a4a50' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;}
+select.filled{border-color:var(--green-lt);}
+
+.radio-group{display:flex;flex-direction:column;gap:0.5rem;}
+.radio-opt{display:flex;align-items:center;gap:0.75rem;padding:0.8rem 1rem;border:1.5px solid var(--rule);border-radius:8px;cursor:pointer;font-size:14px;background:var(--white);transition:border-color 0.15s,background 0.15s;user-select:none;}
+.radio-opt.sel{border-color:var(--purple-lt);background:rgba(61,32,112,0.04);}
+.radio-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--rule);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.radio-opt.sel .radio-dot{border-color:var(--purple);background:var(--purple);}
+.radio-inner{width:6px;height:6px;border-radius:50%;background:var(--white);display:none;}
+.radio-opt.sel .radio-inner{display:block;}
+
+.incomplete-msg{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);letter-spacing:0.04em;}
+
+.screen{display:none;}
+.screen.on{display:block;}
+
+footer{border-top:2px solid var(--charcoal);padding:1.25rem 2rem;margin-top:4rem;display:flex;align-items:center;justify-content:space-between;}
+.f-sig{font-family:'Fraunces',serif;font-size:17px;font-weight:700;font-style:italic;cursor:default;user-select:none;}
+.f-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--charcoal-lt);letter-spacing:0.06em;cursor:pointer;user-select:none;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(42,42,46,0.7);z-index:500;display:none;align-items:center;justify-content:center;padding:1.5rem;}
+.modal-overlay.on{display:flex;}
+.modal-box{background:var(--white);border:2px solid var(--charcoal);border-radius:16px;box-shadow:6px 6px 0 var(--charcoal);max-width:520px;width:100%;max-height:85vh;overflow-y:auto;position:relative;}
+.modal-header{padding:1.5rem 2rem;border-bottom:1.5px solid var(--rule);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:'Fraunces',serif;font-size:20px;font-weight:900;letter-spacing:-0.02em;}
+.modal-close{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--charcoal-lt);background:none;border:1.5px solid var(--rule);border-radius:100px;padding:5px 14px;cursor:pointer;transition:all 0.15s;}
+.modal-close:hover{border-color:var(--charcoal);color:var(--charcoal);}
+.modal-body{padding:1.5rem 2rem 2rem;}
+.modal-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:1.25rem;}
+.modal-block{margin-bottom:1.25rem;}
+.modal-block-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px;}
+.modal-block-text{font-size:13px;line-height:1.7;color:var(--charcoal);}
+
+.code-inp{display:block;width:100%;max-width:280px;margin:0 auto;padding:0.875rem 1rem;border:1.5px solid var(--rule);border-radius:8px;background:var(--white);font-family:'DM Mono',monospace;font-size:14px;letter-spacing:0.1em;text-align:center;outline:none;transition:border-color 0.15s;}
+.code-inp:focus{border-color:var(--purple);}
+.err-msg{color:#c0392b;font-family:'DM Mono',monospace;font-size:11px;margin-top:0.5rem;text-align:center;}
+
+@media(max-width:600px){
+  nav{padding:0.875rem 1.25rem;}
+  .prog-wrap{top:55px;}
+  .container{padding:2rem 1.25rem 3rem;}
+  .btn-row{flex-direction:column;align-items:stretch;}
+  .btn-p,.btn-s{width:100%;justify-content:center;}
+  footer{padding:1.25rem;flex-direction:column;gap:6px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="goIntro();return false;">Yumi<span>.</span></a>
+  <span class="nav-tag" id="nav-tag">✦ briefing portfólio html</span>
+</nav>
+
+<div class="prog-wrap" id="prog-wrap" style="display:none;">
+  <div class="prog-bar" id="prog-bar"></div>
+</div>
+
+<!-- INTRO -->
+<div class="screen on" id="screen-intro">
+  <div class="container">
+    <p class="eyebrow">✦ briefing · portfólio html</p>
+    <h1 class="big-title">Vamos construir<br><em>seu portfólio.</em></h1>
+    <p class="desc">Para quem quer um portfólio construído do zero — em HTML, com identidade visual própria e cases documentados do jeito certo. Preencha com calma.</p>
+    <div class="pills">
+      <span class="pill">4 blocos</span>
+      <span class="pill">~10 minutos</span>
+      <span class="pill">respostas confidenciais</span>
+    </div>
+    <button class="btn-p" onclick="startForm()">começar →</button>
+  </div>
+  <footer>
+    <span class="f-sig">Yumi Cugler.</span>
+    <span class="f-copy" onclick="handleFooterClick()">yumi cugler · briefing portfólio html</span>
+  </footer>
+</div>
+
+<!-- FORM -->
+<div class="screen" id="screen-form">
+  <div class="container">
+    <p class="eyebrow" id="form-eyebrow"></p>
+    <h2 class="big-title" id="form-title"></h2>
+    <p class="desc" id="form-desc"></p>
+    <div id="form-qs"></div>
+    <div class="btn-row">
+      <button class="btn-p" id="btn-next" onclick="handleNext()">próximo →</button>
+      <button class="btn-s" onclick="handleBack()">← voltar</button>
+      <span class="incomplete-msg" id="msg-incomplete" style="display:none;">preencha todos os campos</span>
+    </div>
+  </div>
+</div>
+
+<!-- DONE -->
+<div class="screen" id="screen-done">
+  <div class="container" style="text-align:center;padding-top:5rem;">
+    <p style="font-size:1.8rem;color:var(--purple);margin-bottom:1.25rem;">✦</p>
+    <h1 class="big-title" style="font-size:clamp(2rem,6vw,2.8rem);">Pronto, <em>recebido.</em></h1>
+    <p class="desc" style="max-width:400px;margin:0 auto 2rem;">Briefing recebido. Em breve entro em contato para alinhar os próximos passos.</p>
+    <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);">yumicugler@outlook.com</p>
+  </div>
+  <footer style="margin-top:5rem;">
+    <span class="f-sig">Yumi Cugler.</span>
+    <span class="f-copy" onclick="handleFooterClick()">yumi cugler · briefing portfólio html</span>
+  </footer>
+</div>
+
+<!-- GATE SENHA -->
+<div class="modal-overlay" id="modal-gate">
+  <div class="modal-box" style="max-width:380px;">
+    <div class="modal-header">
+      <span class="modal-title">Acesso restrito</span>
+      <button class="modal-close" onclick="fecharGate()">fechar</button>
+    </div>
+    <div class="modal-body" style="text-align:center;padding-top:2rem;">
+      <p style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--charcoal-lt);margin-bottom:1.25rem;">Insira o código para ver a demonstração.</p>
+      <input class="code-inp" type="password" id="gate-input" placeholder="código"
+             onkeydown="if(event.key==='Enter')tentarSenha()">
+      <div style="margin-top:0.75rem;">
+        <button class="btn-p" style="min-width:200px;" onclick="tentarSenha()">entrar →</button>
+      </div>
+      <p class="err-msg" id="gate-err" style="display:none;">Código incorreto.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DEMO MODAL -->
+<div class="modal-overlay" id="modal-demo">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-title">Demonstração</span>
+      <button class="modal-close" onclick="fecharDemo()">fechar</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-eyebrow">✦ como ficam as respostas</p>
+
+      <div style="background:var(--cream-dk);border-radius:10px;padding:1.25rem;margin-bottom:1.5rem;font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);line-height:1.8;">
+        <strong style="color:var(--charcoal);display:block;margin-bottom:6px;">Cliente: Lucas Ferreira</strong>
+        Área: UX Design · Produto<br>
+        Instagram: @lucasferreira.ux<br>
+        Objetivo: conseguir vagas sênior em produto<br>
+        Data de envio: 12/05/2026
+      </div>
+
+      <div class="modal-block">
+        <p class="modal-block-label">— resumo do briefing</p>
+        <p class="modal-block-text">Lucas tem 4 anos de experiência em UX com foco em produto digital. Trabalhou em duas startups (fintech e edtech) e tem 6 cases sólidos mas nunca documentados adequadamente. Sem portfólio — apresenta os trabalhos em PDF genérico por e-mail. Identidade visual ainda não definida.</p>
+      </div>
+
+      <div class="modal-block">
+        <p class="modal-block-label">— próximos passos</p>
+        <p class="modal-block-text">O foco inicial é mapear os 3 cases mais relevantes para a vaga que quer, definir paleta e tipografia alinhadas ao segmento de produto, e montar a estrutura de navegação. A documentação de cada case precisa mostrar processo — não só resultado final.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const BLOCKS = [
+  { num:"01", title:"Sobre Você", desc:"Quero entender quem você é e o que faz antes de qualquer coisa.",
+    questions:[
+      { id:"nome",    label:"Nome completo",                                                  type:"text" },
+      { id:"area",    label:"Qual é a sua área de atuação?",                                  hint:"Ex: UX design, jornalismo, social media, ilustração...", type:"text" },
+      { id:"instagram", label:"Instagram ou site (se tiver)",                                 hint:"Pode deixar em branco se não tiver", type:"text" },
+    ]
+  },
+  { num:"02", title:"O Portfólio", desc:"O que você quer mostrar e para quem.",
+    questions:[
+      { id:"objetivo",  label:"Qual é o objetivo principal do portfólio?",                    hint:"Conseguir emprego, atrair clientes freelance, mudar de área, visibilidade...", type:"textarea" },
+      { id:"publico",   label:"Para quem é esse portfólio?",                                   hint:"Recrutadores de produto, clientes B2B, agências, marcas específicas...", type:"textarea" },
+      { id:"cases",     label:"Quais trabalhos você quer documentar?",                         hint:"Liste os projetos — podem ser completos ou parciais. Quantidade e contexto.", type:"textarea" },
+      { id:"diferencial", label:"O que diferencia o seu trabalho do de outros na mesma área?", hint:"Processo, olhar, especialidade, nicho...", type:"textarea" },
+    ]
+  },
+  { num:"03", title:"Identidade Visual", desc:"Como o portfólio precisa se apresentar visualmente.",
+    questions:[
+      { id:"identidade", label:"Você já tem identidade visual definida?",                     type:"radio", options:["Sim, tenho logo, cores e fontes definidas","Tenho algumas referências mas não está formalizado","Não tenho nada — preciso criar do zero"] },
+      { id:"sensacao",   label:"Que sensação você quer passar visualmente?",                  hint:"Ex: editorial e sóbrio, colorido e irreverente, clean e minimalista, sofisticado...", type:"textarea" },
+      { id:"referencias", label:"Tem referências de portfólios que você acha bem feitos?",    hint:"Links, nomes, ou apenas uma descrição do estilo", type:"textarea" },
+    ]
+  },
+  { num:"04", title:"Prazo e Contato", desc:"Para alinhar expectativas e entrar em contato.",
+    questions:[
+      { id:"prazo",    label:"Tem prazo ou urgência?",                                        hint:"Processo seletivo, lançamento, evento... ou sem prazo definido", type:"text" },
+      { id:"contexto", label:"Alguma coisa importante que não coube nas perguntas anteriores?", type:"textarea" },
+      { id:"email",    label:"E-mail para retorno",                                           type:"text" },
+      { id:"contato",  label:"Melhor forma de contato",                                       type:"radio", options:["WhatsApp","E-mail","Instagram"] },
+    ]
+  },
+];
+
+let step = 0;
+let answers = {};
+let clicks = 0;
+let clickTmr = null;
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById('screen-' + id).classList.add('on');
+  const pw = document.getElementById('prog-wrap');
+  pw.style.display = (id === 'form') ? 'block' : 'none';
+  document.getElementById('nav-tag').textContent =
+    id === 'form' ? `${step + 1} / ${BLOCKS.length}` : '✦ briefing portfólio html';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goIntro() { showScreen('intro'); }
+
+function startForm() { step = 0; answers = {}; renderBlock(); showScreen('form'); }
+
+function renderBlock() {
+  const b = BLOCKS[step];
+  document.getElementById('form-eyebrow').textContent = `${b.num} — ${b.title}`;
+  const ws = b.title.split(' '); const last = ws.pop();
+  document.getElementById('form-title').innerHTML = `${ws.join(' ')} <em>${last}.</em>`;
+  document.getElementById('form-desc').textContent = b.desc;
+  document.getElementById('btn-next').textContent = step === BLOCKS.length - 1 ? 'enviar briefing →' : 'próximo →';
+
+  const pct = ((step + 1) / BLOCKS.length) * 100;
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('nav-tag').textContent = `${step + 1} / ${BLOCKS.length}`;
+
+  const c = document.getElementById('form-qs'); c.innerHTML = '';
+  b.questions.forEach(q => {
+    const d = document.createElement('div'); d.className = 'q-block';
+    const lbl = document.createElement('label'); lbl.className = 'q-label'; lbl.textContent = q.label; d.appendChild(lbl);
+    if (q.hint) { const h = document.createElement('span'); h.className = 'q-hint'; h.textContent = q.hint; d.appendChild(h); }
+
+    if (q.type === 'textarea') {
+      const ta = document.createElement('textarea');
+      ta.className = answers[q.id]?.trim() ? 'filled' : '';
+      ta.value = answers[q.id] || ''; ta.placeholder = 'Sua resposta...';
+      ta.addEventListener('input', () => { answers[q.id] = ta.value; ta.className = ta.value.trim() ? 'filled' : ''; updateBtn(); });
+      d.appendChild(ta);
+    } else if (q.type === 'text') {
+      const inp = document.createElement('input'); inp.type = 'text';
+      inp.className = answers[q.id]?.trim() ? 'filled' : '';
+      inp.value = answers[q.id] || ''; inp.placeholder = 'Sua resposta...';
+      inp.addEventListener('input', () => { answers[q.id] = inp.value; inp.className = inp.value.trim() ? 'filled' : ''; updateBtn(); });
+      d.appendChild(inp);
+    } else if (q.type === 'select') {
+      const sel = document.createElement('select'); sel.className = answers[q.id] ? 'filled' : '';
+      const ph = document.createElement('option'); ph.value = ''; ph.textContent = 'Selecione...'; ph.disabled = true; ph.selected = !answers[q.id]; sel.appendChild(ph);
+      q.options.forEach(o => { const op = document.createElement('option'); op.value = o; op.textContent = o; if (answers[q.id] === o) op.selected = true; sel.appendChild(op); });
+      sel.addEventListener('change', () => { answers[q.id] = sel.value; sel.className = 'filled'; updateBtn(); });
+      d.appendChild(sel);
+    } else if (q.type === 'radio') {
+      const g = document.createElement('div'); g.className = 'radio-group';
+      q.options.forEach(o => {
+        const r = document.createElement('div'); r.className = 'radio-opt' + (answers[q.id] === o ? ' sel' : '');
+        const dot = document.createElement('span'); dot.className = 'radio-dot';
+        const inn = document.createElement('span'); inn.className = 'radio-inner'; dot.appendChild(inn); r.appendChild(dot);
+        r.appendChild(document.createTextNode(o));
+        r.addEventListener('click', () => { answers[q.id] = o; g.querySelectorAll('.radio-opt').forEach(x => x.classList.remove('sel')); r.classList.add('sel'); updateBtn(); });
+        g.appendChild(r);
+      });
+      d.appendChild(g);
+    }
+    c.appendChild(d);
+  });
+  updateBtn();
+}
+
+function isComplete() {
+  return BLOCKS[step].questions.every(q => {
+    if (q.id === 'instagram') return true; // campo opcional
+    const v = answers[q.id];
+    return v && (typeof v === 'string' ? v.trim().length > 0 : true);
+  });
+}
+function updateBtn() {
+  const ok = isComplete();
+  document.getElementById('btn-next').disabled = !ok;
+  document.getElementById('msg-incomplete').style.display = ok ? 'none' : 'inline';
+}
+
+function handleNext() {
+  if (!isComplete()) return;
+  if (step < BLOCKS.length - 1) { step++; renderBlock(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  else { submitForm(); }
+}
+function handleBack() {
+  if (step > 0) { step--; renderBlock(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  else { goIntro(); }
+}
+
+function submitForm() {
+  // TODO: NOTION_INTEGRATION
+  // salvarNoNotion(answers);
+  try { localStorage.setItem(`ybp:${Date.now()}`, JSON.stringify({ answers, ts: new Date().toISOString() })); } catch (_) {}
+  showScreen('done');
+}
+
+// EASTER EGG — 3 cliques no rodapé
+function handleFooterClick() {
+  clicks++;
+  clearTimeout(clickTmr);
+  clickTmr = setTimeout(() => { clicks = 0; }, 2000);
+  if (clicks >= 3) {
+    clicks = 0;
+    abrirGateSenha();
+  }
+}
+
+function abrirGateSenha() {
+  document.getElementById('gate-input').value = '';
+  document.getElementById('gate-err').style.display = 'none';
+  document.getElementById('modal-gate').classList.add('on');
+  setTimeout(() => document.getElementById('gate-input').focus(), 100);
+}
+
+function fecharGate() {
+  document.getElementById('modal-gate').classList.remove('on');
+}
+
+function tentarSenha() {
+  const v = document.getElementById('gate-input').value.trim();
+  if (v === '12345') {
+    fecharGate();
+    document.getElementById('modal-demo').classList.add('on');
+  } else {
+    document.getElementById('gate-err').style.display = 'block';
+  }
+}
+
+function fecharDemo() {
+  document.getElementById('modal-demo').classList.remove('on');
+}
+
+document.getElementById('modal-gate').addEventListener('click', function(e) {
+  if (e.target === this) fecharGate();
+});
+document.getElementById('modal-demo').addEventListener('click', function(e) {
+  if (e.target === this) fecharDemo();
+});
+</script>
+</body>
+</html>

@@ -61,6 +61,7 @@ nav{border-bottom:2px solid var(--charcoal);padding:1.1rem 2.5rem;display:flex;a
 footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;align-items:center;justify-content:space-between;margin-top:3rem;}
 .footer-name{font-family:'Fraunces',serif;font-size:17px;font-weight:700;font-style:italic;}
 .footer-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);}
+.aviso-ia{font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);text-align:center;margin-top:0.5rem;}
 @media(max-width:768px){.main,.page-header{padding:2rem 1.5rem;}nav{padding:1rem 1.5rem;}.preview-grid{grid-template-columns:repeat(3,1fr);}footer{padding:1.5rem;flex-direction:column;gap:6px;}}
 </style>
 </head>
@@ -70,9 +71,9 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <a href="index.html" class="nav-back">← voltar</a>
 </nav>
 <div class="page-header">
-  <p class="page-header-label">✦ ferramenta</p>
+  <p class="page-header-label">✦ análise · social media</p>
   <h1 class="page-header-title">Análise de<br><em>Métricas.</em></h1>
-  <p class="page-header-sub">Envie prints das suas métricas ou descreva os dados. Você recebe uma leitura estratégica real — não só os números, mas o que eles significam e o que fazer com eles.</p>
+  <p class="page-header-sub">Cole os dados de uma publicação — alcance, impressões, salvamentos, o que você tiver — e receba uma leitura direta do que funcionou, por que funcionou e o que isso diz sobre o seu conteúdo. Sem dashboard. Sem planilha.</p>
 </div>
 <div class="main">
   <div class="section">
@@ -97,6 +98,7 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
         <label>Algum contexto importante?</label>
         <input type="text" id="input-contexto" placeholder="Ex: publiquei menos em setembro, estou testando Reels desde outubro...">
       </div>
+      <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--charcoal-lt);margin-bottom:0.75rem;">Preencha os campos com os dados disponíveis. Não precisa ter tudo — a ferramenta trabalha com o que existir.</p>
       <button class="btn-primary" id="btn-analisar" onclick="analisar()">→ analisar métricas</button>
     </div>
   </div>
@@ -117,7 +119,28 @@ footer{border-top:2px solid var(--charcoal);padding:1.5rem 3.5rem;display:flex;a
   <span class="footer-name">Yumi Cugler.</span>
   <span class="footer-copy">análise de métricas · by yumicugler.pdf</span>
 </footer>
+<p class="aviso-ia" style="padding:0.75rem 3.5rem 1.25rem;">Esta ferramenta funciona com a IA da Gemini — escolha prática: é gratuita para quem usa e cumpre bem o que cada ferramenta precisa fazer.</p>
 <script>
+const GEMINI_KEY = "COLE_SUA_CHAVE_GEMINI_AQUI";
+
+async function chamarGemini(promptText, images = []) {
+  const parts = [];
+  images.forEach(img => {
+    parts.push({inline_data: {mime_type: img.split(';')[0].split(':')[1], data: img.split(',')[1]}});
+  });
+  parts.push({text: promptText});
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({contents: [{parts}]})
+    }
+  );
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Erro ao gerar resposta.';
+}
+
 let uploadedImages = [];
 
 function handleFiles(files){
@@ -146,50 +169,29 @@ async function analisar(){
   document.getElementById('result-card').classList.remove('show');
   document.getElementById('loading-card').classList.add('show');
 
-  const systemPrompt = `Você é especialista sênior em marketing digital e social media — com profundidade real em análise de dados, estratégia de conteúdo e comportamento de audiência. Você analisa métricas como alguém que trabalha com isso há anos: vai além dos números e entrega leitura estratégica real.
+  let prompt = `Você é uma analista de social media especializada em Instagram. Analise os dados abaixo de forma direta e objetiva. Não use linguagem de coach. Não elogie. Só analise.
 
-Ao analisar os dados, estruture sua resposta em três blocos obrigatórios:
+Estruture sua resposta em três blocos obrigatórios:
 
 **01 — LEITURA DOS DADOS**
-O que os números mostram de verdade. Não repita os dados — interprete. O que está bem? O que está abaixo do esperado para o contexto informado?
+O que os números mostram de verdade. Não repita os dados — interprete.
 
 **02 — DIAGNÓSTICO ESTRATÉGICO**
-Por que está acontecendo o que está acontecendo. Identifique padrões, gargalos e oportunidades reais. Seja direta e específica — não genérica.
+Por que está acontecendo o que está acontecendo. Padrões, gargalos e oportunidades reais.
 
 **03 — AÇÕES PRIORITÁRIAS**
-3 a 5 ações concretas, em ordem de prioridade. Cada ação deve ser específica o suficiente para ser executada amanhã.
+3 a 5 ações concretas em ordem de prioridade. Específicas o suficiente para executar amanhã.
 
-Use linguagem direta, sem rodeios e sem enrolação. Escreva em português. Use **negrito** para destacar pontos críticos.`;
+Use **negrito** para pontos críticos. Escreva em português.
 
-  const userContent = [];
-
-  if(uploadedImages.length>0){
-    uploadedImages.forEach(img=>{
-      const base64 = img.split(',')[1];
-      const mime   = img.split(';')[0].split(':')[1];
-      userContent.push({type:'image',source:{type:'base64',media_type:mime,data:base64}});
-    });
-  }
-
-  let userText = `Analise estas métricas de social media.`;
-  if(objetivo) userText += `\n\nOBJETIVO DO PERFIL: ${objetivo}`;
-  if(contexto) userText += `\nCONTEXTO: ${contexto}`;
-  if(texto)    userText += `\n\nDADOS:\n${texto}`;
-  userContent.push({type:'text',text:userText});
+Dados da publicação:`;
+  if(objetivo) prompt += `\nOBJETIVO DO PERFIL: ${objetivo}`;
+  if(contexto) prompt += `\nCONTEXTO: ${contexto}`;
+  if(texto)    prompt += `\nDADOS:\n${texto}`;
+  if(uploadedImages.length > 0) prompt += `\n(imagens de métricas anexadas)`;
 
   try{
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1500,
-        system:systemPrompt,
-        messages:[{role:'user',content:userContent}]
-      })
-    });
-    const data = await res.json();
-    const text = data.content.map(i=>i.text||'').join('');
+    const text = await chamarGemini(prompt, uploadedImages);
     renderResult(text);
   }catch(e){
     document.getElementById('loading-card').classList.remove('show');
